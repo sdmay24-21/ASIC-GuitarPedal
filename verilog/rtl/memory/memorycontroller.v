@@ -8,7 +8,7 @@ module memorycontroller (
     input record,
     input loop,
     input off_chip_mem,
-    input [15:0] delay_reverve,
+    input [15:0] delay_reverb,
     input [15:0] gain,
     input [15:0] impulses,
     input [15:0] data_in
