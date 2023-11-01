@@ -11,7 +11,7 @@ module memorycontroller (
     input [15:0] delay_reverb,
     input [15:0] gain,
     input [15:0] impulses,
-    input [15:0] data_in
+    input [15:0] data_in,
     output [15:0] data_out
     );
 

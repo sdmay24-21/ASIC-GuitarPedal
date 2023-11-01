@@ -3,7 +3,7 @@ from scipy.io import wavfile
 from scipy.signal import resample
 import pandas as pd
 
-from audio import wavToCSV
+#from audio import wavToCSV
 from pedal import pedal
 input_filename = "python/audio/test1.wav"
 output_filename = "python/audiotests/test1_resampled.wav"
@@ -11,7 +11,7 @@ output_filename_compress = "python/audiotests/test1_compress.wav"
 
 
 test1 = pedal(input_filename,output_filename_compress)
-test1.compression(.5,.5)
+test1.compression(.5,0)
 test1.write()
 
 #output_sample_rate = 10000 #10k
