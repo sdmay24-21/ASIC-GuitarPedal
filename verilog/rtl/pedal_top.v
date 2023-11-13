@@ -43,8 +43,12 @@ module pedal_top (
 
 
     wire clk, adc_clock, [7:0] thres, [7:0]slope, [15:0] comp_in, [15:0] comp_out;
-
-
+        assign clk = la_data_out[0];
+        assign adc_clock = la_data_out[1];
+        assign thres = la_data_out[15:8];
+        assign slope = la_data_out[23:16];
+        assign comp_in = la_data_out[38:24];
+        assign comp_out = la_data_out[47:32];
     //mux going to compression
     mux compressionmux(
         .signal(mem_to_comp),
@@ -64,6 +68,10 @@ module pedal_top (
 
     //wires for memory controller
     wire record, loop, off_chip_mem, delay_reverb, [7:0] gain, [15:0] impulses, [15:0] mem_in, [15:0] mem_out;
+
+    //set logic analysizer pins
+    assign record = la_data_out[0], delay_reverb = la_data_out[1]
+
     memorycontroller memcontroller(
         .clk(clk),
         .adc_clock(adc_clock),
