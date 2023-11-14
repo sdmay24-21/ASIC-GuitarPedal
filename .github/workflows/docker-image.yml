@@ -17,6 +17,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image and run basic test
       run: |
-        cd verilog/dv/verilatorTest
+        ls
         docker run -ti verilator/verilator:latest --version
+        cd ~/verilog/dv/verilatorTest
         verilator --cc --exe --build -j 0 -Wall sim_main.cpp our.v
