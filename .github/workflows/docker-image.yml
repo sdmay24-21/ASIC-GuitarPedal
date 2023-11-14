@@ -18,6 +18,6 @@ jobs:
     - name: Build the Docker image and run basic test
       run: |
         ls
-        docker run -ti verilator/verilator:latest --version
+        docker run verilator/verilator:latest --version
         cd ~/verilog/dv/verilatorTest
         verilator --cc --exe --build -j 0 -Wall sim_main.cpp our.v
