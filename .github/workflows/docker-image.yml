@@ -19,5 +19,5 @@ jobs:
       run: |
         ls
         docker run verilator/verilator:latest --version
-        cd ~/verilog/dv/verilatorTest
+        cd /verilog/dv/verilatorTest
         verilator --cc --exe --build -j 0 -Wall sim_main.cpp our.v
