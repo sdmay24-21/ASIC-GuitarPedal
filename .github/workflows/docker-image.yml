@@ -12,6 +12,8 @@ jobs:
 
     
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_STEP_DEBUG: true  # Enable step debugging
 
     steps:
     - uses: actions/checkout@v3
@@ -20,4 +22,23 @@ jobs:
         ls
         docker run verilator/verilator:latest --version
         cd verilog/dv/verilatorTest
-        verilator --cc --exe --build -j 0 -Wall sim_main.cpp our.v
+        docker run -ti -v ${PWD}:/work --user $(id -u):$(id -g) verilator/verilator:latest --cc --exe --build -j 0 -Wall /work/sim_main.cpp /work/our.v
+        obj_dir/Vour > output.txt 2>&1
+
+    - name: Prepare Artifact Directory
+      run: |
+        ls
+        mkdir -p artifact_directory
+        mv verilog/dv/verilatorTest/output.txt artifact_directory/
+
+    - name: Archive Verilator Build Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: verilator-build-artifacts
+        path: artifact_directory
+      #verilator --cc --exe --build -j 0 -Wall sim_main.cpp our.v
+    #- name: Archive Verilator Build Artifacts
+    #  uses: actions/upload-artifact@v2
+    #  with:
+    #    name: verilator-build-artifacts
+    #    path: verilog/dv/verilatorTest/obj_dir  # Adjust the path as needed
