@@ -22,7 +22,7 @@ jobs:
         ls
         docker run verilator/verilator:latest --version
         cd verilog/dv/verilatorTest
-        docker run -v ${PWD}:/work --user $(id -u):$(id -g) verilator/verilator:latest --cc --exe --build -j 0 -Wall /work/sim_main.cpp /work/our.v
+        docker run verilator/verilator:latest --cc --exe --build -j 0 -Wall /work/sim_main.cpp /work/our.v
         obj_dir/Vour > output.txt 2>&1
 
     - name: Prepare Artifact Directory
