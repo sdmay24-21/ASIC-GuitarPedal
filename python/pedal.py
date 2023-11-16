@@ -91,3 +91,4 @@ class pedal:
                     
             datum = data.pop(0)
         self.data =  np.array(result)
+
