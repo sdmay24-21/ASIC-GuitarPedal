@@ -42,6 +42,13 @@ test4.setimpulse(impulse_filename)
 test4.FIR(10000,1,1) 
 test4.write()
 
+print("start compression")
+output_filename = "python/audiotests/test5_compression_T0.5_S0.5.wav"
+test4 = pedal(input_filename,output_filename,data_bits= 16) #no change
+test4.setimpulse(impulse_filename)
+test4.compression(1,1)
+test4.write()
+
 
 #output_sample_rate = 10000 #10k
 #samrate, data = wavfile.read(input_filename)
