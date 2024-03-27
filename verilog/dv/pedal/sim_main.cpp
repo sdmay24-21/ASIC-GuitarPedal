@@ -50,8 +50,10 @@ int main(int argc, char** argv) {
       " -> oquad=%" VL_PRI64 "x owide=%x_%08x_%08x\n",
       main_time, top->clk, top->reset_l, top->in_quad, top->out_quad, top->out_wide[2],
       top->out_wide[1], top->out_wide[0]);
-    }
-    top->final();
+  }
+  
+  //end simulation
+      top->final();
       delete top;
       delete contextp;
       return 0;

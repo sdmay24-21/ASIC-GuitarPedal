@@ -34,7 +34,7 @@ parameter IMPULSE_LENGTH = 15'h00FF,
   + (data_in&(0x01<<0)) ? (data_in<<8): 0 
   + (data_in&(0x01<<1)) ? (data_in<<9): 0
   + (data_in&(0x01<<2)) ? (data_in<<10): 0
-  + (data_in&(0x01<<3)) ? (data_in<<11): 0p
+  + (data_in&(0x01<<3)) ? (data_in<<11): 0//p
   + (data_in&(0x01<<4)) ? (data_in<<12): 0
   + (data_in&(0x01<<5)) ? (data_in<<13): 0
   + (data_in&(0x01<<6)) ? (data_in<<14): 0

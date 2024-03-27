@@ -28,25 +28,19 @@ module memory_controller_tb;
 
     // Instantiate the pedal_top module with internal values set to regs
     memorycontroller uut (
-    .wb_clk_i(wb_clk_i),
-    .wb_rst_i(wb_rst_i),
-    .wbs_stb_i(wbs_stb_i),
-    .wbs_cyc_i(wbs_cyc_i),
-    .wbs_we_i(wbs_we_i),
-    .wbs_sel_i(wbs_sel_i),
-    .wbs_dat_i(wbs_dat_i),
-    .wbs_adr_i(wbs_adr_i),
-    .wbs_ack_o(wbs_ack_o),
-    .wbs_dat_o(wbs_dat_o),
-    .la_data_in(la_data_in),
-    .la_data_out(la_data_out),
-    .la_oenb(la_oenb),
-    .io_in(0), // Provide suitable values for other inputs
-    .io_out(0), // Provide suitable values for other outputs
-    .io_oeb(0),  // Provide suitable values for other outputs
-    
-    //set CLK?
-    .clk(clk),
+        .clk(clock),
+        .adc_clock(),
+        .record(),
+        .loop(),
+        .off_chip_mem(),
+        .off_chip_mem_ready(),
+        .delay_reverb(),
+        .gain(),
+        .impulses(),
+        .data_in(),
+        .memory_we(),
+        .address_out(),
+        .data_out()
     );
 
 

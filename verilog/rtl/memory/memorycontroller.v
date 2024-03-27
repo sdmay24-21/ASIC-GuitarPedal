@@ -19,7 +19,7 @@ parameter IMPULSE_LENGTH = 15'h00FF,
     input [15:0] gain,
     input [15:0] impulses,
     input [15:0] data_in,
-    output memory_we;
+    output memory_we,
     output [15:0] address_out,
     output [15:0] data_out
     );

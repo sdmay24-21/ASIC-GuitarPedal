@@ -105,7 +105,7 @@ module pedal_top (
         .din0(),
         .dout0(mem_output),
 
-        .clk1(),
+        .clk1(clk),
         .csb1(),
         .addr1(mem_address[14:0]),
         .dout1()
