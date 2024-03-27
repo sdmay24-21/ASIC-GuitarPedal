@@ -25,7 +25,8 @@ module sram_1rw1r_32_256_8_sky130(
 	gnd,
 `endif
 // Port 0: RW
-    clk0,csb0,web0,wmask0,addr0,din0,dout0,
+    clk0,csb0,web0,//wmask0,
+    addr0,din0,dout0,
 // Port 1: R
     clk1,csb1,addr1,dout1
   );
@@ -44,7 +45,7 @@ module sram_1rw1r_32_256_8_sky130(
   input wire clk0; // clock
   input  wire csb0; // active low chip select
   input wire web0; // active low write control
-  input wire [NUM_WMASKS-1:0]   wmask0; // write mask
+  //input wire [NUM_WMASKS-1:0]   wmask0; // write mask
   input wire [ADDR_WIDTH-1:0]  addr0;
   input wire [DATA_WIDTH-1:0]  din0;
   output  [DATA_WIDTH-1:0] dout0;
@@ -65,7 +66,7 @@ module sram_1rw1r_32_256_8_sky130(
   begin
     csb0_reg = csb0;
     web0_reg = web0;
-    wmask0_reg = wmask0;
+    //wmask0_reg = wmask0;
     addr0_reg = addr0;
     din0_reg = din0;
     dout0 = 32'bx;

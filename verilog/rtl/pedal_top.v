@@ -71,19 +71,46 @@ module pedal_top (
 
     //set logic analysizer pins
     assign record = la_data_out[0], delay_reverb = la_data_out[1]
+    wire memory_we, [32:0]mem_address, mem_output[15:0];
 
     memorycontroller memcontroller(
         .clk(clk),
         .adc_clock(adc_clock),
+        
+        //control
         .record(record),
         .loop(loop),
         .off_chip_mem(off_chip_mem),
         .delay_reverb(delay_reverb),
         .gain(gain),
         .impulses(impulses),
-        .data_in(mem_in),
+
+        //data
+        .data_in(mem_output),
+        
+        
+        //outputs
         .data_out(mem_out)
+        .memory_we(memory_we),
+        .address_out(mem_address),
+        .data_out()
     );
+
+    sram_1rw1r_32_256_8_sky130 sram_memmory(
+        .clk0(clk),
+        .csb0(),
+        .web0(memory_we),
+        .wmask0(),
+        .addr0(mem_address[14:0]),
+        .din0(),
+        .dout0(mem_output),
+
+        .clk1(),
+        .csb1(),
+        .addr1(mem_address[14:0]),
+        .dout1()
+    );
+
 
     wire [7:0] trim1, [7:0] trim2, [7:0] trim3, [7:0] trim4, [15:0]adc, [15:0]dac, [1:0] trim_mux;
     spicontroller spi(
@@ -105,29 +132,32 @@ module pedal_top (
         .mux(trim_mux)
     );
 
+
     controller control(
         //inputs
-        .clk(clk),
-        .adc_clock(adc_clock),
-        .trim1(trim1), 
-        .trim2(trim2),
-        .trim3(trim3),
-        .trim4(trim4),
-        //memory control
-        .record(record),
-        .loop(loop),
-        .off_chip_mem(off_chip_mem),
-        .delay_reverb(delay_reverb),
-        .gain(gain),
-        .impulses(impulses),
-        //compression
-        .thres(thres),
-        .slope(slope),
-        //top level
-        .mem_to_comp(mem_to_comp)
+            .clk(clk),
+            .adc_clock(adc_clock),
+            .trim1(trim1), 
+            .trim2(trim2),
+            .trim3(trim3),
+            .trim4(trim4),
+            //memory control
+            .record(record),
+            .loop(loop),
+            .off_chip_mem(off_chip_mem),
+            .delay_reverb(delay_reverb),
+            .gain(gain),
+            .impulses(impulses),
+            //compression
+            .thres(thres),
+            .slope(slope),
+            //top level
+            .mem_to_comp(mem_to_comp),
+        
+
     );
     
-
+    
 
     //adder mux
     wire [15:0] adder_input0, [15:0] adder_out;
