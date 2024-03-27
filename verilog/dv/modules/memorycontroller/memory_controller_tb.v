@@ -7,7 +7,7 @@ USES SPI TO COMMUNICATE
 
 `timescale 1 ns / 1 ps
 
-module top_level_tb;
+module memory_controller_tb;
 
     reg clock;
     reg RSTB;
@@ -27,7 +27,7 @@ module top_level_tb;
     reg mem_to_comp;
 
     // Instantiate the pedal_top module with internal values set to regs
-    pedal_top uut (
+    memorycontroller uut (
     .wb_clk_i(wb_clk_i),
     .wb_rst_i(wb_rst_i),
     .wbs_stb_i(wbs_stb_i),

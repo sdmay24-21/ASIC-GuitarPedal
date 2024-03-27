@@ -7,6 +7,22 @@ double sc_time_stamp() {
     return main_time;  // Note does conversion to real, to match SystemC
 }
 
+//https://stackoverflow.com/questions/12911299/read-csv-file-in-c
+const char* getfield(char* line, int num)
+{
+    const char* tok;
+    for (tok = strtok(line, ";");
+            tok && *tok;
+            tok = strtok(NULL, ";\n"))
+    {
+        if (!--num)
+            return tok;
+    }
+    return NULL;
+}
+
+int16_t memory[10*1000*20]; //20 seconds of memory 
+
 int main(int argc, char** argv) {
   //argv[0] file to load
   
@@ -20,7 +36,15 @@ int main(int argc, char** argv) {
     
     // Create logs/ directory in case we have traces to put under it
   Verilated::mkdir("logs");
-  pedal_top* top = new pedal_top{contextp};
+  memorycontroller* top = new memorycontroller{contextp};
+
+    //get RAM
+
+
+    //read file
+  FILE* stream = fopen("input.csv", "r");
+
+  char line[1024];
 
   top->clk = 0;
   top->adc_clock = 0;
@@ -31,15 +55,28 @@ int main(int argc, char** argv) {
   while (!Verilated::gotFinish()) {
     main_time++;  // Time passes...
     top->clk = !top->clk; //invert clock
-    if(main_time%clock_ratio){
+
+    //get data from file
+    fgets(line, 1024, stream);
+    char* tmp = strdup(line);
+
+    int clk =         getfield(tmp,0);     //CLK CYCLE NUMBER
+    int16_t data_in = getfield(tmp,1);     //DATA INPUT
+    int16_t impluse = getfield(tmp,2);     //number of impulses INPUT
+
+
+
+    if(main_time%clock_ratio){ // 1 cycle ADC
       top->adc_clock = !top->adc_clock; //ADC CLOCK SET
       
+      top->
+      
       if(top->adc_clock){ //SET VALUES
-        top->adc = 
+        top->data_in = 
 
       }
       else{ //READ DAC VALUES
-        top->dac
+
       }
     }
 
