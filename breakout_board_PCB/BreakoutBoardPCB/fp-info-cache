@@ -1,4 +1,4 @@
-22643250270142065
+22643250552132616
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -85764,21 +85764,21 @@ rotary encoder
 7
 6
 SeniorDesign
-QFP50P1200X1200X120-65N (ADC)
+QFP50P1200X1200X120-65N
 PAP(SQFP)-64
 Integrated Circuit
 0
 65
 65
 SeniorDesign
-SOIC127P600X175-8N (SRAM)
+SOIC127P600X175-8N
 (SN)-narrow,3.9mm body [soic]
 Integrated Circuit
 0
 8
 8
 SeniorDesign
-SOP65P640X120-20N (DAC)
+SOP65P640X120-20N
 TSSOP 4.4 MM
 Integrated Circuit
 0

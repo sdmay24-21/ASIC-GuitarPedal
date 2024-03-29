@@ -1,4 +1,4 @@
-(footprint "QFP50P1200X1200X120-65N (ADC)" (version 20221018) (generator pcbnew)
+(footprint "QFP50P1200X1200X120-65N" (version 20221018) (generator pcbnew)
   (layer "F.Cu")
   (descr "PAP(SQFP)-64")
   (tags "Integrated Circuit")
@@ -7,7 +7,7 @@
       (effects (font (size 1.27 1.27) (thickness 0.254)))
     (tstamp a7059ca7-efc5-4a52-b8c9-f50d201bc5fd)
   )
-  (fp_text value "QFP50P1200X1200X120-65N (ADC)" (at 0 0) (layer "F.SilkS") hide
+  (fp_text value "QFP50P1200X1200X120-65N" (at 0 0) (layer "F.SilkS") hide
       (effects (font (size 1.27 1.27) (thickness 0.254)))
     (tstamp c091d762-0482-4c46-8924-fd6e65a8e2cc)
   )

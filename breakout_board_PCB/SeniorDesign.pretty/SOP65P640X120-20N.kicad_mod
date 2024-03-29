@@ -1,4 +1,4 @@
-(footprint "SOP65P640X120-20N (DAC)" (version 20221018) (generator pcbnew)
+(footprint "SOP65P640X120-20N" (version 20221018) (generator pcbnew)
   (layer "F.Cu")
   (descr "TSSOP 4.4 MM")
   (tags "Integrated Circuit")
@@ -7,7 +7,7 @@
       (effects (font (size 1.27 1.27) (thickness 0.254)))
     (tstamp 2b623378-e612-47b6-8e2c-ba7578f2dae9)
   )
-  (fp_text value "SOP65P640X120-20N (DAC)" (at 5.08 7.62) (layer "F.SilkS") hide
+  (fp_text value "SOP65P640X120-20N" (at 5.08 7.62) (layer "F.SilkS") hide
       (effects (font (size 1.27 1.27) (thickness 0.254)))
     (tstamp e0cbc0f3-295b-463c-b2a9-e33a1fc17863)
   )

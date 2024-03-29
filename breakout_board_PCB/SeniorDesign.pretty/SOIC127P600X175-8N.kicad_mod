@@ -1,4 +1,4 @@
-(footprint "SOIC127P600X175-8N (SRAM)" (version 20221018) (generator pcbnew)
+(footprint "SOIC127P600X175-8N" (version 20221018) (generator pcbnew)
   (layer "F.Cu")
   (descr "(SN)-narrow,3.9mm body [soic]")
   (tags "Integrated Circuit")
@@ -7,7 +7,7 @@
       (effects (font (size 1.27 1.27) (thickness 0.254)))
     (tstamp d5319874-39e8-4036-a6e1-9fe68c2afad6)
   )
-  (fp_text value "SOIC127P600X175-8N (SRAM)" (at 0 0) (layer "F.SilkS") hide
+  (fp_text value "SOIC127P600X175-8N" (at 0 0) (layer "F.SilkS") hide
       (effects (font (size 1.27 1.27) (thickness 0.254)))
     (tstamp 9225c5eb-8054-4ad6-8da1-634423559bbe)
   )
