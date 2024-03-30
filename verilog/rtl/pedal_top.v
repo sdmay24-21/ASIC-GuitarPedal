@@ -76,7 +76,10 @@ module pedal_top (
 
     //set logic analysizer pins
     assign record = la_data_out[0], delay_reverb = la_data_out[1];
-    wire memory_we, [32:0]mem_address, mem_output[15:0];
+    wire memory_we;
+    wire [32:0] mem_address;
+    wire mem_output[15:0];
+
 
     memorycontroller memcontroller(
         .clk(clk),
