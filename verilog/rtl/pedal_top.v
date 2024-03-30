@@ -163,7 +163,7 @@ module pedal_top (
             .thres(thres),
             .slope(slope),
             //top level
-            .mem_to_comp(mem_to_comp),
+            .mem_to_comp(mem_to_comp)
         
 
     );
