@@ -1,4 +1,4 @@
-module pedal_top (
+module pedal_ASIC (
     `ifdef USE_POWER_PINS
         inout vccd1,	// User area 1 1.8V supply
         inout vssd1,	// User area 1 digital ground
@@ -37,12 +37,14 @@ module pedal_top (
     //GPIO wire assignments
     wire miso = io_in[0];
     wire mosi = io_out[0];
-    wire sclk = io_out[1]
+    wire sclk = io_out[1];
     wire cs = io_out[2];
 
 
 
-    wire clk, adc_clock, [7:0] thres, [7:0]slope, [15:0] comp_in, [15:0] comp_out;
+    wire clk, adc_clock;
+    wire [7:0] thres, slope;
+    wire [15:0] comp_in, comp_out;
         assign clk = la_data_out[0];
         assign adc_clock = la_data_out[1];
         assign thres = la_data_out[15:8];
@@ -67,11 +69,17 @@ module pedal_top (
 
 
     //wires for memory controller
-    wire record, loop, off_chip_mem, delay_reverb, [7:0] gain, [15:0] impulses, [15:0] mem_in, [15:0] mem_out;
+    wire record, loop, off_chip_mem, delay_reverb;
+    wire [7:0] gain;
+    wire [15:0] impulses, mem_in, mem_out;
+
 
     //set logic analysizer pins
-    assign record = la_data_out[0], delay_reverb = la_data_out[1]
-    wire memory_we, [32:0]mem_address, mem_output[15:0];
+    assign record = la_data_out[0], delay_reverb = la_data_out[1];
+    wire memory_we;
+    wire [32:0] mem_address;
+    wire mem_output[15:0];
+
 
     memorycontroller memcontroller(
         .clk(clk),
@@ -90,7 +98,7 @@ module pedal_top (
         
         
         //outputs
-        .data_out(mem_out)
+        .data_out(mem_out),
         .memory_we(memory_we),
         .address_out(mem_address),
         .data_out()
@@ -112,7 +120,10 @@ module pedal_top (
     );
 
 
-    wire [7:0] trim1, [7:0] trim2, [7:0] trim3, [7:0] trim4, [15:0]adc, [15:0]dac, [1:0] trim_mux;
+    wire [7:0] trim1, trim2, trim3, trim4;
+    wire [15:0] adc, dac;
+    wire [1:0] trim_mux;
+
     spicontroller spi(
         //inputs
         .clk(clk),
@@ -152,7 +163,7 @@ module pedal_top (
             .thres(thres),
             .slope(slope),
             //top level
-            .mem_to_comp(mem_to_comp),
+            .mem_to_comp(mem_to_comp)
         
 
     );
@@ -160,7 +171,8 @@ module pedal_top (
     
 
     //adder mux
-    wire [15:0] adder_input0, [15:0] adder_out;
+    wire [15:0] adder_input0, adder_out;
+
     mux adder_mux(
         .signal(mem_to_comp),
         .data_in0(comp_out),
@@ -171,8 +183,8 @@ module pedal_top (
     adder add(
         .clk(clk),
         .adc_clock(adc_clock), //resets on adc_clock
-        .data_in(adder_input0)
-        //.data_in1(adder_input1) //dont need because it is add out
+        .data_in(adder_input0),
+        //.data_in1(adder_input1), //dont need because it is add out
         .data_out(adder_out)
     );
 
