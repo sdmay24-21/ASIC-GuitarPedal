@@ -108,7 +108,7 @@ module pedal_ASIC (
         .clk0(clk),
         .csb0(),
         .web0(memory_we),
-        .wmask0(),
+        //.wmask0(),
         .addr0(mem_address[14:0]),
         .din0(),
         .dout0(mem_output),
