@@ -1,7 +1,7 @@
 module memorycontroller (
 //parameter IMPULSE_LENGTH = 15'h00FF,
 
-)(
+);(
     input clk,
     input adc_clock,
     input record,
