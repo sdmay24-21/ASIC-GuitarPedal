@@ -30,7 +30,7 @@ module memorycontroller /*(
   + (|data_in) ? (data_in<<6): 0
   + (|data_in) ? (data_in<<7): 0 
 
-+ (data_in & (8'h01)) ? (data_in << 8) : 8'h00;
++ (data_in & (8'h01)) ? (data_in << 8) : 8'h00
 
  // + (data_in&(0x01<<0)) ? (data_in<<8): 0 
   + (data_in&(0x01<<1)) ? (data_in<<9): 0
