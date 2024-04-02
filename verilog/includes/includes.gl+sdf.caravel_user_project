@@ -18,6 +18,14 @@ $USER_PROJECT_VERILOG/gl/user_project_wrapper.v
 $USER_PROJECT_VERILOG/gl/user_proj_example.v
 $USER_PROJECT_VERILOG/gl/sram_1rw1r_32_256_8_sky130.v
 $USER_PROJECT_VERILOG/gl/pedal_top.v
+$USER_PROJECT_VERILOG/gl/compression.v
+$USER_PROJECT_VERILOG/gl/memorycontroller.v
+$USER_PROJECT_VERILOG/gl/multiplier.v
+$USER_PROJECT_VERILOG/gl/defines.v
+$USER_PROJECT_VERILOG/gl/mux.v
+$USER_PROJECT_VERILOG/gl/pedal_wrapper.v
+$USER_PROJECT_VERILOG/gl/uprj_netlists.v
+$USER_PROJECT_VERILOG/gl/user_defines.v
 
 
 

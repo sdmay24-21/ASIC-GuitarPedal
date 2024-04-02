@@ -4,7 +4,22 @@
     "VERILOG_FILES": [
         "dir::../../verilog/rtl/defines.v",
         "dir::../../verilog/rtl/pedal_top.v",
-        "dir::../../verilog/rtl/sram_1rw1r_32_256_8_sky130.v"
+        "dir::../../verilog/rtl/sram_1rw1r_32_256_8_sky130.v",
+        "dir::../../verilog/rtl/user_project_wrapper.v",
+        "dir::../../verilog/rtl/user_proj_example.v",
+        "dir::../../verilog/rtl/pedal_top.v",
+        "dir::../../verilog/rtl/compression.v",
+        "dir::../../verilog/rtl/memorycontroller.v",
+        "dir::../../verilog/rtl/multiplier.v",
+        "dir::../../verilog/rtl/defines.v",
+        "dir::../../verilog/rtl/mux.v",
+        "dir::../../verilog/rtl/pedal_wrapper.v",
+        "dir::../../verilog/rtl/uprj_netlists.v",
+        "dir::../../verilog/rtl/user_defines.v"
+
+
+
+
     ],
     "CLOCK_PERIOD": 25,
     "CLOCK_PORT": "wb_clk_i",
