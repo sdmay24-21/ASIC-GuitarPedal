@@ -22,6 +22,7 @@ module memorycontroller /*(
     input [15:0] impulses,
     input [15:0] data_in,
     output memory_we,
+    reg [15:0]  curr_adr;
     output [15:0] address_out,
     output [15:0] data_out
     );
@@ -72,6 +73,7 @@ module memorycontroller /*(
 
 
     reg [15:0]  curr_r_adr;
+
     reg [15:0]  offset_adr;
     reg impulse_read;
 
