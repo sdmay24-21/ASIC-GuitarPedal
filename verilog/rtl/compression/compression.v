@@ -8,16 +8,16 @@ module compression(
 
 );
 
-  wire [15:0] threshold16pos,
-  wire [15:0] threshold16neg,
-  wire [15:0] audio_excesspos,
-  wire [15:0] audio_excessneg,
-  wire [23:0] audio_excessPosTimeRatio23,
-  wire [23:0] audio_excessNegTimeRatio23,
-  wire [15:0] audio_excessPosTimeRatio15,
-  wire [15:0] audio_excessNegTimeRatio15,
-  wire [15:0] audio_outpos,
-  wire [15:0] audio_outneg
+  wire [15:0] threshold16pos;
+  wire [15:0] threshold16neg;
+  wire [15:0] audio_excesspos;
+  wire [15:0] audio_excessneg;
+  wire [23:0] audio_excessPosTimeRatio23;
+  wire [23:0] audio_excessNegTimeRatio23;
+  wire [15:0] audio_excessPosTimeRatio15;
+  wire [15:0] audio_excessNegTimeRatio15;
+  wire [15:0] audio_outpos;
+  wire [15:0] audio_outneg;
   
 
 
