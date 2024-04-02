@@ -110,8 +110,8 @@ module memorycontroller /*(
 
                     top_offset = data_in[15:13];
                     bottom_offset = data_in[12:9];
-                    negative = data_in[8];
-                    multiplier = data_in[7:0];
+                    //negative = data_in[8];
+                    //multiplier = data_in[7:0];
                     
                     impulse_read<= 1'b0;
                 end else begin

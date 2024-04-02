@@ -59,8 +59,8 @@ module pedal_ASIC (
         .data_out(ctrl_mux_out)
     );
     compression compress(
-        .clk(clk),
-        .adc_clock(adc_clock),
+        //.clk(clk),
+        //.adc_clock(adc_clock),
         .thres(thres),
         .slope(slope),
         .data_in(comp_in),
