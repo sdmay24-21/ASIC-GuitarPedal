@@ -18,9 +18,9 @@
 -v $(USER_PROJECT_VERILOG)/rtl/user_proj_example.v
 -v $(USER_PROJECT_VERILOG)/rtl/sram_1rw1r_32_256_8_sky130.v
 -v $(USER_PROJECT_VERILOG)/rtl/pedal_top.v
--v $(USER_PROJECT_VERILOG)/rtl/compression.v
--v $(USER_PROJECT_VERILOG)/rtl/memorycontroller.v
--v $(USER_PROJECT_VERILOG)/rtl/multiplier.v
+-v $(USER_PROJECT_VERILOG)/rtl/compression/compression.v
+-v $(USER_PROJECT_VERILOG)/rtl/memory/memorycontroller.v
+-v $(USER_PROJECT_VERILOG)/rtl/memory/multiplier.v
 -v $(USER_PROJECT_VERILOG)/rtl/defines.v
 -v $(USER_PROJECT_VERILOG)/rtl/mux.v
 -v $(USER_PROJECT_VERILOG)/rtl/pedal_wrapper.v
