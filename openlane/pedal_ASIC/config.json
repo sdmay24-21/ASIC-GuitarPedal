@@ -4,6 +4,7 @@
     "VERILOG_FILES": [
         "dir::../../verilog/rtl/defines.v",
         "dir::../../verilog/rtl/pedal_top.v"
+        "dir::../../verilog/rtl/sram_1rw1r_32_256_8_sky130.v"
     ],
     "CLOCK_PERIOD": 25,
     "CLOCK_PORT": "wb_clk_i",
