@@ -79,7 +79,7 @@ module memorycontroller (
     wire[15:0] impulse_offset;
     assign impulse_offset = {5'b00000,top_offset,4'b00,bottom_offset}; //offset from next impulse defined in the current impulse responce
 
-    always @((posedge clk & not adc_clock) or negedge adc_clock) begin //after adc clock 
+    always @((posedge clk  or negedge adc_clock) begin //after adc clock 
 
         memory_we <= 1'b0; //always disable write in reading portion
         if(off_chip_mem) begin //using off chip memory
