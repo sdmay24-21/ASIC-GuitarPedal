@@ -6,7 +6,7 @@ Controls both SRAM on chip and ofchip memory
 First 
 */
 module memorycontroller (
-parameter IMPULSE_LENGTH = 15'h00FF,
+//parameter IMPULSE_LENGTH = 15'h00FF,
 
 )(
     input clk,
@@ -31,7 +31,7 @@ parameter IMPULSE_LENGTH = 15'h00FF,
 
     reg [10:0]  curr_impulse; //max ~500
 
-    reg[31:0] output_buffer; //stores the additions of multiplier and ...
+    reg[31:0] output_buffer; //stores the additions of multiplier and...
     assign data_out = output_buffer[31:16]; // top 16 bits will become our output
 
 

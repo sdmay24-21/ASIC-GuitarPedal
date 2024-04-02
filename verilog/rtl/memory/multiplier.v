@@ -1,5 +1,5 @@
 module memorycontroller (
-parameter IMPULSE_LENGTH = 15'h00FF,
+//parameter IMPULSE_LENGTH = 15'h00FF,
 
 )(
     input clk,
