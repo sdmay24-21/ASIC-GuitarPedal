@@ -6,10 +6,10 @@ module mux(
 );
 
 always @(*) begin
-    if (s)
-        out = b;
+    if (signal)
+        data_out = data_in1;
     else
-        out = a;
+        data_out = data_in0;
 end
 
 endmodule
