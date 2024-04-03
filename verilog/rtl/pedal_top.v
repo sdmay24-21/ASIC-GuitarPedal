@@ -61,10 +61,10 @@ module pedal_ASIC (
     compression compress(
         //.clk(clk),
         //.adc_clock(adc_clock),
-        .thres(thres),
-        .slope(slope),
-        .data_in(comp_in),
-        .data_out(comp_out)
+        .threshold(thres),
+        .ratio(slope),
+        .audio_in(comp_in),
+        .audio_out(comp_out)
     );
 
 

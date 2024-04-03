@@ -6,6 +6,7 @@ module compression(
   input wire [15:0] audio_in,
   output wire [15:0] audio_out,
 
+
 );
 
   wire [15:0] threshold16pos;
