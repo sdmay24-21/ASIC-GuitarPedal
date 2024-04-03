@@ -1,4 +1,4 @@
-module spi_module(
+module spicontroller(
     parameter ADDRESS_WIDTH = 8'd8,
         parameter DATA_WIDTH = 8'd32,
         parameter BUFFER_WIDTH = 8'd2

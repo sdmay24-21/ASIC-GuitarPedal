@@ -15,9 +15,14 @@
         "dir::../../verilog/rtl/mux.v",
         "dir::../../verilog/rtl/pedal_wrapper.v",
         "dir::../../verilog/rtl/uprj_netlists.v",
-        "dir::../../verilog/rtl/user_defines.v"
+        "dir::../../verilog/rtl/user_defines.v",
+        "dir::../../verilog/rtl/spi/shift_in_reg.v",
+        "dir::../../verilog/rtl/spi/shift_out_reg.v",
+        "dir::../../verilog/rtl/spi/spi_dff_buffer.v",
+        "dir::../../verilog/rtl/spi/spi_module.v"
 
-        
+
+
         
 
 

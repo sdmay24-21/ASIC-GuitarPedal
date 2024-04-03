@@ -26,6 +26,10 @@ $USER_PROJECT_VERILOG/gl/mux.v
 $USER_PROJECT_VERILOG/gl/pedal_wrapper.v
 $USER_PROJECT_VERILOG/gl/uprj_netlists.v
 $USER_PROJECT_VERILOG/gl/user_defines.v
+$USER_PROJECT_VERILOG/gl/shift_in_reg.v
+$USER_PROJECT_VERILOG/gl/shift_out_reg.v
+$USER_PROJECT_VERILOG/gl/spi_dff_buffer.v
+$USER_PROJECT_VERILOG/gl/spi_module.v
 
 
 

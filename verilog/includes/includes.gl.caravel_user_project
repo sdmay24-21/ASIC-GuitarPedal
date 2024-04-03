@@ -26,4 +26,8 @@
 -v $(USER_PROJECT_VERILOG)/gl/pedal_wrapper.v
 -v $(USER_PROJECT_VERILOG)/gl/uprj_netlists.v
 -v $(USER_PROJECT_VERILOG)/gl/user_defines.v
+-v $(USER_PROJECT_VERILOG)/gl/shift_in_reg.v
+-v $(USER_PROJECT_VERILOG)/gl/shift_out_reg.v
+-v $(USER_PROJECT_VERILOG)/gl/spi_dff_buffer.v
+-v $(USER_PROJECT_VERILOG)/gl/spi_module.v
 
