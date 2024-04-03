@@ -100,8 +100,8 @@ module pedal_ASIC (
         //outputs
         .data_out(mem_out),
         .memory_we(memory_we),
-        .address_out(mem_address),
-        .data_out()
+        .address_out(mem_address)
+
     );
 
     sram_1rw1r_32_256_8_sky130 sram_memmory(
