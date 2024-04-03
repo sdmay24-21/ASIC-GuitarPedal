@@ -4,8 +4,7 @@ module compression(
   input wire [7:0] threshold,
   input wire [7:0] ratio,
   input wire [15:0] audio_in,
-  output wire [15:0] audio_out,
-
+  output wire [15:0] audio_out
 
 );
 

@@ -19,6 +19,7 @@
 // Word size: 32
 // Write size: 8
 
+
 module sram_1rw1r_32_256_8_sky130(
 `ifdef USE_POWER_PINS
 	vdd,
