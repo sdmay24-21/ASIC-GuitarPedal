@@ -10,9 +10,9 @@ module spicontroller(
         output [DATA_WIDTH - 1:0] o_DATA_IN, //Parallel data to be sent TO user area modules, FROM external master SPI
         output o_DOUT_VALID //Flag asserted to 1 when i_DATA_OUT is ready to be read by submodules
     );
-    parameter ADDRESS_WIDTH = 8'd8,
-    parameter DATA_WIDTH = 8'd32,
-    parameter BUFFER_WIDTH = 8'd2
+    parameter ADDRESS_WIDTH = 8'd8;
+    parameter DATA_WIDTH = 8'd32;
+    parameter BUFFER_WIDTH = 8'd2;
 
     //Internal signals: g_addr_shift_in 
     wire [ADDRESS_WIDTH:0] s_addr_shift_in_Q; //total output of shift reg
