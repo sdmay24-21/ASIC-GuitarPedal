@@ -1,4 +1,4 @@
-module mux_2to1(
+module mux(
     input [15:0] a,
     input [15:0] b,
     input s,
