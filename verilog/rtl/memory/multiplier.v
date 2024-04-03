@@ -1,4 +1,4 @@
-module memorycontroller /*(
+module multiplier /*(
 //parameter IMPULSE_LENGTH = 15'h00FF,
 
 );*/(
