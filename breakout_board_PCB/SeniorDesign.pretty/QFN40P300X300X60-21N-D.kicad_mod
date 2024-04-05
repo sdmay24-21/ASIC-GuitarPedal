@@ -6,7 +6,7 @@
 	(descr "MCP3464T-E/NC")
 	(tags "Integrated Circuit")
 	(property "Reference" "IC**"
-		(at 0 0 0)
+		(at 0.1778 3.683 0)
 		(layer "F.SilkS")
 		(uuid "2769d424-72a1-4269-9b74-d9182e313b09")
 		(effects
@@ -17,7 +17,7 @@
 		)
 	)
 	(property "Value" "QFN40P300X300X60-21N-D"
-		(at 0 0 0)
+		(at 1.1176 -3.81 0)
 		(layer "F.SilkS")
 		(hide yes)
 		(uuid "a2c333c8-8970-4fdd-9fa9-bb81d8c86912")
