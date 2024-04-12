@@ -126,20 +126,20 @@ module pedal_ASIC (
 
     spicontroller spi(
         //inputs
-        .clk(clk),
-        .adc_clock(adc_clock),
-        .trim1(trim1),
-        .trim2(trim2),
-        .trim3(trim3),
-        .trim4(trim4),
-        .dac(dac),
-        .miso(miso),
-        .mosi(mosi),
-        .sclk(sclk),
-        .cs(cs),
+        .i_SYSCLK(clk),
+        .i_BCLK(adc_clock),
+        //.trim1(trim1),
+        //.trim2(trim2),
+        //.trim3(trim3),
+        //.trim4(trim4),
+        .o_DATA_IN(dac),
+        .o_MISO(miso),
+        .i_MOSI(mosi),
+        //.sclk(sclk),
+        //.cs(cs),
 
         //outputs
-        .adc(adc),
+        .i_DATA_OUT(adc),
         .mux(trim_mux)
     );
 
@@ -148,10 +148,10 @@ module pedal_ASIC (
         //inputs
             .clk(clk),
             .adc_clock(adc_clock),
-            .trim1(trim1), 
-            .trim2(trim2),
-            .trim3(trim3),
-            .trim4(trim4),
+            //.trim1(trim1), 
+            //.trim2(trim2),
+            //.trim3(trim3),
+            //.trim4(trim4),
             //memory control
             .record(record),
             .loop(loop),

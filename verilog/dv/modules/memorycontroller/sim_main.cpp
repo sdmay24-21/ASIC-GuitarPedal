@@ -56,20 +56,30 @@ int main(int argc, char** argv) {
     main_time++;  // Time passes...
     top->clk = !top->clk; //invert clock
 
-    //get data from file
-    fgets(line, 1024, stream);
-    char* tmp = strdup(line);
+    
 
-    int clk =         getfield(tmp,0);     //CLK CYCLE NUMBER
-    int16_t data_in = getfield(tmp,1);     //DATA INPUT
-    int16_t impluse = getfield(tmp,2);     //number of impulses INPUT
+    if(main_time%clock_ratio || (main_time-1)%clock_ratio|| (main_time-2)%clock_ratio){ // 3 cycle ADC
+      top->adc_clock = 1; //ADC CLOCK SET
 
+      //get data from file
+      fgets(line, 1024, stream);
+      char* tmp = strdup(line);
+      //header = ["Data", "Impulses", "Loop","record","off_chip_mem","off_chip_mem_ready"]
 
+      //int clk =         getfield(tmp,0);     //CLK CYCLE NUMBER
+      int16_t data_in = getfield(tmp,0);     //DATA INPUT
+      top->data_in = data_in;
+      int16_t impluses = getfield(tmp,1);     //number of impulses INPUT
+      top->impulses = impulses;
+      bool loop = getfield(tmp,2 ); // loop
+      top->loop = loop;
+      bool record = getfield(tmp,3 ); // loop
+      top->record = record;
+      bool off_chip_mem = getfield(tmp,4 ); // loop
+      top->off_chip_mem = off_chip_mem;
+      bool off_chip_mem_ready = getfield(tmp,5 ); // loop
+      top->off_chip_mem_ready = off_chip_mem_ready;
 
-    if(main_time%clock_ratio){ // 1 cycle ADC
-      top->adc_clock = !top->adc_clock; //ADC CLOCK SET
-      
-      top->
       
       if(top->adc_clock){ //SET VALUES
         top->data_in = 
@@ -79,6 +89,9 @@ int main(int argc, char** argv) {
 
       }
     }
+    else{
+      top->adc_clock = 0; //ADC CLOCK SET
+    }
 
     top->eval();
 
@@ -87,9 +100,9 @@ int main(int argc, char** argv) {
       " -> oquad=%" VL_PRI64 "x owide=%x_%08x_%08x\n",
       main_time, top->clk, top->reset_l, top->in_quad, top->out_quad, top->out_wide[2],
       top->out_wide[1], top->out_wide[0]);
-    }
+  }
     top->final();
       delete top;
       delete contextp;
       return 0;
-  }
+}
