@@ -1,4 +1,4 @@
-23053763576010083
+23055477385277760
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -87080,6 +87080,13 @@ Variable Resistor
 3
 3
 SeniorDesign
+BGA4C50P2X2_115X115X40
+YPC0004
+Integrated Circuit
+0
+4
+4
+SeniorDesign
 CUI_SJ-63062A
 
 
@@ -87109,7 +87116,7 @@ Resistor
 8
 SeniorDesign
 SOIC127P600X175-8N
-(SN)-narrow,3.9mm body [soic]
+8-Lead Standard Small Outline Package [SOIC_N] Narrow Body (RN-8)
 Integrated Circuit
 0
 8
