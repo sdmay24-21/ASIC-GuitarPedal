@@ -20,7 +20,7 @@ module memorycontroller /*(
     input [15:0] delay_reverb,
     input [15:0] gain,
     input [15:0] impulses,
-    input [15:0] data_in,
+    input wire [15:0] data_in,
     output memory_we,
     reg [15:0]  curr_adr,
     output [15:0] address_out,

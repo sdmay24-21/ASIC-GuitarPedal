@@ -84,7 +84,6 @@ module pedal_ASIC (
     memorycontroller memcontroller(
         .clk(clk),
         .adc_clock(adc_clock),
-        
         //control
         .record(record),
         .loop(loop),
