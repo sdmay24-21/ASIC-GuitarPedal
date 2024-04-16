@@ -143,7 +143,7 @@ module pedal_ASIC (
     );*/
 
 
-    controller control(
+    /*controller control(
         //inputs
             .clk(clk),
             .adc_clock(adc_clock),
@@ -165,7 +165,7 @@ module pedal_ASIC (
             .mem_to_comp(mem_to_comp)
         
 
-    );
+    );*/
     
     
 
