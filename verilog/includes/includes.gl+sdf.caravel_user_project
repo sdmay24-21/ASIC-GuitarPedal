@@ -30,6 +30,7 @@ $USER_PROJECT_VERILOG/gl/shift_in_reg.v
 $USER_PROJECT_VERILOG/gl/shift_out_reg.v
 $USER_PROJECT_VERILOG/gl/spi_dff_buffer.v
 $USER_PROJECT_VERILOG/gl/spi_module.v
+$USER_PROJECT_VERILOG/gl/adder.v
 
 
 
