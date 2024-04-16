@@ -78,7 +78,7 @@ module pedal_ASIC (
     assign record = la_data_out[0], delay_reverb = la_data_out[1];
     wire memory_we;
     wire [32:0] mem_address;
-    wire mem_output[15:0];
+    wire [15:0] mem_output;
 
 
     memorycontroller memcontroller(
