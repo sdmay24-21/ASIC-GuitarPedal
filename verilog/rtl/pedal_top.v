@@ -124,7 +124,7 @@ module pedal_ASIC (
     wire [15:0] adc, dac;
     wire [1:0] trim_mux;
 
-    spicontroller spi(
+/*    spicontroller spi(
         //inputs
         .i_SYSCLK(clk),
         .i_BCLK(adc_clock),
@@ -141,7 +141,7 @@ module pedal_ASIC (
         //outputs
         .i_DATA_OUT(adc),
         .mux(trim_mux)
-    );
+    );*/
 
 
     controller control(
