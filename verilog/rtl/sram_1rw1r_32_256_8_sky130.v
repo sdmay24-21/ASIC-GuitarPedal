@@ -120,7 +120,7 @@ reg [DATA_WIDTH-1:0]    mem [0:RAM_DEPTH-1];
   always @ (negedge clk0)
   begin : MEM_READ0
     if (!csb0_reg && web0_reg)
-       dout0 <=  mem[addr0_reg];#previousversion_dout0 <= #(DELAY) mem[addr0_reg]
+       dout0 <=  mem[addr0_reg];//previous version:  dout0 <= #(DELAY) mem[addr0_reg]
   end
 
   // Memory Read Block Port 1
@@ -128,7 +128,7 @@ reg [DATA_WIDTH-1:0]    mem [0:RAM_DEPTH-1];
   always @ (negedge clk1)
   begin : MEM_READ1
     if (!csb1_reg)
-       dout1 <=  mem[addr1_reg];#previousversion_dout1 <= #(DELAY) mem[addr1_reg]
+       dout1 <=  mem[addr1_reg];//previous version:  dout1 <= #(DELAY) mem[addr1_reg]
   end
 
 endmodule
