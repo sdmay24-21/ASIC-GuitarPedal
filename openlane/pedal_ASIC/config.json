@@ -7,6 +7,7 @@
         "dir::../../verilog/rtl/sram_1rw1r_32_256_8_sky130.v",
         "dir::../../verilog/rtl/user_project_wrapper.v",
         "dir::../../verilog/rtl/user_proj_example.v",
+        "dir::../../verilog/rtl/pedal_top.v",
         "dir::../../verilog/rtl/compression/compression.v",
         "dir::../../verilog/rtl/memory/memorycontroller.v",
         "dir::../../verilog/rtl/memory/multiplier.v",
