@@ -21,7 +21,7 @@ module memorycontroller /*(
     input [15:0] gain,
     input [15:0] impulses,
     input wire [15:0] data_in,
-    output memory_we,
+    output reg memory_we,
     reg [15:0]  curr_adr,
     output [15:0] address_out,
     output [15:0] data_out
