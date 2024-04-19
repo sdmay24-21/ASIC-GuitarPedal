@@ -14,15 +14,15 @@ module memorycontroller /*(
     input clk,
     input adc_clock,
     input record,
-    input loop,
+    //input loop,
     input off_chip_mem,
     input off_chip_mem_ready,
-    input [15:0] delay_reverb,
-    input [15:0] gain,
+    //input [15:0] delay_reverb,
+    //input [15:0] gain,
     input [15:0] impulses,
     input wire [15:0] data_in,
     output reg memory_we,
-    reg [15:0]  curr_adr,
+    //reg [15:0]  curr_adr,
     output [15:0] address_out,
     output [15:0] data_out
     );
@@ -39,91 +39,128 @@ module memorycontroller /*(
 
 
 
-    always @(posedge adc_clock) begin //RESET ON ADC_CLOCK
-
-        curr_impulse<= 0; //clear impulse counter
-
-        if(record == 1'b0) begin //recording inputs
-            address_out <= curr_adr; //
-            memory_we <= 1'b1; //set to write to memory
-        end 
-
-        if(curr_adr + 1 == 16'hFFFF) begin
-            curr_adr <= impulses; //Handle Overflow and go past all impulses
-        end else begin
-            
-            curr_adr <= curr_adr + 1;
-        end
-    end 
+    
 
 
-    always @(negedge adc_clock) begin //RESET ON ADC_CLOCK
-        output_buffer <= 0; //clear buffer
+    // always @(negedge adc_clock) begin //RESET ON ADC_CLOCK
+    //     output_buffer <= 0; //clear buffer
 
         
-        if(record == 1'b0) begin //recording inputs
-            address_out <= curr_adr; //
-            memory_we <= 1'b1; //set to write to memory
-        end         
-        if(curr_adr + 1 == 16'hFFFF) begin
-            curr_adr <= impulses; //Handle Overflow and go past all impulses
-        end else begin
-            curr_adr <= curr_adr + 1;
-        end
-    end 
+    //     if(record == 1'b0) begin //recording inputs
+    //         address_out <= curr_adr; //
+    //         memory_we <= 1'b1; //set to write to memory
+    //     end         
+    //     if(curr_adr + 1 == 16'hFFFF) begin
+    //         curr_adr <= impulses; //Handle Overflow and go past all impulses
+    //     end else begin
+    //         curr_adr <= curr_adr + 1;
+    //     end
+    // end 
 
 
     reg [15:0]  curr_r_adr;
 
-    reg [15:0]  offset_adr;
+    //reg [15:0]  offset_adr;
     reg impulse_read;
 
-    reg[2:0] top_offset;
-    reg[2:0] bottom_offset;
+    reg large_jump;
+    reg[5:0] jump_value;
+    reg[7:0] impulse_multiplier;
+    //wire[15:0] impulse_offset;
+    //assign impulse_offset = {5'b00000,top_offset,4'b00,bottom_offset}; //offset from next impulse defined in the current impulse responce
+    reg record_buffer;
+    always @(posedge clk) begin //clocked
 
-    wire[15:0] impulse_offset;
-    assign impulse_offset = {5'b00000,top_offset,4'b00,bottom_offset}; //offset from next impulse defined in the current impulse responce
+        if(adc_clock == 1'b1) begin //RESET ON ADC_CLOCK
 
-    always @(posedge clk  or negedge adc_clock) begin //after adc clock 
-
-        memory_we <= 1'b0; //always disable write in reading portion
-        if(off_chip_mem) begin //using off chip memory
-            if(off_chip_mem_ready) begin
+            curr_impulse<= 0; //clear impulse counter
             
-                if(impulse_read == 1'b1) begin //if in impulse read
+            if(record == 1'b1) begin //recording inputs
+                if(record_buffer) begin
+                    head_adr <= curr_w_adr;
                     
-                    address_out <= curr_impulse;
-
-                    impulse_read<= 1'b0;
-                end else begin
-
-                    address_out <= curr_w_adr - offset_adr;
-
-                    impulse_read<= 1'b1;
                 end
-            
+                address_out <= curr_w_adr; //
+                memory_we <= 1'b1; //set to write to memory
+                tail_adr <=curr_w_adr;
+                record_buffer <= 1'b0;
+
+                //OVERFLOW
+                if(curr_w_adr + 1 == 16'hFFFF) begin
+                    curr_w_adr <= impulses; //Handle Overflow and go past all impulses
+                end
+                else begin
+                    curr_w_adr <= curr_w_adr + 1;
+                end
             end
-        end else begin //Using on chip memory
+            else begin
+                memory_we <= 1'b0;//dont edit the memory
+                record_buffer <= 1'b1;
 
-            if(impulse_read == 1'b1) begin //if in impulse read
-                    
-                    address_out <= offset_adr;
 
-                    top_offset = data_in[15:13];
-                    bottom_offset = data_in[12:9];
-                    //negative = data_in[8];
-                    //multiplier = data_in[7:0];
-                    
-                    impulse_read<= 1'b0;
-                end else begin
-                    curr_r_adr <= curr_r_adr + impulse_offset; //check if overflow
-                    address_out <= curr_r_adr;
+                
+            //OVERFLOW
+            if(curr_w_adr + 1 == tail_adr) begin
+                curr_w_adr <= head_adr;
+            end
+            else begin
+                curr_w_adr <= curr_w_adr + 1;
+            end
 
-                    impulse_read<= 1'b1;
-                end
             
 
+            end
         end
-    end 
+        else begin
+
+            memory_we <= 1'b0; //always disable write in reading portion of step
+
+            if(off_chip_mem) begin //using off chip memory
+                if(off_chip_mem_ready) begin
+                
+                    if(impulse_read == 1'b1) begin //if in impulse read
+                        
+                        address_out <= {5'b00000,curr_impulse};
+
+                        impulse_read<= 1'b0;
+                    end else begin
+
+                        address_out <= curr_w_adr - impulses;
+
+                        impulse_read<= 1'b1;
+                    end
+                
+                end
+            end else begin //Using on chip memory
+
+                if(impulse_read == 1'b1) begin //if in impulse read
+                        
+                        address_out <= curr_r_adr;
+
+                        large_jump <= data_in[15];
+                        jump_value <= data_in[14:9];
+
+                        //negative = data_in[8];
+                        impulse_multiplier <= data_in[7:0];
+                        
+                        impulse_read<= 1'b0;
+                    end else begin //read the DATA specified by impulse
+
+                        if(large_jump == 1'b1) begin
+                            curr_r_adr <= curr_r_adr + jump_value*(2^6); //check if overflow TODO
+                        end
+                        else begin
+                            curr_r_adr <= curr_r_adr +  {10'b0,jump_value}; //check if overflow TODO
+                        end
+                        end
+
+                        address_out <= {5'b00000,curr_impulse};
+                        output_buffer <= output_buffer + data_in*impulse_multiplier;
+                        impulse_read <= 1'b1;
+                    end
+                
+
+            end
+        end
 
 endmodule
