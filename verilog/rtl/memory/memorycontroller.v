@@ -51,6 +51,7 @@ module memorycontroller /*(
         if(curr_adr + 1 == 16'hFFFF) begin
             curr_adr <= impulses; //Handle Overflow and go past all impulses
         end else begin
+            
             curr_adr <= curr_adr + 1;
         end
     end 
@@ -124,8 +125,5 @@ module memorycontroller /*(
 
         end
     end 
-
-
-
 
 endmodule

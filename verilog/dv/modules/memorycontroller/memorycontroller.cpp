@@ -1,4 +1,4 @@
-  #include "top_level_level3_tb.h"
+  #include "memorycontroller.h"
   #include "verilated.h"
 
 // Current simulation time (64-bit unsigned)
@@ -24,8 +24,10 @@ const char* getfield(char* line, int num)
 int16_t memory[10*1000*20]; //20 seconds of memory 
 
 int main(int argc, char** argv) {
-  //argv[0] file to load
-  
+  char* inputfile = argv[0]; //file to load
+  char* impulsefile = argv[1];
+  char* outputfile = argv[2];
+  char line[1024];
 
     // Set debug level, 0 is off, 9 is highest presently used
     // May be overridden by commandArgs
@@ -38,13 +40,23 @@ int main(int argc, char** argv) {
   Verilated::mkdir("logs");
   memorycontroller* top = new memorycontroller{contextp};
 
-    //get RAM
+    //get RAM (impulses)
+  FILE* impulsefile_stream = fopen(impulsefile, "r");
+  VL_PRINTF("Loading impulses\n");
+  int impulse_count = 0;
+  while (fgets(line, sizeof(line), impulsefile_stream)) {
+    char* tmp = strdup(line);
+    int16_t data_in = getfield(tmp,0);
+    memory[impulse_count] = data_in; //load into ram
+    impulse_count++;
+  }
 
 
-    //read file
-  FILE* stream = fopen("input.csv", "r");
 
-  char line[1024];
+    //read audio file
+  FILE* stream = fopen(inputfile, "r");
+
+
 
   top->clk = 0;
   top->adc_clock = 0;
@@ -61,6 +73,12 @@ int main(int argc, char** argv) {
     if(main_time%clock_ratio || (main_time-1)%clock_ratio|| (main_time-2)%clock_ratio){ // 3 cycle ADC
       top->adc_clock = 1; //ADC CLOCK SET
 
+
+    }
+    else{
+      top->adc_clock = 0; //ADC CLOCK SET
+    }
+
       //get data from file
       fgets(line, 1024, stream);
       char* tmp = strdup(line);
@@ -73,33 +91,21 @@ int main(int argc, char** argv) {
       top->impulses = impulses;
       bool loop = getfield(tmp,2 ); // loop
       top->loop = loop;
-      bool record = getfield(tmp,3 ); // loop
+      bool record = getfield(tmp,3 ); // record
       top->record = record;
-      bool off_chip_mem = getfield(tmp,4 ); // loop
+      bool off_chip_mem = getfield(tmp,4 ); // offchipmem
       top->off_chip_mem = off_chip_mem;
-      bool off_chip_mem_ready = getfield(tmp,5 ); // loop
+      bool off_chip_mem_ready = getfield(tmp,5 ); // offchipmemready
       top->off_chip_mem_ready = off_chip_mem_ready;
 
-      
-      if(top->adc_clock){ //SET VALUES
-        top->data_in = 
-
-      }
-      else{ //READ DAC VALUES
-
-      }
-    }
-    else{
-      top->adc_clock = 0; //ADC CLOCK SET
-    }
-
+    //EVALUATE the top level design
     top->eval();
 
     //LOG RESULTS
-    VL_PRINTF("[%" VL_PRI64 "d] clk=%x rstl=%x iquad=%" VL_PRI64 "x"
-      " -> oquad=%" VL_PRI64 "x owide=%x_%08x_%08x\n",
-      main_time, top->clk, top->reset_l, top->in_quad, top->out_quad, top->out_wide[2],
-      top->out_wide[1], top->out_wide[0]);
+    VL_PRINTF("[%" VL_PRI64 "d] Inputs: clk=%x data_in=%x impulses=%x loop=%x record=%x\n",
+      main_time, top->clk, top->data_in, top->impulses, top->loop, top->record);
+    //VL_PRINTF("[%" VL_PRI64 "d] Outputs: clk=%x data_in=%x impulses=%x loop=%x record=%x\n",
+    //  main_time, top->clk, top->data_in, top->impulses, top->loop, top->record);
   }
     top->final();
       delete top;
