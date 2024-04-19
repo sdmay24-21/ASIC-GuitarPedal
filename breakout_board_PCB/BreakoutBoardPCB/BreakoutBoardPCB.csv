@@ -1,0 +1,12 @@
+"Id";"Designator";"Footprint";"Quantity";"Designation";"Supplier and ref";
+1;"J10";"PinHeader_1x28_P2.54mm_Vertical";1;"Conn_01x27_Female";;;
+2;"J7";"PinHeader_1x06_P2.54mm_Vertical";1;"Conn_01x06_Female";;;
+3;"IC5,IC3,IC6,IC4";"SOIC127P600X175-8N";4;"23K256T-I_SN";;;
+4;"TP2,TP1";"TestPoint_Bridge_Pitch2.54mm_Drill1.0mm";2;"TestPoint";;;
+5;"IC7,IC2";"QFN40P300X300X60-21N-D";2;"MCP3464T-E_NC";;;
+6;"IC1";"SOP65P640X120-20N";1;"AD5676BRUZ";;;
+7;"C2,C4,C3,C1";"C_0805_2012Metric";4;"0.1uf - CC0805KRX7R9BB104";;;
+8;"J2,J1";"CUI_SJ-63062A";2;"SJ-63062A";;;
+9;"VR3,VR2,VR1,VR4";"3360Y1103LF";4;"3360Y-1-103LF";;;
+10;"J11";"PinHeader_1x28_P2.54mm_Vertical";1;"Conn_01x28_Pin";;;
+11;"IC8";"BGA4C50P2X2_115X115X40";1;"LMV1032UP-06_NOPB";;;

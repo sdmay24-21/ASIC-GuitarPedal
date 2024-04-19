@@ -4,19 +4,24 @@ module compression(
   input wire [7:0] threshold,
   input wire [7:0] ratio,
   input wire [15:0] audio_in,
-  output wire [15:0] audio_out,
-  output wire [15:0] threshold16pos,
-  output wire [15:0] threshold16neg,
-  output wire [15:0] audio_excesspos,
-  output wire [15:0] audio_excessneg,
-  output wire [23:0] audio_excessPosTimeRatio23,
-  output wire [23:0] audio_excessNegTimeRatio23,
-  output wire [15:0] audio_excessPosTimeRatio15,
-  output wire [15:0] audio_excessNegTimeRatio15,
-  output wire [15:0] audio_outpos,
-  output wire [15:0] audio_outneg
-  
+  output wire [15:0] audio_out
+
 );
+
+  wire [15:0] threshold16pos;
+  wire [15:0] threshold16neg;
+  wire [15:0] audio_excesspos;
+  wire [15:0] audio_excessneg;
+  wire [23:0] audio_excessPosTimeRatio23;
+  wire [23:0] audio_excessNegTimeRatio23;
+  wire [15:0] audio_excessPosTimeRatio15;
+  wire [15:0] audio_excessNegTimeRatio15;
+  wire [15:0] audio_outpos;
+  wire [15:0] audio_outneg;
+  
+
+
+
 
   // Concatenate 8 zeros to the threshold to make it 16 bits
   assign threshold16pos = {threshold, 8'b0};

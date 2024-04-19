@@ -16,3 +16,19 @@
 # Caravel user project includes	     
 -v $(USER_PROJECT_VERILOG)/gl/user_project_wrapper.v    
 -v $(USER_PROJECT_VERILOG)/gl/user_proj_example.v
+-v $(USER_PROJECT_VERILOG)/gl/sram_1rw1r_32_256_8_sky130.v
+-v $(USER_PROJECT_VERILOG)/gl/pedal_top.v
+-v $(USER_PROJECT_VERILOG)/gl/compression.v
+-v $(USER_PROJECT_VERILOG)/gl/memorycontroller.v
+-v $(USER_PROJECT_VERILOG)/gl/multiplier.v
+-v $(USER_PROJECT_VERILOG)/gl/defines.v
+-v $(USER_PROJECT_VERILOG)/gl/mux.v
+-v $(USER_PROJECT_VERILOG)/gl/pedal_wrapper.v
+-v $(USER_PROJECT_VERILOG)/gl/uprj_netlists.v
+-v $(USER_PROJECT_VERILOG)/gl/user_defines.v
+-v $(USER_PROJECT_VERILOG)/gl/shift_in_reg.v
+-v $(USER_PROJECT_VERILOG)/gl/shift_out_reg.v
+-v $(USER_PROJECT_VERILOG)/gl/spi_dff_buffer.v
+-v $(USER_PROJECT_VERILOG)/gl/spi_module.v
+-v $(USER_PROJECT_VERILOG)/gl/adder.v
+
