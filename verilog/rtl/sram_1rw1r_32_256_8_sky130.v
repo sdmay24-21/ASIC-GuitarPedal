@@ -37,7 +37,7 @@ module sram_1rw1r_32_256_8_sky130(
   parameter ADDR_WIDTH = 14 ;
   parameter RAM_DEPTH = 1 << ADDR_WIDTH;
   // FIXME: This delay is arbitrary.
-  parameter DELAY = 3 ;
+  parameter DELAY = 3 ;//WE CHANGED THIS TO FIX TIMING ISSUES, original value is 3
 
 `ifdef USE_POWER_PINS
   inout vdd;
@@ -120,7 +120,7 @@ reg [DATA_WIDTH-1:0]    mem [0:RAM_DEPTH-1];
   always @ (negedge clk0)
   begin : MEM_READ0
     if (!csb0_reg && web0_reg)
-       dout0 <= #(DELAY) mem[addr0_reg];
+       dout0 <=  mem[addr0_reg];//previous version:  dout0 <= #(DELAY) mem[addr0_reg]
   end
 
   // Memory Read Block Port 1
@@ -128,7 +128,7 @@ reg [DATA_WIDTH-1:0]    mem [0:RAM_DEPTH-1];
   always @ (negedge clk1)
   begin : MEM_READ1
     if (!csb1_reg)
-       dout1 <= #(DELAY) mem[addr1_reg];
+       dout1 <=  mem[addr1_reg];//previous version:  dout1 <= #(DELAY) mem[addr1_reg]
   end
 
 endmodule

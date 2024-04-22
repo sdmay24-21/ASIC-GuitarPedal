@@ -143,7 +143,7 @@ module pedal_ASIC (
     );*/
 
 
-    controller control(
+    /*controller control(
         //inputs
             .clk(clk),
             .adc_clock(adc_clock),
@@ -165,7 +165,7 @@ module pedal_ASIC (
             .mem_to_comp(mem_to_comp)
         
 
-    );
+    );*/
     
     
 
@@ -182,9 +182,9 @@ module pedal_ASIC (
     adder add(
         .clk(clk),
         .adc_clock(adc_clock), //resets on adc_clock
-        .data_in(adder_input0),
+        .adder_input0(adder_input0),
         //.data_in1(adder_input1), //dont need because it is add out
-        .data_out(adder_out)
+        .adder_out(adder_out)
     );
 
 

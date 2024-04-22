@@ -30,4 +30,5 @@
 -v $(USER_PROJECT_VERILOG)/gl/shift_out_reg.v
 -v $(USER_PROJECT_VERILOG)/gl/spi_dff_buffer.v
 -v $(USER_PROJECT_VERILOG)/gl/spi_module.v
+-v $(USER_PROJECT_VERILOG)/gl/adder.v
 
