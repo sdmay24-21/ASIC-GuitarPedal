@@ -24,8 +24,8 @@ class alignas(VL_CACHE_LINE_BYTES) Vmemorycontroller___024root final : public Ve
     CData/*0:0*/ memorycontroller__DOT__large_jump;
     CData/*5:0*/ memorycontroller__DOT__jump_value;
     CData/*7:0*/ memorycontroller__DOT__impulse_multiplier;
+    CData/*0:0*/ memorycontroller__DOT__ADC_RESET;
     CData/*0:0*/ memorycontroller__DOT__record_buffer;
-    CData/*0:0*/ __VstlFirstIteration;
     CData/*0:0*/ __Vtrigprevexpr___TOP__clk__0;
     CData/*0:0*/ __VactContinue;
     VL_IN16(impulses,15,0);
@@ -39,7 +39,6 @@ class alignas(VL_CACHE_LINE_BYTES) Vmemorycontroller___024root final : public Ve
     SData/*15:0*/ memorycontroller__DOT__curr_r_adr;
     IData/*31:0*/ memorycontroller__DOT__output_buffer;
     IData/*31:0*/ __VactIterCount;
-    VlTriggerVec<1> __VstlTriggered;
     VlTriggerVec<1> __VactTriggered;
     VlTriggerVec<1> __VnbaTriggered;
 

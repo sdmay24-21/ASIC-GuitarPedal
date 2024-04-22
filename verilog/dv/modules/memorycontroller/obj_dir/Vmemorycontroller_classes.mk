@@ -30,7 +30,6 @@ VM_CLASSES_FAST += \
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
 	Vmemorycontroller___024root__Slow \
-	Vmemorycontroller___024root__DepSet_h92e21af6__0__Slow \
 	Vmemorycontroller___024root__DepSet_h322fa1e8__0__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization

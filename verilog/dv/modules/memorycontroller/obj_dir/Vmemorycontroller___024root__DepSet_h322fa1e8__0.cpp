@@ -16,37 +16,41 @@ VL_INLINE_OPT void Vmemorycontroller___024root___nba_sequent__TOP__0(Vmemorycont
     Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___nba_sequent__TOP__0\n"); );
     // Init
+    SData/*10:0*/ __Vdly__memorycontroller__DOT__curr_impulse;
+    __Vdly__memorycontroller__DOT__curr_impulse = 0;
+    CData/*0:0*/ __Vdly__memorycontroller__DOT__ADC_RESET;
+    __Vdly__memorycontroller__DOT__ADC_RESET = 0;
     SData/*15:0*/ __Vdly__memorycontroller__DOT__head_adr;
     __Vdly__memorycontroller__DOT__head_adr = 0;
     SData/*15:0*/ __Vdly__memorycontroller__DOT__tail_adr;
     __Vdly__memorycontroller__DOT__tail_adr = 0;
     SData/*15:0*/ __Vdly__memorycontroller__DOT__curr_w_adr;
     __Vdly__memorycontroller__DOT__curr_w_adr = 0;
-    CData/*0:0*/ __Vdly__memorycontroller__DOT__impulse_read;
-    __Vdly__memorycontroller__DOT__impulse_read = 0;
+    IData/*31:0*/ __Vdly__memorycontroller__DOT__output_buffer;
+    __Vdly__memorycontroller__DOT__output_buffer = 0;
     CData/*0:0*/ __Vdly__memorycontroller__DOT__large_jump;
     __Vdly__memorycontroller__DOT__large_jump = 0;
     CData/*5:0*/ __Vdly__memorycontroller__DOT__jump_value;
     __Vdly__memorycontroller__DOT__jump_value = 0;
+    CData/*7:0*/ __Vdly__memorycontroller__DOT__impulse_multiplier;
+    __Vdly__memorycontroller__DOT__impulse_multiplier = 0;
     // Body
+    __Vdly__memorycontroller__DOT__impulse_multiplier 
+        = vlSelf->memorycontroller__DOT__impulse_multiplier;
     __Vdly__memorycontroller__DOT__jump_value = vlSelf->memorycontroller__DOT__jump_value;
     __Vdly__memorycontroller__DOT__large_jump = vlSelf->memorycontroller__DOT__large_jump;
-    __Vdly__memorycontroller__DOT__impulse_read = vlSelf->memorycontroller__DOT__impulse_read;
+    __Vdly__memorycontroller__DOT__output_buffer = vlSelf->memorycontroller__DOT__output_buffer;
     __Vdly__memorycontroller__DOT__curr_w_adr = vlSelf->memorycontroller__DOT__curr_w_adr;
     __Vdly__memorycontroller__DOT__tail_adr = vlSelf->memorycontroller__DOT__tail_adr;
     __Vdly__memorycontroller__DOT__head_adr = vlSelf->memorycontroller__DOT__head_adr;
-    if ((1U & (~ (IData)(vlSelf->adc_clock)))) {
-        if ((1U & (~ (IData)(vlSelf->off_chip_mem)))) {
-            vlSelf->memorycontroller__DOT__output_buffer 
-                = (vlSelf->memorycontroller__DOT__output_buffer 
-                   + ((IData)(vlSelf->data_in) * (IData)(vlSelf->memorycontroller__DOT__impulse_multiplier)));
-        }
-    }
+    __Vdly__memorycontroller__DOT__ADC_RESET = vlSelf->memorycontroller__DOT__ADC_RESET;
+    __Vdly__memorycontroller__DOT__curr_impulse = vlSelf->memorycontroller__DOT__curr_impulse;
     vlSelf->memory_we = ((IData)(vlSelf->adc_clock) 
                          && (IData)(vlSelf->record));
-    vlSelf->data_out = (vlSelf->memorycontroller__DOT__output_buffer 
-                        >> 0x10U);
     if (vlSelf->adc_clock) {
+        vlSelf->data_out = (0xffffU & vlSelf->memorycontroller__DOT__output_buffer);
+        __Vdly__memorycontroller__DOT__curr_impulse = 0U;
+        __Vdly__memorycontroller__DOT__ADC_RESET = 1U;
         if (vlSelf->record) {
             if (vlSelf->memorycontroller__DOT__record_buffer) {
                 __Vdly__memorycontroller__DOT__head_adr 
@@ -67,48 +71,48 @@ VL_INLINE_OPT void Vmemorycontroller___024root___nba_sequent__TOP__0(Vmemorycont
                                ? (IData)(vlSelf->memorycontroller__DOT__head_adr)
                                : ((IData)(1U) + (IData)(vlSelf->memorycontroller__DOT__curr_w_adr))));
         }
-        vlSelf->memorycontroller__DOT__curr_impulse = 0U;
         vlSelf->memorycontroller__DOT__record_buffer 
             = (1U & (~ (IData)(vlSelf->record)));
-    } else if (vlSelf->off_chip_mem) {
-        if (vlSelf->off_chip_mem_ready) {
-            if (vlSelf->memorycontroller__DOT__impulse_read) {
-                vlSelf->address_out = vlSelf->memorycontroller__DOT__curr_impulse;
-                __Vdly__memorycontroller__DOT__impulse_read = 0U;
-            } else {
-                vlSelf->address_out = (0xffffU & ((IData)(vlSelf->memorycontroller__DOT__curr_w_adr) 
-                                                  - (IData)(vlSelf->impulses)));
-                __Vdly__memorycontroller__DOT__impulse_read = 1U;
-            }
-        }
-    } else {
+    } else if (vlSelf->memorycontroller__DOT__ADC_RESET) {
+        __Vdly__memorycontroller__DOT__output_buffer = 0U;
+        __Vdly__memorycontroller__DOT__ADC_RESET = 0U;
+    } else if (vlSelf->off_chip_mem_ready) {
         if (vlSelf->memorycontroller__DOT__impulse_read) {
+            __Vdly__memorycontroller__DOT__curr_impulse 
+                = (0x7ffU & ((IData)(1U) + (IData)(vlSelf->memorycontroller__DOT__curr_impulse)));
             vlSelf->address_out = vlSelf->memorycontroller__DOT__curr_r_adr;
             __Vdly__memorycontroller__DOT__large_jump 
                 = (1U & ((IData)(vlSelf->data_in) >> 0xfU));
             __Vdly__memorycontroller__DOT__jump_value 
                 = (0x3fU & ((IData)(vlSelf->data_in) 
                             >> 9U));
-            vlSelf->memorycontroller__DOT__impulse_multiplier 
+            __Vdly__memorycontroller__DOT__impulse_multiplier 
                 = (0xffU & (IData)(vlSelf->data_in));
-            __Vdly__memorycontroller__DOT__impulse_read = 0U;
+            vlSelf->memorycontroller__DOT__impulse_read = 0U;
         } else {
+            __Vdly__memorycontroller__DOT__output_buffer 
+                = (vlSelf->memorycontroller__DOT__output_buffer 
+                   + ((IData)(vlSelf->data_in) * (IData)(vlSelf->memorycontroller__DOT__impulse_multiplier)));
             vlSelf->memorycontroller__DOT__curr_r_adr 
                 = (0xffffU & ((IData)(vlSelf->memorycontroller__DOT__large_jump)
                                ? ((IData)(vlSelf->memorycontroller__DOT__curr_r_adr) 
                                   + VL_SHIFTL_III(16,32,32, (IData)(vlSelf->memorycontroller__DOT__jump_value), 2U))
                                : ((IData)(vlSelf->memorycontroller__DOT__curr_r_adr) 
                                   + (IData)(vlSelf->memorycontroller__DOT__jump_value))));
+            vlSelf->address_out = vlSelf->memorycontroller__DOT__curr_impulse;
+            vlSelf->memorycontroller__DOT__impulse_read = 1U;
         }
-        vlSelf->address_out = vlSelf->memorycontroller__DOT__curr_impulse;
-        __Vdly__memorycontroller__DOT__impulse_read = 1U;
     }
+    vlSelf->memorycontroller__DOT__curr_impulse = __Vdly__memorycontroller__DOT__curr_impulse;
+    vlSelf->memorycontroller__DOT__ADC_RESET = __Vdly__memorycontroller__DOT__ADC_RESET;
     vlSelf->memorycontroller__DOT__head_adr = __Vdly__memorycontroller__DOT__head_adr;
     vlSelf->memorycontroller__DOT__tail_adr = __Vdly__memorycontroller__DOT__tail_adr;
     vlSelf->memorycontroller__DOT__curr_w_adr = __Vdly__memorycontroller__DOT__curr_w_adr;
-    vlSelf->memorycontroller__DOT__impulse_read = __Vdly__memorycontroller__DOT__impulse_read;
+    vlSelf->memorycontroller__DOT__output_buffer = __Vdly__memorycontroller__DOT__output_buffer;
     vlSelf->memorycontroller__DOT__large_jump = __Vdly__memorycontroller__DOT__large_jump;
     vlSelf->memorycontroller__DOT__jump_value = __Vdly__memorycontroller__DOT__jump_value;
+    vlSelf->memorycontroller__DOT__impulse_multiplier 
+        = __Vdly__memorycontroller__DOT__impulse_multiplier;
 }
 
 void Vmemorycontroller___024root___eval_nba(Vmemorycontroller___024root* vlSelf) {

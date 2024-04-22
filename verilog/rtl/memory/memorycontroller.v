@@ -35,7 +35,7 @@ module memorycontroller /*(
     reg [10:0]  curr_impulse; //max ~500
 
     reg[31:0] output_buffer; //stores the additions of multiplier and...
-    assign data_out = output_buffer[31:16]; // top 16 bits will become our output
+    //assign data_out = output_buffer[31:16]; // top 16 bits will become our output
 
 
 
@@ -57,7 +57,16 @@ module memorycontroller /*(
     //     end
     // end 
 
-
+/*
+if impulse count is 0x10 or 16
+_____________________
+|0x0 IMPULSES        |
+|--------------------|
+|0x10 START OF MEMORY|
+|                    |
+|0xFFFF              |
+|____________________|
+*/
     reg [15:0]  curr_r_adr;
 
     //reg [15:0]  offset_adr;
@@ -66,15 +75,17 @@ module memorycontroller /*(
     reg large_jump;
     reg[5:0] jump_value;
     reg[7:0] impulse_multiplier;
+    reg ADC_RESET;
     //wire[15:0] impulse_offset;
     //assign impulse_offset = {5'b00000,top_offset,4'b00,bottom_offset}; //offset from next impulse defined in the current impulse responce
     reg record_buffer;
     always @(posedge clk) begin //clocked
 
         if(adc_clock == 1'b1) begin //RESET ON ADC_CLOCK
-
+            data_out<= output_buffer[15:0]; //set data_out
             curr_impulse<= 0; //clear impulse counter
-            
+            ADC_RESET<=1;
+
             if(record == 1'b1) begin //recording inputs
                 if(record_buffer) begin
                     head_adr <= curr_w_adr;
@@ -115,26 +126,17 @@ module memorycontroller /*(
 
             memory_we <= 1'b0; //always disable write in reading portion of step
 
-            if(off_chip_mem) begin //using off chip memory
-                if(off_chip_mem_ready) begin
-                
-                    if(impulse_read == 1'b1) begin //if in impulse read
-                        
-                        address_out <= {5'b00000,curr_impulse};
+            if(ADC_RESET) begin
+                output_buffer <=0;
+                ADC_RESET<=0;
+            end 
+            else begin
 
-                        impulse_read<= 1'b0;
-                    end else begin
+           
 
-                        address_out <= curr_w_adr - impulses;
 
-                        impulse_read<= 1'b1;
-                    end
-                
-                end
-            end else begin //Using on chip memory
-
+            if(off_chip_mem_ready) begin
                 if(impulse_read == 1'b1) begin //if in impulse read
-                        
                         address_out <= curr_r_adr;
 
                         large_jump <= data_in[15];
@@ -144,7 +146,16 @@ module memorycontroller /*(
                         impulse_multiplier <= data_in[7:0];
                         
                         impulse_read<= 1'b0;
+                        curr_impulse<= curr_impulse+1; //add one to impulse counter
+
                     end else begin //read the DATA specified by impulse
+                        
+                        if(off_chip_mem) begin //using off chip memory
+                        
+                        end
+                        else begin
+
+                        end
 
                         if(large_jump == 1'b1) begin
                             curr_r_adr <= curr_r_adr + jump_value*(2^6); //check if overflow TODO
@@ -152,15 +163,14 @@ module memorycontroller /*(
                         else begin
                             curr_r_adr <= curr_r_adr +  {10'b0,jump_value}; //check if overflow TODO
                         end
-                        end
 
                         address_out <= {5'b00000,curr_impulse};
                         output_buffer <= output_buffer + data_in*impulse_multiplier;
                         impulse_read <= 1'b1;
                     end
-                
-
             end
-        end
+            end
+        end //ELSE WHEN NOT ADC CLOCKED
+    end //ALWAYS
 
 endmodule

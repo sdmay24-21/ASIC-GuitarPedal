@@ -30,6 +30,12 @@ class pedal:
         self.maxvalue = 2**(self.bits-1) #2 to the bits power divided by 2 for signed/unsigned
         self.data = (norm * self.maxvalue).astype(np.int16)
         
+    def readoutputfile(self,output):
+        self.data = np.int16()
+
+        with open(output) as file:
+            for line in file:
+                self.data = np.append(self.data,int(line.rstrip()))
         
     def write(self):
         #convert back to float and
@@ -59,7 +65,14 @@ class pedal:
         resample_ratio = float(self.samplerate) / samrate
         resampled_data = resample(data, int(len(data) * resample_ratio))
         mono = resampled_data.sum(axis=1) / 2
-        self.impulses = mono #TODO bits?
+        min_data = np.min(abs(mono))
+        max_data = np.max(abs(mono))
+        norm = (mono - min_data) / (max_data - min_data)
+        #convert to 8 bit
+        #bits = 8
+        #maxvalue = 2**(bits-1) #2 to the bits power divided by 2 for signed/unsigned
+        #self.impulses = (norm * maxvalue).astype(np.int16)
+        self.impulses = norm
         
     def impulse(self,data,num_impulses, gain,delay_reverb):
         result = 0
@@ -68,8 +81,9 @@ class pedal:
         length = min(len(data),num_impulses)
         
         dataRes = np.array(data[:length])
+        #impulseRes = np.array(np.flip(self.impulses[:length]))
         impulseRes = np.array(self.impulses[:length])
-        result = np.sum(np.multiply(dataRes,impulseRes*self.maxvalue))
+        result = np.sum(np.multiply(dataRes,impulseRes))
         return result
     
         for (impulse,datum) in zip(self.impulses,data):

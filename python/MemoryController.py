@@ -76,6 +76,8 @@ class MemoryController:
                     jump_value = floor( (start_of_impulse )/ pow(2,jump_bits));
                     time+= jump_value*pow(2,jump_bits); #add to time
                     
+                    start_of_impulse-= jump_value*pow(2,jump_bits); #remove from start
+                    
                     large_jump = 1
                     #add buffer
                     field  = MemoryController.calculate_offset_field(large_jump,jump_value,0);

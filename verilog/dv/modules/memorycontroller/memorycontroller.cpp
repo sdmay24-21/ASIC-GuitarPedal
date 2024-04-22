@@ -1,8 +1,9 @@
-  #include "Vmemorycontroller.h"
-  #include "verilated.h"
+#include "Vmemorycontroller.h"
+#include "verilated.h"
+#include <verilated_vcd_c.h>
 
-#define CLOCKRATIO 20000000/10000
-
+#define CLOCKRATIO 2000//20000000/10000
+#define DATAPOINTS 2
 // Current simulation time (64-bit unsigned)
 vluint64_t main_time = 0;
 double sc_time_stamp() {
@@ -52,16 +53,22 @@ int main(int argc, char** argv) {
 
     // Set debug level, 0 is off, 9 is highest presently used
     // May be overridden by commandArgs
-  Verilated::debug(0);
+  Verilated::debug(9);
     
     // Verilator must compute traced signals
   Verilated::traceEverOn(true);
+
+
     
     // Create logs/ directory in case we have traces to put under it
   Verilated::mkdir("logs");
   VerilatedContext* contextp = new VerilatedContext;
   contextp->commandArgs(argc, argv);
+
   Vmemorycontroller* top = new Vmemorycontroller{contextp};
+  
+  //VerilatedVcdC *m_trace = new VerilatedVcdC;
+  //top->trace(m_trace, 5);
 
     //get RAM (impulses)
   FILE* impulsefile_stream = fopen(impulsefile, "r");
@@ -98,29 +105,32 @@ int main(int argc, char** argv) {
  
 
     VL_PRINTF("Starting test!\n");
+    // Open a file in writing mode
+    FILE *fptr;
+    fptr = fopen("output.txt", "w");
     fgets(line, 1024, stream);
     tmp = strdup(line);
+    int16_t expected_output;
 
-    while (!Verilated::gotFinish()) {
+    while (datapoint< DATAPOINTS) {//!Verilated::gotFinish()
       main_time++;  // Time passes...
       top->clk = !top->clk; //invert clock
 
       if(main_time%CLOCKRATIO == 0){
         top->adc_clock = 1; //ADC CLOCK SET
-
-        int16_t data_in = atoi(getfield(tmp,0));     //DATA INPUT
-        top->data_in = data_in;
-        int16_t impulses = atoi(getfield(tmp,1));     //number of impulses INPUT
-        top->impulses = impulses;
+        //Expected,Data,Number of Impulses,record,off_chip_mem
+        expected_output = atoi(getfield(tmp,0));     //DATA Output
+        int16_t data_in = atoi(getfield(tmp,1));     //DATA INPUT
+        int16_t impulses = atoi(getfield(tmp,2));     //number of impulses INPUT
         bool record = getfield(tmp,3 );               // record
+        bool off_chip_mem = getfield(tmp,4 ); // offchipmem
+
+        top->data_in = data_in;
+        top->impulses = impulses;
         top->record = record;
+        top->off_chip_mem = off_chip_mem;
 
 
-        bool loop = getfield(tmp,2 ); // loop useless
-        //LOG RESULTS
-        VL_PRINTF("[%" VL_PRI64 "d] Inputs: clk=%x data_in=%x data_out = %x impulses=%x record=%x\n",
-        datapoint, top->clk, top->data_in, top->data_out,top->impulses, top->record);
-        
         if(!fgets(line, 1024, stream)) break;
         tmp = strdup(line);
         
@@ -130,13 +140,21 @@ int main(int argc, char** argv) {
       else{
         top->adc_clock = 0; //ADC CLOCK SET
       }
-          bool off_chip_mem = getfield(tmp,4 ); // offchipmem
-          top->off_chip_mem = off_chip_mem;
-          bool off_chip_mem_ready = getfield(tmp,5 ); // offchipmemready
-          top->off_chip_mem_ready = off_chip_mem_ready;
+
+          top->off_chip_mem_ready = 1; //for now just assume 0 cycle sram?
 
 
       top->eval();
+        //LOG RESULTS
+        if((main_time) %CLOCKRATIO == 0){
+          VL_PRINTF("[%" VL_PRI64 "d] expected output =  %x and data_out = %x Inputs: clk=%x data_in=%x  number of impulses=%x record=%x\r\n",
+          datapoint, expected_output, top->data_out, top->clk, top->data_in,top->impulses, top->record);
+          fprintf(fptr, "%d\n", top->data_out);
+        }
+        if(top->clk){
+        VL_PRINTF("[%" VL_PRI64 "d - %d] main time = %d address_out = %x  ADC_CLOCK = %x data out = %x\r\n",
+          datapoint,((main_time) %CLOCKRATIO), main_time, top->address_out, top->adc_clock, top->data_out);
+        }
     }
 
 
