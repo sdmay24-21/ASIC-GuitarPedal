@@ -12,15 +12,11 @@ Vmemorycontroller::Vmemorycontroller(VerilatedContext* _vcontextp__, const char*
     , clk{vlSymsp->TOP.clk}
     , adc_clock{vlSymsp->TOP.adc_clock}
     , record{vlSymsp->TOP.record}
-    , loop{vlSymsp->TOP.loop}
     , off_chip_mem{vlSymsp->TOP.off_chip_mem}
     , off_chip_mem_ready{vlSymsp->TOP.off_chip_mem_ready}
     , memory_we{vlSymsp->TOP.memory_we}
-    , delay_reverb{vlSymsp->TOP.delay_reverb}
-    , gain{vlSymsp->TOP.gain}
     , impulses{vlSymsp->TOP.impulses}
     , data_in{vlSymsp->TOP.data_in}
-    , curr_adr{vlSymsp->TOP.curr_adr}
     , address_out{vlSymsp->TOP.address_out}
     , data_out{vlSymsp->TOP.data_out}
     , rootp{&(vlSymsp->TOP)}

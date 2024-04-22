@@ -27,15 +27,11 @@ class alignas(VL_CACHE_LINE_BYTES) Vmemorycontroller VL_NOT_FINAL : public Veril
     VL_IN8(&clk,0,0);
     VL_IN8(&adc_clock,0,0);
     VL_IN8(&record,0,0);
-    VL_IN8(&loop,0,0);
     VL_IN8(&off_chip_mem,0,0);
     VL_IN8(&off_chip_mem_ready,0,0);
     VL_OUT8(&memory_we,0,0);
-    VL_IN16(&delay_reverb,15,0);
-    VL_IN16(&gain,15,0);
     VL_IN16(&impulses,15,0);
     VL_IN16(&data_in,15,0);
-    VL_OUT16(&curr_adr,15,0);
     VL_OUT16(&address_out,15,0);
     VL_OUT16(&data_out,15,0);
 

@@ -17,7 +17,7 @@ Vmemorycontroller___024root::Vmemorycontroller___024root(Vmemorycontroller__Syms
 }
 
 void Vmemorycontroller___024root::__Vconfigure(bool first) {
-    if (false && first) {}  // Prevent unused
+    (void)first;  // Prevent unused variable warning
 }
 
 Vmemorycontroller___024root::~Vmemorycontroller___024root() {

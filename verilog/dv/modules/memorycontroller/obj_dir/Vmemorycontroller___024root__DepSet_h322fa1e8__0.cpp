@@ -6,157 +6,129 @@
 #include "Vmemorycontroller___024root.h"
 
 void Vmemorycontroller___024root___eval_act(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
+    (void)vlSelf;  // Prevent unused variable warning
     Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___eval_act\n"); );
 }
 
 VL_INLINE_OPT void Vmemorycontroller___024root___nba_sequent__TOP__0(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
+    (void)vlSelf;  // Prevent unused variable warning
     Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___nba_sequent__TOP__0\n"); );
+    // Init
+    SData/*15:0*/ __Vdly__memorycontroller__DOT__head_adr;
+    __Vdly__memorycontroller__DOT__head_adr = 0;
+    SData/*15:0*/ __Vdly__memorycontroller__DOT__tail_adr;
+    __Vdly__memorycontroller__DOT__tail_adr = 0;
+    SData/*15:0*/ __Vdly__memorycontroller__DOT__curr_w_adr;
+    __Vdly__memorycontroller__DOT__curr_w_adr = 0;
+    CData/*0:0*/ __Vdly__memorycontroller__DOT__impulse_read;
+    __Vdly__memorycontroller__DOT__impulse_read = 0;
+    CData/*0:0*/ __Vdly__memorycontroller__DOT__large_jump;
+    __Vdly__memorycontroller__DOT__large_jump = 0;
+    CData/*5:0*/ __Vdly__memorycontroller__DOT__jump_value;
+    __Vdly__memorycontroller__DOT__jump_value = 0;
     // Body
-    vlSelf->__Vdly__curr_adr = vlSelf->curr_adr;
-}
-
-VL_INLINE_OPT void Vmemorycontroller___024root___nba_sequent__TOP__1(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___nba_sequent__TOP__1\n"); );
-    // Body
-    vlSelf->__Vdly__memorycontroller__DOT__curr_r_adr 
-        = vlSelf->memorycontroller__DOT__curr_r_adr;
-    vlSelf->__Vdly__memorycontroller__DOT__impulse_read 
-        = vlSelf->memorycontroller__DOT__impulse_read;
-}
-
-VL_INLINE_OPT void Vmemorycontroller___024root___nba_sequent__TOP__2(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___nba_sequent__TOP__2\n"); );
-    // Body
-    vlSelf->memorycontroller__DOT__output_buffer = 0U;
+    __Vdly__memorycontroller__DOT__jump_value = vlSelf->memorycontroller__DOT__jump_value;
+    __Vdly__memorycontroller__DOT__large_jump = vlSelf->memorycontroller__DOT__large_jump;
+    __Vdly__memorycontroller__DOT__impulse_read = vlSelf->memorycontroller__DOT__impulse_read;
+    __Vdly__memorycontroller__DOT__curr_w_adr = vlSelf->memorycontroller__DOT__curr_w_adr;
+    __Vdly__memorycontroller__DOT__tail_adr = vlSelf->memorycontroller__DOT__tail_adr;
+    __Vdly__memorycontroller__DOT__head_adr = vlSelf->memorycontroller__DOT__head_adr;
+    if ((1U & (~ (IData)(vlSelf->adc_clock)))) {
+        if ((1U & (~ (IData)(vlSelf->off_chip_mem)))) {
+            vlSelf->memorycontroller__DOT__output_buffer 
+                = (vlSelf->memorycontroller__DOT__output_buffer 
+                   + ((IData)(vlSelf->data_in) * (IData)(vlSelf->memorycontroller__DOT__impulse_multiplier)));
+        }
+    }
+    vlSelf->memory_we = ((IData)(vlSelf->adc_clock) 
+                         && (IData)(vlSelf->record));
     vlSelf->data_out = (vlSelf->memorycontroller__DOT__output_buffer 
                         >> 0x10U);
-}
-
-VL_INLINE_OPT void Vmemorycontroller___024root___nba_sequent__TOP__4(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___nba_sequent__TOP__4\n"); );
-    // Body
-    vlSelf->memory_we = 0U;
-    if (vlSelf->off_chip_mem) {
+    if (vlSelf->adc_clock) {
+        if (vlSelf->record) {
+            if (vlSelf->memorycontroller__DOT__record_buffer) {
+                __Vdly__memorycontroller__DOT__head_adr 
+                    = vlSelf->memorycontroller__DOT__curr_w_adr;
+            }
+            vlSelf->address_out = vlSelf->memorycontroller__DOT__curr_w_adr;
+            __Vdly__memorycontroller__DOT__tail_adr 
+                = vlSelf->memorycontroller__DOT__curr_w_adr;
+            __Vdly__memorycontroller__DOT__curr_w_adr 
+                = (0xffffU & ((0xffffU == ((IData)(1U) 
+                                           + (IData)(vlSelf->memorycontroller__DOT__curr_w_adr)))
+                               ? (IData)(vlSelf->impulses)
+                               : ((IData)(1U) + (IData)(vlSelf->memorycontroller__DOT__curr_w_adr))));
+        } else {
+            __Vdly__memorycontroller__DOT__curr_w_adr 
+                = (0xffffU & ((((IData)(1U) + (IData)(vlSelf->memorycontroller__DOT__curr_w_adr)) 
+                               == (IData)(vlSelf->memorycontroller__DOT__tail_adr))
+                               ? (IData)(vlSelf->memorycontroller__DOT__head_adr)
+                               : ((IData)(1U) + (IData)(vlSelf->memorycontroller__DOT__curr_w_adr))));
+        }
+        vlSelf->memorycontroller__DOT__curr_impulse = 0U;
+        vlSelf->memorycontroller__DOT__record_buffer 
+            = (1U & (~ (IData)(vlSelf->record)));
+    } else if (vlSelf->off_chip_mem) {
         if (vlSelf->off_chip_mem_ready) {
             if (vlSelf->memorycontroller__DOT__impulse_read) {
                 vlSelf->address_out = vlSelf->memorycontroller__DOT__curr_impulse;
-                vlSelf->__Vdly__memorycontroller__DOT__impulse_read = 0U;
+                __Vdly__memorycontroller__DOT__impulse_read = 0U;
             } else {
                 vlSelf->address_out = (0xffffU & ((IData)(vlSelf->memorycontroller__DOT__curr_w_adr) 
-                                                  - (IData)(vlSelf->memorycontroller__DOT__offset_adr)));
-                vlSelf->__Vdly__memorycontroller__DOT__impulse_read = 1U;
+                                                  - (IData)(vlSelf->impulses)));
+                __Vdly__memorycontroller__DOT__impulse_read = 1U;
             }
         }
-    } else if (vlSelf->memorycontroller__DOT__impulse_read) {
-        vlSelf->memorycontroller__DOT__top_offset = 
-            (7U & ((IData)(vlSelf->data_in) >> 0xdU));
-        vlSelf->memorycontroller__DOT__bottom_offset 
-            = (7U & ((IData)(vlSelf->data_in) >> 9U));
-        vlSelf->address_out = vlSelf->memorycontroller__DOT__offset_adr;
-        vlSelf->__Vdly__memorycontroller__DOT__impulse_read = 0U;
     } else {
-        vlSelf->__Vdly__memorycontroller__DOT__curr_r_adr 
-            = (0xffffU & ((IData)(vlSelf->memorycontroller__DOT__curr_r_adr) 
-                          + (IData)(vlSelf->memorycontroller__DOT__impulse_offset)));
-        vlSelf->address_out = vlSelf->memorycontroller__DOT__curr_r_adr;
-        vlSelf->__Vdly__memorycontroller__DOT__impulse_read = 1U;
+        if (vlSelf->memorycontroller__DOT__impulse_read) {
+            vlSelf->address_out = vlSelf->memorycontroller__DOT__curr_r_adr;
+            __Vdly__memorycontroller__DOT__large_jump 
+                = (1U & ((IData)(vlSelf->data_in) >> 0xfU));
+            __Vdly__memorycontroller__DOT__jump_value 
+                = (0x3fU & ((IData)(vlSelf->data_in) 
+                            >> 9U));
+            vlSelf->memorycontroller__DOT__impulse_multiplier 
+                = (0xffU & (IData)(vlSelf->data_in));
+            __Vdly__memorycontroller__DOT__impulse_read = 0U;
+        } else {
+            vlSelf->memorycontroller__DOT__curr_r_adr 
+                = (0xffffU & ((IData)(vlSelf->memorycontroller__DOT__large_jump)
+                               ? ((IData)(vlSelf->memorycontroller__DOT__curr_r_adr) 
+                                  + VL_SHIFTL_III(16,32,32, (IData)(vlSelf->memorycontroller__DOT__jump_value), 2U))
+                               : ((IData)(vlSelf->memorycontroller__DOT__curr_r_adr) 
+                                  + (IData)(vlSelf->memorycontroller__DOT__jump_value))));
+        }
+        vlSelf->address_out = vlSelf->memorycontroller__DOT__curr_impulse;
+        __Vdly__memorycontroller__DOT__impulse_read = 1U;
     }
-    vlSelf->memorycontroller__DOT__impulse_read = vlSelf->__Vdly__memorycontroller__DOT__impulse_read;
-    vlSelf->memorycontroller__DOT__impulse_offset = 
-        (((IData)(vlSelf->memorycontroller__DOT__top_offset) 
-          << 7U) | (IData)(vlSelf->memorycontroller__DOT__bottom_offset));
-    vlSelf->memorycontroller__DOT__curr_r_adr = vlSelf->__Vdly__memorycontroller__DOT__curr_r_adr;
-}
-
-VL_INLINE_OPT void Vmemorycontroller___024root___nba_sequent__TOP__5(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___nba_sequent__TOP__5\n"); );
-    // Body
-    if ((1U & (~ (IData)(vlSelf->record)))) {
-        vlSelf->memory_we = 1U;
-        vlSelf->address_out = vlSelf->curr_adr;
-    }
-    vlSelf->__Vdly__curr_adr = (0xffffU & ((0xffffU 
-                                            == ((IData)(1U) 
-                                                + (IData)(vlSelf->curr_adr)))
-                                            ? (IData)(vlSelf->impulses)
-                                            : ((IData)(1U) 
-                                               + (IData)(vlSelf->curr_adr))));
-    vlSelf->memorycontroller__DOT__curr_impulse = 0U;
-}
-
-VL_INLINE_OPT void Vmemorycontroller___024root___nba_sequent__TOP__6(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___nba_sequent__TOP__6\n"); );
-    // Body
-    if ((1U & (~ (IData)(vlSelf->record)))) {
-        vlSelf->memory_we = 1U;
-        vlSelf->address_out = vlSelf->curr_adr;
-    }
-    vlSelf->__Vdly__curr_adr = (0xffffU & ((0xffffU 
-                                            == ((IData)(1U) 
-                                                + (IData)(vlSelf->curr_adr)))
-                                            ? (IData)(vlSelf->impulses)
-                                            : ((IData)(1U) 
-                                               + (IData)(vlSelf->curr_adr))));
-}
-
-VL_INLINE_OPT void Vmemorycontroller___024root___nba_sequent__TOP__8(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___nba_sequent__TOP__8\n"); );
-    // Body
-    vlSelf->curr_adr = vlSelf->__Vdly__curr_adr;
+    vlSelf->memorycontroller__DOT__head_adr = __Vdly__memorycontroller__DOT__head_adr;
+    vlSelf->memorycontroller__DOT__tail_adr = __Vdly__memorycontroller__DOT__tail_adr;
+    vlSelf->memorycontroller__DOT__curr_w_adr = __Vdly__memorycontroller__DOT__curr_w_adr;
+    vlSelf->memorycontroller__DOT__impulse_read = __Vdly__memorycontroller__DOT__impulse_read;
+    vlSelf->memorycontroller__DOT__large_jump = __Vdly__memorycontroller__DOT__large_jump;
+    vlSelf->memorycontroller__DOT__jump_value = __Vdly__memorycontroller__DOT__jump_value;
 }
 
 void Vmemorycontroller___024root___eval_nba(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
+    (void)vlSelf;  // Prevent unused variable warning
     Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___eval_nba\n"); );
     // Body
-    if ((0x10ULL & vlSelf->__VnbaTriggered.word(0U))) {
-        Vmemorycontroller___024root___nba_sequent__TOP__0(vlSelf);
-    }
-    if ((4ULL & vlSelf->__VnbaTriggered.word(0U))) {
-        Vmemorycontroller___024root___nba_sequent__TOP__1(vlSelf);
-    }
-    if ((2ULL & vlSelf->__VnbaTriggered.word(0U))) {
-        Vmemorycontroller___024root___nba_sequent__TOP__2(vlSelf);
-    }
-    if ((4ULL & vlSelf->__VnbaTriggered.word(0U))) {
-        Vmemorycontroller___024root___nba_sequent__TOP__4(vlSelf);
-    }
     if ((1ULL & vlSelf->__VnbaTriggered.word(0U))) {
-        Vmemorycontroller___024root___nba_sequent__TOP__5(vlSelf);
-    }
-    if ((2ULL & vlSelf->__VnbaTriggered.word(0U))) {
-        Vmemorycontroller___024root___nba_sequent__TOP__6(vlSelf);
-    }
-    if ((0x10ULL & vlSelf->__VnbaTriggered.word(0U))) {
-        Vmemorycontroller___024root___nba_sequent__TOP__8(vlSelf);
+        Vmemorycontroller___024root___nba_sequent__TOP__0(vlSelf);
     }
 }
 
 void Vmemorycontroller___024root___eval_triggers__act(Vmemorycontroller___024root* vlSelf);
 
 bool Vmemorycontroller___024root___eval_phase__act(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
+    (void)vlSelf;  // Prevent unused variable warning
     Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___eval_phase__act\n"); );
     // Init
-    VlTriggerVec<5> __VpreTriggered;
+    VlTriggerVec<1> __VpreTriggered;
     CData/*0:0*/ __VactExecute;
     // Body
     Vmemorycontroller___024root___eval_triggers__act(vlSelf);
@@ -170,7 +142,7 @@ bool Vmemorycontroller___024root___eval_phase__act(Vmemorycontroller___024root* 
 }
 
 bool Vmemorycontroller___024root___eval_phase__nba(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
+    (void)vlSelf;  // Prevent unused variable warning
     Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___eval_phase__nba\n"); );
     // Init
@@ -192,7 +164,7 @@ VL_ATTR_COLD void Vmemorycontroller___024root___dump_triggers__act(Vmemorycontro
 #endif  // VL_DEBUG
 
 void Vmemorycontroller___024root___eval(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
+    (void)vlSelf;  // Prevent unused variable warning
     Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___eval\n"); );
     // Init
@@ -234,7 +206,7 @@ void Vmemorycontroller___024root___eval(Vmemorycontroller___024root* vlSelf) {
 
 #ifdef VL_DEBUG
 void Vmemorycontroller___024root___eval_debug_assertions(Vmemorycontroller___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
+    (void)vlSelf;  // Prevent unused variable warning
     Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___eval_debug_assertions\n"); );
     // Body
@@ -244,8 +216,6 @@ void Vmemorycontroller___024root___eval_debug_assertions(Vmemorycontroller___024
         Verilated::overWidthError("adc_clock");}
     if (VL_UNLIKELY((vlSelf->record & 0xfeU))) {
         Verilated::overWidthError("record");}
-    if (VL_UNLIKELY((vlSelf->loop & 0xfeU))) {
-        Verilated::overWidthError("loop");}
     if (VL_UNLIKELY((vlSelf->off_chip_mem & 0xfeU))) {
         Verilated::overWidthError("off_chip_mem");}
     if (VL_UNLIKELY((vlSelf->off_chip_mem_ready & 0xfeU))) {
