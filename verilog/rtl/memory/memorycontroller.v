@@ -20,21 +20,21 @@ module memorycontroller /*(
     //input [15:0] delay_reverb,
     //input [15:0] gain,
     input [15:0] impulses,
-    input wire [15:0] data_in,
+    input wire signed [15:0] data_in,
     output reg memory_we,
     //reg [15:0]  curr_adr,
-    output [15:0] address_out,
-    output [15:0] data_out
+    output reg [15:0] address_out,
+    output reg [15:0] data_out
     );
 
     reg [15:0]  head_adr;
     reg [15:0]  tail_adr;
 
-    reg [15:0]  curr_w_adr;
+    reg [15:0]  curr_w_adr = 16'hFFF0;
 
     reg [10:0]  curr_impulse; //max ~500
 
-    reg[31:0] output_buffer; //stores the additions of multiplier and...
+    reg signed [31:0] output_buffer; //stores the additions of multiplier and...
     //assign data_out = output_buffer[31:16]; // top 16 bits will become our output
 
 
@@ -67,26 +67,33 @@ _____________________
 |0xFFFF              |
 |____________________|
 */
-    reg [15:0]  curr_r_adr;
+    reg [15:0]  curr_r_adr;// = 16'hFFF0;
 
     //reg [15:0]  offset_adr;
-    reg impulse_read;
+    reg impulse_read = 0;
 
     reg large_jump;
     reg[5:0] jump_value;
-    reg[7:0] impulse_multiplier;
+    reg signed [8:0] impulse_multiplier;
+
+    // assign large_jump = data_in[15];
+    // assign jump_value = data_in[14:9];
+    // assign impulse_multiplier = data_in[7:0];
+
     reg ADC_RESET;
     //wire[15:0] impulse_offset;
     //assign impulse_offset = {5'b00000,top_offset,4'b00,bottom_offset}; //offset from next impulse defined in the current impulse responce
-    reg record_buffer;
+    reg record_buffer = 0;
     always @(posedge clk) begin //clocked
+        //$display("CLOCK!");
+        if(adc_clock) begin //RESET ON ADC_CLOCK
+            //data_out<= output_buffer[31:16]; //set data_out
 
-        if(adc_clock == 1'b1) begin //RESET ON ADC_CLOCK
-            data_out<= output_buffer[15:0]; //set data_out
             curr_impulse<= 0; //clear impulse counter
             ADC_RESET<=1;
-
-            if(record == 1'b1) begin //recording inputs
+            curr_r_adr<=curr_w_adr;
+            //$display("ADC CLOCK!");
+            if(record) begin //recording inputs
                 if(record_buffer) begin
                     head_adr <= curr_w_adr;
                     
@@ -124,18 +131,24 @@ _____________________
         end
         else begin
 
-            memory_we <= 1'b0; //always disable write in reading portion of step
+           
 
-            if(ADC_RESET) begin
-                output_buffer <=0;
+            if(ADC_RESET) begin //NOT NEEDED?
+                //output_buffer <=0;
                 ADC_RESET<=0;
+                data_out<= output_buffer[22:7]; //set data_out data_out<= output_buffer[23:8]; //set data_out
+                output_buffer <=0;
+                //address_out <= curr_w_adr; //
+                //memory_we <= 1'b1;// edit the memory
             end 
-            else begin
+            else begin 
+           
 
            
 
 
             if(off_chip_mem_ready) begin
+                memory_we <= 1'b0; //always disable write in reading portion of step
                 if(impulse_read == 1'b1) begin //if in impulse read
                         address_out <= curr_r_adr;
 
@@ -143,7 +156,7 @@ _____________________
                         jump_value <= data_in[14:9];
 
                         //negative = data_in[8];
-                        impulse_multiplier <= data_in[7:0];
+                        impulse_multiplier <= data_in[8:0];
                         
                         impulse_read<= 1'b0;
                         curr_impulse<= curr_impulse+1; //add one to impulse counter
@@ -158,10 +171,10 @@ _____________________
                         end
 
                         if(large_jump == 1'b1) begin
-                            curr_r_adr <= curr_r_adr + jump_value*(2^6); //check if overflow TODO
+                            curr_r_adr <= curr_r_adr - jump_value*(2^6); //check if overflow TODO
                         end
                         else begin
-                            curr_r_adr <= curr_r_adr +  {10'b0,jump_value}; //check if overflow TODO
+                            curr_r_adr <= curr_r_adr - ({10'b0, jump_value}+1); //check if overflow TODO
                         end
 
                         address_out <= {5'b00000,curr_impulse};

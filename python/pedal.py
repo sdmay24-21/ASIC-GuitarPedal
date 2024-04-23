@@ -36,6 +36,9 @@ class pedal:
         with open(output) as file:
             for line in file:
                 self.data = np.append(self.data,int(line.rstrip()))
+        self.min_data = np.min(abs(self.data))
+        self.max_data = np.max(abs(self.data))
+        self.maxvalue =2**(16-1)
         
     def write(self):
         #convert back to float and

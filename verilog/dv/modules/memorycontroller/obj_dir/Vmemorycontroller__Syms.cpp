@@ -18,7 +18,7 @@ Vmemorycontroller__Syms::Vmemorycontroller__Syms(VerilatedContext* contextp, con
     , TOP{this, namep}
 {
         // Check resources
-        Verilated::stackCheck(43);
+        Verilated::stackCheck(49);
     // Configure time unit / time precision
     _vm_contextp__->timeunit(-12);
     _vm_contextp__->timeprecision(-12);

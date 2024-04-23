@@ -5,10 +5,24 @@
 #include "Vmemorycontroller__pch.h"
 #include "Vmemorycontroller___024root.h"
 
+VL_ATTR_COLD void Vmemorycontroller___024root___eval_static__TOP(Vmemorycontroller___024root* vlSelf);
+
 VL_ATTR_COLD void Vmemorycontroller___024root___eval_static(Vmemorycontroller___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___eval_static\n"); );
+    // Body
+    Vmemorycontroller___024root___eval_static__TOP(vlSelf);
+}
+
+VL_ATTR_COLD void Vmemorycontroller___024root___eval_static__TOP(Vmemorycontroller___024root* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___eval_static__TOP\n"); );
+    // Body
+    vlSelf->memorycontroller__DOT__curr_w_adr = 0xfff0U;
+    vlSelf->memorycontroller__DOT__impulse_read = 0U;
+    vlSelf->memorycontroller__DOT__record_buffer = 0U;
 }
 
 VL_ATTR_COLD void Vmemorycontroller___024root___eval_initial(Vmemorycontroller___024root* vlSelf) {
@@ -85,7 +99,7 @@ VL_ATTR_COLD void Vmemorycontroller___024root___ctor_var_reset(Vmemorycontroller
     vlSelf->memorycontroller__DOT__impulse_read = VL_RAND_RESET_I(1);
     vlSelf->memorycontroller__DOT__large_jump = VL_RAND_RESET_I(1);
     vlSelf->memorycontroller__DOT__jump_value = VL_RAND_RESET_I(6);
-    vlSelf->memorycontroller__DOT__impulse_multiplier = VL_RAND_RESET_I(8);
+    vlSelf->memorycontroller__DOT__impulse_multiplier = VL_RAND_RESET_I(9);
     vlSelf->memorycontroller__DOT__ADC_RESET = VL_RAND_RESET_I(1);
     vlSelf->memorycontroller__DOT__record_buffer = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = VL_RAND_RESET_I(1);

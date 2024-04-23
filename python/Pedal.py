@@ -75,16 +75,16 @@ class pedal:
     def setimpulse(self,input_file):
         self.impulses = self.readWavFile(input_file,bits=8, samplerate=self.samplerate);
         
-    def impulse(self,data,num_impulses):
+    def impulse(self,start,data,num_impulses):
         result = 0
         count = 0
         
-        length = min(len(data),num_impulses)
+        length = min(len(data[:start]),num_impulses)
         
-        dataRes = np.array(data[:length])
+        dataRes = np.array(data[start-length:start]).astype(np.int32)
         #impulseRes = np.array(np.flip(self.impulses[:length]))
-        impulseRes = np.array(self.impulses[:length])
-        result = floor(np.sum(np.multiply(dataRes,impulseRes))/(2**(8-1)))
+        impulseRes = np.array(np.flip(self.impulses[0:length])).astype(np.int32)
+        result = floor(np.sum(np.multiply(dataRes,impulseRes)/(2**(8-1))))
         return result
     
     def impulseHW(self,data,num_impulses, gain,delay_reverb):
@@ -100,19 +100,19 @@ class pedal:
         
         data = list(self.data)
         result = list()
-        datum = data.pop(0)
+        #datum = data.pop(0)
         count = 0
         self.number_of_impulses = number_of_impulses
         
         for c in range(len(data)):
             count+=1
-            result.append(self.impulse(data, number_of_impulses))
+            result.append(self.impulse(c, data, number_of_impulses))
                     
-            datum = data.pop(0)
+            #datum = data.pop(0)
         self.result =  np.array(result)
     def calculate_offset_field(large_jump,jump_value,multiplier):
         bits = 15;
-        value = (large_jump<<bits)|(jump_value<<bits-(6+1))|(multiplier&0xFF<<0)
+        value = (large_jump<<bits)|(jump_value<<bits-(6+1))|(multiplier&0x1FF<<0)
         field = [value,"{0:016b}".format(value), large_jump, jump_value,multiplier]
 
         return field;
@@ -152,7 +152,7 @@ class pedal:
                 large_jump = 0
                 jump_value = start_of_impulse;
                 time += start_of_impulse+1; #add to time
-                multiplier  = data_list[time];
+                multiplier  = data_list[time-1];
 
                 field  = pedal.calculate_offset_field(large_jump,jump_value,multiplier);
                 writer.writerow(field);
