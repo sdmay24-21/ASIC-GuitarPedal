@@ -1,0 +1,1096 @@
+<?xml version="1.0" ?>
+<!-- DESCRIPTION: Verilator output: XML representation of netlist -->
+<verilator_xml>
+  <files>
+    <file id="d" filename="../../../rtl/memory/memorycontroller.v" language="1800-2017"/>
+    <file id="c" filename="/usr/local/share/verilator/include/verilated_std.sv" language="1800-2017"/>
+    <file id="a" filename="&lt;built-in&gt;" language="1800-2017"/>
+    <file id="b" filename="&lt;command-line&gt;" language="1800-2017"/>
+  </files>
+  <module_files>
+    <file id="d" filename="../../../rtl/memory/memorycontroller.v" language="1800-2017"/>
+  </module_files>
+  <cells>
+    <cell loc="d,8,8,8,24" name="$root" submodname="$root" hier="$root"/>
+  </cells>
+  <netlist>
+    <module loc="d,8,8,8,24" name="$root" origName="$root" topModule="1" public="true">
+      <var loc="d,14,11,14,14" name="clk" dtype_id="1" dir="input" pinIndex="1" vartype="logic" origName="clk" public="true"/>
+      <var loc="d,15,11,15,20" name="adc_clock" dtype_id="1" dir="input" pinIndex="2" vartype="logic" origName="adc_clock" public="true"/>
+      <var loc="d,16,11,16,17" name="record" dtype_id="1" dir="input" pinIndex="3" vartype="logic" origName="record" public="true"/>
+      <var loc="d,18,11,18,23" name="off_chip_mem" dtype_id="1" dir="input" pinIndex="4" vartype="logic" origName="off_chip_mem" public="true"/>
+      <var loc="d,19,11,19,29" name="off_chip_mem_ready" dtype_id="1" dir="input" pinIndex="5" vartype="logic" origName="off_chip_mem_ready" public="true"/>
+      <var loc="d,24,16,24,25" name="memory_we" dtype_id="1" dir="output" pinIndex="8" vartype="logic" origName="memory_we" public="true"/>
+      <var loc="d,77,9,77,21" name="memorycontroller.impulse_read" dtype_id="1" vartype="logic" origName="impulse_read"/>
+      <var loc="d,79,9,79,19" name="memorycontroller.large_jump" dtype_id="1" vartype="logic" origName="large_jump"/>
+      <var loc="d,80,14,80,24" name="memorycontroller.jump_value" dtype_id="2" vartype="logic" origName="jump_value"/>
+      <var loc="d,87,9,87,18" name="memorycontroller.ADC_RESET" dtype_id="1" vartype="logic" origName="ADC_RESET"/>
+      <var loc="d,90,9,90,22" name="memorycontroller.record_buffer" dtype_id="1" vartype="logic" origName="record_buffer"/>
+      <var loc="d,8,8,8,24" name="__Vtrigprevexpr___TOP__clk__0" dtype_id="1" vartype="logic" origName="__Vtrigprevexpr___TOP__clk__0"/>
+      <var loc="d,8,8,8,24" name="__VactContinue" dtype_id="3" vartype="bit" origName="__VactContinue"/>
+      <var loc="d,22,27,22,35" name="impulses" dtype_id="4" dir="input" pinIndex="6" vartype="logic" origName="impulses" public="true"/>
+      <var loc="d,23,30,23,37" name="data_in" dtype_id="5" dir="input" pinIndex="7" vartype="logic" origName="data_in" public="true"/>
+      <var loc="d,26,23,26,34" name="address_out" dtype_id="4" dir="output" pinIndex="9" vartype="logic" origName="address_out" public="true"/>
+      <var loc="d,27,23,27,31" name="data_out" dtype_id="4" dir="output" pinIndex="10" vartype="logic" origName="data_out" public="true"/>
+      <var loc="d,34,25,34,33" name="memorycontroller.head_adr" dtype_id="4" vartype="logic" origName="head_adr"/>
+      <var loc="d,35,25,35,33" name="memorycontroller.tail_adr" dtype_id="4" vartype="logic" origName="tail_adr"/>
+      <var loc="d,37,25,37,35" name="memorycontroller.curr_w_adr" dtype_id="4" vartype="logic" origName="curr_w_adr"/>
+      <var loc="d,39,25,39,37" name="memorycontroller.curr_impulse" dtype_id="6" vartype="logic" origName="curr_impulse"/>
+      <var loc="d,74,26,74,36" name="memorycontroller.curr_r_adr" dtype_id="4" vartype="logic" origName="curr_r_adr"/>
+      <var loc="d,81,22,81,40" name="memorycontroller.impulse_multiplier" dtype_id="7" vartype="logic" origName="impulse_multiplier"/>
+      <var loc="d,41,23,41,36" name="memorycontroller.output_buffer" dtype_id="8" vartype="logic" origName="output_buffer"/>
+      <var loc="d,8,8,8,24" name="__VactIterCount" dtype_id="9" vartype="bit" origName="__VactIterCount"/>
+      <var loc="d,8,8,8,24" name="__VactTriggered" dtype_id="10" vartype="VlTriggerVec" origName="__VactTriggered"/>
+      <var loc="d,8,8,8,24" name="__VnbaTriggered" dtype_id="10" vartype="VlTriggerVec" origName="__VnbaTriggered"/>
+      <topscope loc="d,8,8,8,24">
+        <scope loc="d,8,8,8,24" name="TOP"/>
+      </topscope>
+      <cfunc loc="a,0,0,0,0" name="_eval_static">
+        <stmtexpr loc="d,8,8,8,24">
+          <ccall loc="d,8,8,8,24" dtype_id="11" func="_eval_static__TOP"/>
+        </stmtexpr>
+      </cfunc>
+      <cfunc loc="d,8,8,8,24" name="_eval_static__TOP">
+        <assign loc="d,37,38,37,52" dtype_id="12">
+          <const loc="d,37,38,37,52" name="16&apos;h3ff0" dtype_id="12"/>
+          <varref loc="d,37,38,37,52" name="memorycontroller.curr_w_adr" dtype_id="12"/>
+        </assign>
+        <assign loc="d,77,24,77,25" dtype_id="13">
+          <const loc="d,77,24,77,25" name="1&apos;h0" dtype_id="13"/>
+          <varref loc="d,77,24,77,25" name="memorycontroller.impulse_read" dtype_id="13"/>
+        </assign>
+        <assign loc="d,90,25,90,26" dtype_id="13">
+          <const loc="d,90,25,90,26" name="1&apos;h0" dtype_id="13"/>
+          <varref loc="d,90,25,90,26" name="memorycontroller.record_buffer" dtype_id="13"/>
+        </assign>
+      </cfunc>
+      <cfunc loc="a,0,0,0,0" name="_eval_initial">
+        <assign loc="d,91,22,91,25" dtype_id="13">
+          <varref loc="d,91,22,91,25" name="clk" dtype_id="13"/>
+          <varref loc="d,91,22,91,25" name="__Vtrigprevexpr___TOP__clk__0" dtype_id="13"/>
+        </assign>
+      </cfunc>
+      <cfunc loc="a,0,0,0,0" name="_eval_final"/>
+      <cfunc loc="a,0,0,0,0" name="_eval_settle"/>
+      <cfunc loc="a,0,0,0,0" name="_eval_triggers__act">
+        <stmtexpr loc="d,8,8,8,24">
+          <cmethodhard loc="d,8,8,8,24" name="set" dtype_id="11">
+            <varref loc="d,8,8,8,24" name="__VactTriggered" dtype_id="13"/>
+            <const loc="d,8,8,8,24" name="32&apos;h0" dtype_id="14"/>
+            <and loc="d,91,14,91,21" dtype_id="13">
+              <ccast loc="d,91,22,91,25" dtype_id="13">
+                <varref loc="d,91,22,91,25" name="clk" dtype_id="13"/>
+              </ccast>
+              <not loc="d,91,14,91,21" dtype_id="13">
+                <ccast loc="d,91,14,91,21" dtype_id="13">
+                  <varref loc="d,91,14,91,21" name="__Vtrigprevexpr___TOP__clk__0" dtype_id="13"/>
+                </ccast>
+              </not>
+            </and>
+          </cmethodhard>
+        </stmtexpr>
+        <assign loc="d,91,22,91,25" dtype_id="13">
+          <varref loc="d,91,22,91,25" name="clk" dtype_id="13"/>
+          <varref loc="d,91,22,91,25" name="__Vtrigprevexpr___TOP__clk__0" dtype_id="13"/>
+        </assign>
+        <textblock loc="d,8,8,8,24">
+          <text loc="d,8,8,8,24"/>
+          <text loc="d,8,8,8,24"/>
+          <stmtexpr loc="a,0,0,0,0">
+            <ccall loc="a,0,0,0,0" dtype_id="11" func="_dump_triggers__act"/>
+          </stmtexpr>
+          <text loc="d,8,8,8,24"/>
+          <text loc="d,8,8,8,24"/>
+        </textblock>
+      </cfunc>
+      <cfunc loc="a,0,0,0,0" name="_dump_triggers__act">
+        <if loc="d,8,8,8,24">
+          <and loc="d,8,8,8,24" dtype_id="13">
+            <const loc="d,8,8,8,24" name="32&apos;h1" dtype_id="14"/>
+            <not loc="d,8,8,8,24" dtype_id="13">
+              <ccast loc="d,8,8,8,24" dtype_id="13">
+                <cmethodhard loc="d,8,8,8,24" name="any" dtype_id="13">
+                  <varref loc="d,8,8,8,24" name="__VactTriggered" dtype_id="13"/>
+                </cmethodhard>
+              </ccast>
+            </not>
+          </and>
+          <begin>
+            <text loc="d,8,8,8,24"/>
+          </begin>
+        </if>
+        <if loc="d,8,8,8,24">
+          <and loc="d,8,8,8,24" dtype_id="15">
+            <const loc="d,8,8,8,24" name="64&apos;h1" dtype_id="15"/>
+            <cmethodhard loc="d,8,8,8,24" name="word" dtype_id="16">
+              <varref loc="d,8,8,8,24" name="__VactTriggered" dtype_id="13"/>
+              <const loc="d,8,8,8,24" name="32&apos;h0" dtype_id="14"/>
+            </cmethodhard>
+          </and>
+          <begin>
+            <text loc="d,8,8,8,24"/>
+          </begin>
+        </if>
+      </cfunc>
+      <cfunc loc="a,0,0,0,0" name="_dump_triggers__nba">
+        <if loc="d,8,8,8,24">
+          <and loc="d,8,8,8,24" dtype_id="13">
+            <const loc="d,8,8,8,24" name="32&apos;h1" dtype_id="14"/>
+            <not loc="d,8,8,8,24" dtype_id="13">
+              <ccast loc="d,8,8,8,24" dtype_id="13">
+                <cmethodhard loc="d,8,8,8,24" name="any" dtype_id="13">
+                  <varref loc="d,8,8,8,24" name="__VnbaTriggered" dtype_id="13"/>
+                </cmethodhard>
+              </ccast>
+            </not>
+          </and>
+          <begin>
+            <text loc="d,8,8,8,24"/>
+          </begin>
+        </if>
+        <if loc="d,8,8,8,24">
+          <and loc="d,8,8,8,24" dtype_id="15">
+            <const loc="d,8,8,8,24" name="64&apos;h1" dtype_id="15"/>
+            <cmethodhard loc="d,8,8,8,24" name="word" dtype_id="16">
+              <varref loc="d,8,8,8,24" name="__VnbaTriggered" dtype_id="13"/>
+              <const loc="d,8,8,8,24" name="32&apos;h0" dtype_id="14"/>
+            </cmethodhard>
+          </and>
+          <begin>
+            <text loc="d,8,8,8,24"/>
+          </begin>
+        </if>
+      </cfunc>
+      <cfunc loc="a,0,0,0,0" name="_eval_act"/>
+      <cfunc loc="d,152,17,152,30" name="_nba_sequent__TOP__0">
+        <var loc="d,39,25,39,37" name="__Vdly__memorycontroller.curr_impulse" dtype_id="6" vartype="logic" origName="__Vdly__memorycontroller__DOT__curr_impulse"/>
+        <creset loc="d,39,25,39,37">
+          <varref loc="d,39,25,39,37" name="__Vdly__memorycontroller.curr_impulse" dtype_id="6"/>
+        </creset>
+        <var loc="d,87,9,87,18" name="__Vdly__memorycontroller.ADC_RESET" dtype_id="1" vartype="logic" origName="__Vdly__memorycontroller__DOT__ADC_RESET"/>
+        <creset loc="d,87,9,87,18">
+          <varref loc="d,87,9,87,18" name="__Vdly__memorycontroller.ADC_RESET" dtype_id="1"/>
+        </creset>
+        <var loc="d,74,26,74,36" name="__Vdly__memorycontroller.curr_r_adr" dtype_id="4" vartype="logic" origName="__Vdly__memorycontroller__DOT__curr_r_adr"/>
+        <creset loc="d,74,26,74,36">
+          <varref loc="d,74,26,74,36" name="__Vdly__memorycontroller.curr_r_adr" dtype_id="4"/>
+        </creset>
+        <var loc="d,34,25,34,33" name="__Vdly__memorycontroller.head_adr" dtype_id="4" vartype="logic" origName="__Vdly__memorycontroller__DOT__head_adr"/>
+        <creset loc="d,34,25,34,33">
+          <varref loc="d,34,25,34,33" name="__Vdly__memorycontroller.head_adr" dtype_id="4"/>
+        </creset>
+        <var loc="d,35,25,35,33" name="__Vdly__memorycontroller.tail_adr" dtype_id="4" vartype="logic" origName="__Vdly__memorycontroller__DOT__tail_adr"/>
+        <creset loc="d,35,25,35,33">
+          <varref loc="d,35,25,35,33" name="__Vdly__memorycontroller.tail_adr" dtype_id="4"/>
+        </creset>
+        <var loc="d,37,25,37,35" name="__Vdly__memorycontroller.curr_w_adr" dtype_id="4" vartype="logic" origName="__Vdly__memorycontroller__DOT__curr_w_adr"/>
+        <creset loc="d,37,25,37,35">
+          <varref loc="d,37,25,37,35" name="__Vdly__memorycontroller.curr_w_adr" dtype_id="4"/>
+        </creset>
+        <var loc="d,77,9,77,21" name="__Vdly__memorycontroller.impulse_read" dtype_id="1" vartype="logic" origName="__Vdly__memorycontroller__DOT__impulse_read"/>
+        <creset loc="d,77,9,77,21">
+          <varref loc="d,77,9,77,21" name="__Vdly__memorycontroller.impulse_read" dtype_id="1"/>
+        </creset>
+        <var loc="d,81,22,81,40" name="__Vdly__memorycontroller.impulse_multiplier" dtype_id="7" vartype="logic" origName="__Vdly__memorycontroller__DOT__impulse_multiplier"/>
+        <creset loc="d,81,22,81,40">
+          <varref loc="d,81,22,81,40" name="__Vdly__memorycontroller.impulse_multiplier" dtype_id="7"/>
+        </creset>
+        <var loc="d,80,14,80,24" name="__Vdly__memorycontroller.jump_value" dtype_id="2" vartype="logic" origName="__Vdly__memorycontroller__DOT__jump_value"/>
+        <creset loc="d,80,14,80,24">
+          <varref loc="d,80,14,80,24" name="__Vdly__memorycontroller.jump_value" dtype_id="2"/>
+        </creset>
+        <var loc="d,79,9,79,19" name="__Vdly__memorycontroller.large_jump" dtype_id="1" vartype="logic" origName="__Vdly__memorycontroller__DOT__large_jump"/>
+        <creset loc="d,79,9,79,19">
+          <varref loc="d,79,9,79,19" name="__Vdly__memorycontroller.large_jump" dtype_id="1"/>
+        </creset>
+        <var loc="d,41,23,41,36" name="__Vdly__memorycontroller.output_buffer" dtype_id="8" vartype="logic" origName="__Vdly__memorycontroller__DOT__output_buffer"/>
+        <creset loc="d,41,23,41,36">
+          <varref loc="d,41,23,41,36" name="__Vdly__memorycontroller.output_buffer" dtype_id="8"/>
+        </creset>
+        <assignpre loc="d,152,17,152,30" dtype_id="8">
+          <varref loc="d,152,17,152,30" name="memorycontroller.output_buffer" dtype_id="8"/>
+          <varref loc="d,152,17,152,30" name="__Vdly__memorycontroller.output_buffer" dtype_id="8"/>
+        </assignpre>
+        <assignpre loc="d,159,17,159,27" dtype_id="13">
+          <varref loc="d,159,17,159,27" name="memorycontroller.large_jump" dtype_id="13"/>
+          <varref loc="d,159,17,159,27" name="__Vdly__memorycontroller.large_jump" dtype_id="13"/>
+        </assignpre>
+        <assignpre loc="d,158,17,158,27" dtype_id="17">
+          <varref loc="d,158,17,158,27" name="memorycontroller.jump_value" dtype_id="17"/>
+          <varref loc="d,158,17,158,27" name="__Vdly__memorycontroller.jump_value" dtype_id="17"/>
+        </assignpre>
+        <assignpre loc="d,157,17,157,35" dtype_id="18">
+          <varref loc="d,157,17,157,35" name="memorycontroller.impulse_multiplier" dtype_id="18"/>
+          <varref loc="d,157,17,157,35" name="__Vdly__memorycontroller.impulse_multiplier" dtype_id="18"/>
+        </assignpre>
+        <assignpre loc="d,156,17,156,29" dtype_id="13">
+          <varref loc="d,156,17,156,29" name="memorycontroller.impulse_read" dtype_id="13"/>
+          <varref loc="d,156,17,156,29" name="__Vdly__memorycontroller.impulse_read" dtype_id="13"/>
+        </assignpre>
+        <assignpre loc="d,112,21,112,31" dtype_id="12">
+          <varref loc="d,112,21,112,31" name="memorycontroller.curr_w_adr" dtype_id="12"/>
+          <varref loc="d,112,21,112,31" name="__Vdly__memorycontroller.curr_w_adr" dtype_id="12"/>
+        </assignpre>
+        <assignpre loc="d,107,17,107,25" dtype_id="12">
+          <varref loc="d,107,17,107,25" name="memorycontroller.tail_adr" dtype_id="12"/>
+          <varref loc="d,107,17,107,25" name="__Vdly__memorycontroller.tail_adr" dtype_id="12"/>
+        </assignpre>
+        <assignpre loc="d,102,21,102,29" dtype_id="12">
+          <varref loc="d,102,21,102,29" name="memorycontroller.head_adr" dtype_id="12"/>
+          <varref loc="d,102,21,102,29" name="__Vdly__memorycontroller.head_adr" dtype_id="12"/>
+        </assignpre>
+        <assignpre loc="d,98,13,98,23" dtype_id="12">
+          <varref loc="d,98,13,98,23" name="memorycontroller.curr_r_adr" dtype_id="12"/>
+          <varref loc="d,98,13,98,23" name="__Vdly__memorycontroller.curr_r_adr" dtype_id="12"/>
+        </assignpre>
+        <assignpre loc="d,97,13,97,22" dtype_id="13">
+          <varref loc="d,97,13,97,22" name="memorycontroller.ADC_RESET" dtype_id="13"/>
+          <varref loc="d,97,13,97,22" name="__Vdly__memorycontroller.ADC_RESET" dtype_id="13"/>
+        </assignpre>
+        <assignpre loc="d,96,13,96,25" dtype_id="19">
+          <varref loc="d,96,13,96,25" name="memorycontroller.curr_impulse" dtype_id="19"/>
+          <varref loc="d,96,13,96,25" name="__Vdly__memorycontroller.curr_impulse" dtype_id="19"/>
+        </assignpre>
+        <if loc="d,93,12,93,21">
+          <varref loc="d,93,12,93,21" name="adc_clock" dtype_id="13"/>
+          <begin>
+            <assigndly loc="d,96,25,96,27" dtype_id="19">
+              <const loc="d,96,28,96,29" name="11&apos;h0" dtype_id="19"/>
+              <varref loc="d,96,13,96,25" name="__Vdly__memorycontroller.curr_impulse" dtype_id="19"/>
+            </assigndly>
+            <assigndly loc="d,97,22,97,24" dtype_id="13">
+              <const loc="d,97,24,97,25" name="1&apos;h1" dtype_id="13"/>
+              <varref loc="d,97,13,97,22" name="__Vdly__memorycontroller.ADC_RESET" dtype_id="13"/>
+            </assigndly>
+            <assigndly loc="d,98,23,98,25" dtype_id="12">
+              <varref loc="d,98,25,98,35" name="memorycontroller.curr_w_adr" dtype_id="12"/>
+              <varref loc="d,98,13,98,23" name="__Vdly__memorycontroller.curr_r_adr" dtype_id="12"/>
+            </assigndly>
+            <if loc="d,100,13,100,15">
+              <varref loc="d,100,16,100,22" name="record" dtype_id="13"/>
+              <begin>
+                <if loc="d,101,17,101,19">
+                  <varref loc="d,101,20,101,33" name="memorycontroller.record_buffer" dtype_id="13"/>
+                  <begin>
+                    <assigndly loc="d,102,30,102,32" dtype_id="12">
+                      <varref loc="d,102,33,102,43" name="memorycontroller.curr_w_adr" dtype_id="12"/>
+                      <varref loc="d,102,21,102,29" name="__Vdly__memorycontroller.head_adr" dtype_id="12"/>
+                    </assigndly>
+                  </begin>
+                </if>
+                <assigndly loc="d,105,29,105,31" dtype_id="12">
+                  <varref loc="d,105,32,105,42" name="memorycontroller.curr_w_adr" dtype_id="12"/>
+                  <varref loc="d,105,17,105,28" name="address_out" dtype_id="12"/>
+                </assigndly>
+                <assigndly loc="d,107,26,107,28" dtype_id="12">
+                  <varref loc="d,107,28,107,38" name="memorycontroller.curr_w_adr" dtype_id="12"/>
+                  <varref loc="d,107,17,107,25" name="__Vdly__memorycontroller.tail_adr" dtype_id="12"/>
+                </assigndly>
+                <assigndly loc="d,112,32,112,34" dtype_id="12">
+                  <and loc="d,112,35,112,43" dtype_id="12">
+                    <const loc="d,112,35,112,43" name="32&apos;hffff" dtype_id="14"/>
+                    <cond loc="d,112,35,112,43" dtype_id="12">
+                      <or loc="d,111,70,111,72" dtype_id="13">
+                        <and loc="d,111,35,111,37" dtype_id="13">
+                          <not loc="d,111,21,111,22" dtype_id="13">
+                            <ccast loc="d,111,22,111,34" dtype_id="13">
+                              <varref loc="d,111,22,111,34" name="off_chip_mem" dtype_id="13"/>
+                            </ccast>
+                          </not>
+                          <eq loc="d,111,50,111,52" dtype_id="13">
+                            <const loc="d,111,53,111,67" name="16&apos;h3ff0" dtype_id="12"/>
+                            <ccast loc="d,111,39,111,49" dtype_id="12">
+                              <varref loc="d,111,39,111,49" name="memorycontroller.curr_w_adr" dtype_id="12"/>
+                            </ccast>
+                          </eq>
+                        </and>
+                        <and loc="d,111,87,111,89" dtype_id="13">
+                          <ccast loc="d,111,74,111,86" dtype_id="13">
+                            <varref loc="d,111,74,111,86" name="off_chip_mem" dtype_id="13"/>
+                          </ccast>
+                          <eq loc="d,111,102,111,104" dtype_id="13">
+                            <const loc="d,111,105,111,120" name="16&apos;hdff0" dtype_id="12"/>
+                            <ccast loc="d,111,91,111,101" dtype_id="12">
+                              <varref loc="d,111,91,111,101" name="memorycontroller.curr_w_adr" dtype_id="12"/>
+                            </ccast>
+                          </eq>
+                        </and>
+                      </or>
+                      <ccast loc="d,112,35,112,43" dtype_id="12">
+                        <varref loc="d,112,35,112,43" name="impulses" dtype_id="12"/>
+                      </ccast>
+                      <add loc="d,115,46,115,47" dtype_id="12">
+                        <ccast loc="d,115,46,115,47" dtype_id="12">
+                          <const loc="d,115,46,115,47" name="16&apos;h1" dtype_id="12"/>
+                        </ccast>
+                        <ccast loc="d,115,35,115,45" dtype_id="12">
+                          <varref loc="d,115,35,115,45" name="memorycontroller.curr_w_adr" dtype_id="12"/>
+                        </ccast>
+                      </add>
+                    </cond>
+                  </and>
+                  <varref loc="d,112,21,112,31" name="__Vdly__memorycontroller.curr_w_adr" dtype_id="12"/>
+                </assigndly>
+              </begin>
+              <begin>
+                <assigndly loc="d,126,28,126,30" dtype_id="12">
+                  <and loc="d,126,31,126,39" dtype_id="12">
+                    <const loc="d,126,31,126,39" name="32&apos;hffff" dtype_id="14"/>
+                    <cond loc="d,126,31,126,39" dtype_id="12">
+                      <eq loc="d,125,31,125,33" dtype_id="13">
+                        <add loc="d,125,27,125,28" dtype_id="14">
+                          <ccast loc="d,125,29,125,30" dtype_id="14">
+                            <const loc="d,125,29,125,30" name="32&apos;sh1" dtype_id="8"/>
+                          </ccast>
+                          <ccast loc="d,125,16,125,26" dtype_id="14">
+                            <varref loc="d,125,16,125,26" name="memorycontroller.curr_w_adr" dtype_id="14"/>
+                          </ccast>
+                        </add>
+                        <ccast loc="d,125,34,125,42" dtype_id="14">
+                          <varref loc="d,125,34,125,42" name="memorycontroller.tail_adr" dtype_id="14"/>
+                        </ccast>
+                      </eq>
+                      <ccast loc="d,126,31,126,39" dtype_id="12">
+                        <varref loc="d,126,31,126,39" name="memorycontroller.head_adr" dtype_id="12"/>
+                      </ccast>
+                      <add loc="d,129,42,129,43" dtype_id="12">
+                        <ccast loc="d,129,42,129,43" dtype_id="12">
+                          <const loc="d,129,42,129,43" name="16&apos;h1" dtype_id="12"/>
+                        </ccast>
+                        <ccast loc="d,129,31,129,41" dtype_id="12">
+                          <varref loc="d,129,31,129,41" name="memorycontroller.curr_w_adr" dtype_id="12"/>
+                        </ccast>
+                      </add>
+                    </cond>
+                  </and>
+                  <varref loc="d,126,17,126,27" name="__Vdly__memorycontroller.curr_w_adr" dtype_id="12"/>
+                </assigndly>
+                <assigndly loc="d,119,27,119,29" dtype_id="13">
+                  <const loc="d,119,30,119,34" name="1&apos;h0" dtype_id="13"/>
+                  <varref loc="d,119,17,119,26" name="memory_we" dtype_id="13"/>
+                </assigndly>
+              </begin>
+            </if>
+            <assigndly loc="d,108,31,108,33" dtype_id="13">
+              <and loc="d,108,34,108,38" dtype_id="13">
+                <const loc="d,108,34,108,38" name="32&apos;h1" dtype_id="14"/>
+                <not loc="d,108,34,108,38" dtype_id="13">
+                  <ccast loc="d,100,16,100,22" dtype_id="13">
+                    <varref loc="d,100,16,100,22" name="record" dtype_id="13"/>
+                  </ccast>
+                </not>
+              </and>
+              <varref loc="d,108,17,108,30" name="memorycontroller.record_buffer" dtype_id="13"/>
+            </assigndly>
+          </begin>
+          <begin>
+            <if loc="d,140,13,140,15">
+              <varref loc="d,140,16,140,25" name="memorycontroller.ADC_RESET" dtype_id="13"/>
+              <begin>
+                <assigndly loc="d,142,26,142,28" dtype_id="13">
+                  <const loc="d,142,28,142,29" name="1&apos;h0" dtype_id="13"/>
+                  <varref loc="d,142,17,142,26" name="__Vdly__memorycontroller.ADC_RESET" dtype_id="13"/>
+                </assigndly>
+                <assigndly loc="d,144,29,144,31" dtype_id="12">
+                  <cond loc="d,144,32,144,40" dtype_id="12">
+                    <ccast loc="d,143,39,143,41" dtype_id="13">
+                      <eq loc="d,143,21,143,34" dtype_id="1">
+                        <const loc="d,143,21,143,34" name="32&apos;h400000" dtype_id="14"/>
+                        <and loc="d,143,21,143,34" dtype_id="14">
+                          <const loc="d,143,21,143,34" name="32&apos;h80400000" dtype_id="14"/>
+                          <varref loc="d,143,21,143,34" name="memorycontroller.output_buffer" dtype_id="8"/>
+                        </and>
+                      </eq>
+                    </ccast>
+                    <const loc="d,144,32,144,40" name="32&apos;h7fff" dtype_id="12"/>
+                    <cond loc="d,147,32,147,40" dtype_id="12">
+                      <ccast loc="d,146,43,146,45" dtype_id="13">
+                        <eq loc="d,146,25,146,38" dtype_id="1">
+                          <const loc="d,146,25,146,38" name="32&apos;h80000000" dtype_id="14"/>
+                          <and loc="d,146,25,146,38" dtype_id="14">
+                            <const loc="d,146,25,146,38" name="32&apos;h80400000" dtype_id="14"/>
+                            <varref loc="d,146,25,146,38" name="memorycontroller.output_buffer" dtype_id="8"/>
+                          </and>
+                        </eq>
+                      </ccast>
+                      <const loc="d,144,32,144,40" name="32&apos;h8000" dtype_id="12"/>
+                      <and loc="d,144,32,144,40" dtype_id="12">
+                        <const loc="d,144,32,144,40" name="32&apos;hffff" dtype_id="14"/>
+                        <shiftr loc="d,150,45,150,46" dtype_id="12">
+                          <varref loc="d,150,32,150,45" name="memorycontroller.output_buffer" dtype_id="8"/>
+                          <const loc="d,150,49,150,50" name="5&apos;h7" dtype_id="20"/>
+                        </shiftr>
+                      </and>
+                    </cond>
+                  </cond>
+                  <varref loc="d,144,21,144,29" name="data_out" dtype_id="12"/>
+                </assigndly>
+                <assigndly loc="d,154,27,154,29" dtype_id="13">
+                  <const loc="d,154,30,154,34" name="1&apos;h1" dtype_id="13"/>
+                  <varref loc="d,154,17,154,26" name="memory_we" dtype_id="13"/>
+                </assigndly>
+                <assigndly loc="d,156,30,156,32" dtype_id="13">
+                  <const loc="d,156,33,156,37" name="1&apos;h0" dtype_id="13"/>
+                  <varref loc="d,156,17,156,29" name="__Vdly__memorycontroller.impulse_read" dtype_id="13"/>
+                </assigndly>
+                <assigndly loc="d,157,35,157,37" dtype_id="18">
+                  <const loc="d,157,38,157,39" name="9&apos;h0" dtype_id="18"/>
+                  <varref loc="d,157,17,157,35" name="__Vdly__memorycontroller.impulse_multiplier" dtype_id="18"/>
+                </assigndly>
+                <assigndly loc="d,158,27,158,29" dtype_id="17">
+                  <const loc="d,158,29,158,30" name="6&apos;h0" dtype_id="17"/>
+                  <varref loc="d,158,17,158,27" name="__Vdly__memorycontroller.jump_value" dtype_id="17"/>
+                </assigndly>
+                <assigndly loc="d,159,28,159,30" dtype_id="13">
+                  <const loc="d,159,30,159,31" name="1&apos;h1" dtype_id="13"/>
+                  <varref loc="d,159,17,159,27" name="__Vdly__memorycontroller.large_jump" dtype_id="13"/>
+                </assigndly>
+                <assigndly loc="d,152,31,152,33" dtype_id="8">
+                  <const loc="d,152,33,152,34" name="32&apos;sh0" dtype_id="8"/>
+                  <varref loc="d,152,17,152,30" name="__Vdly__memorycontroller.output_buffer" dtype_id="8"/>
+                </assigndly>
+              </begin>
+              <begin>
+                <if loc="d,167,13,167,15">
+                  <varref loc="d,167,16,167,34" name="off_chip_mem_ready" dtype_id="13"/>
+                  <begin>
+                    <assigndly loc="d,168,27,168,29" dtype_id="13">
+                      <const loc="d,168,30,168,34" name="1&apos;h0" dtype_id="13"/>
+                      <varref loc="d,168,17,168,26" name="memory_we" dtype_id="13"/>
+                    </assigndly>
+                    <if loc="d,169,17,169,19">
+                      <varref loc="d,169,20,169,32" name="memorycontroller.impulse_read" dtype_id="13"/>
+                      <begin>
+                        <assigndly loc="d,193,37,193,39" dtype_id="19">
+                          <and loc="d,193,52,193,53" dtype_id="19">
+                            <const loc="d,193,52,193,53" name="32&apos;h7ff" dtype_id="14"/>
+                            <add loc="d,193,52,193,53" dtype_id="19">
+                              <ccast loc="d,193,52,193,53" dtype_id="19">
+                                <const loc="d,193,52,193,53" name="11&apos;h1" dtype_id="19"/>
+                              </ccast>
+                              <ccast loc="d,193,40,193,52" dtype_id="19">
+                                <varref loc="d,193,40,193,52" name="memorycontroller.curr_impulse" dtype_id="19"/>
+                              </ccast>
+                            </add>
+                          </and>
+                          <varref loc="d,193,25,193,37" name="__Vdly__memorycontroller.curr_impulse" dtype_id="19"/>
+                        </assigndly>
+                        <if loc="d,171,21,171,23">
+                          <lt loc="d,171,35,171,36" dtype_id="13">
+                            <ccast loc="d,171,24,171,34" dtype_id="12">
+                              <varref loc="d,171,24,171,34" name="memorycontroller.curr_r_adr" dtype_id="12"/>
+                            </ccast>
+                            <ccast loc="d,171,37,171,45" dtype_id="12">
+                              <varref loc="d,171,37,171,45" name="impulses" dtype_id="12"/>
+                            </ccast>
+                          </lt>
+                          <begin>
+                            <if loc="d,172,25,172,27">
+                              <varref loc="d,172,28,172,40" name="off_chip_mem" dtype_id="13"/>
+                              <begin>
+                                <assigndly loc="d,173,40,173,42" dtype_id="12">
+                                  <and loc="d,173,83,173,84" dtype_id="12">
+                                    <const loc="d,173,83,173,84" name="32&apos;hffff" dtype_id="14"/>
+                                    <add loc="d,173,83,173,84" dtype_id="12">
+                                      <ccast loc="d,173,83,173,84" dtype_id="12">
+                                        <const loc="d,173,83,173,84" name="16&apos;hdff1" dtype_id="12"/>
+                                      </ccast>
+                                      <sub loc="d,173,72,173,73" dtype_id="12">
+                                        <ccast loc="d,173,61,173,71" dtype_id="12">
+                                          <varref loc="d,173,61,173,71" name="memorycontroller.curr_r_adr" dtype_id="12"/>
+                                        </ccast>
+                                        <ccast loc="d,173,74,173,82" dtype_id="12">
+                                          <varref loc="d,173,74,173,82" name="impulses" dtype_id="12"/>
+                                        </ccast>
+                                      </sub>
+                                    </add>
+                                  </and>
+                                  <varref loc="d,173,29,173,40" name="address_out" dtype_id="12"/>
+                                </assigndly>
+                                <assigndly loc="d,174,39,174,41" dtype_id="12">
+                                  <and loc="d,174,82,174,83" dtype_id="12">
+                                    <const loc="d,174,82,174,83" name="32&apos;hffff" dtype_id="14"/>
+                                    <add loc="d,174,82,174,83" dtype_id="12">
+                                      <ccast loc="d,174,82,174,83" dtype_id="12">
+                                        <const loc="d,174,82,174,83" name="16&apos;hdff1" dtype_id="12"/>
+                                      </ccast>
+                                      <sub loc="d,174,71,174,72" dtype_id="12">
+                                        <ccast loc="d,174,60,174,70" dtype_id="12">
+                                          <varref loc="d,174,60,174,70" name="memorycontroller.curr_r_adr" dtype_id="12"/>
+                                        </ccast>
+                                        <ccast loc="d,174,73,174,81" dtype_id="12">
+                                          <varref loc="d,174,73,174,81" name="impulses" dtype_id="12"/>
+                                        </ccast>
+                                      </sub>
+                                    </add>
+                                  </and>
+                                  <varref loc="d,174,29,174,39" name="__Vdly__memorycontroller.curr_r_adr" dtype_id="12"/>
+                                </assigndly>
+                              </begin>
+                              <begin>
+                                <assigndly loc="d,177,40,177,42" dtype_id="12">
+                                  <and loc="d,177,82,177,83" dtype_id="12">
+                                    <const loc="d,177,82,177,83" name="32&apos;hffff" dtype_id="14"/>
+                                    <add loc="d,177,82,177,83" dtype_id="12">
+                                      <ccast loc="d,177,82,177,83" dtype_id="12">
+                                        <const loc="d,177,82,177,83" name="16&apos;h3ff1" dtype_id="12"/>
+                                      </ccast>
+                                      <sub loc="d,177,71,177,72" dtype_id="12">
+                                        <ccast loc="d,177,60,177,70" dtype_id="12">
+                                          <varref loc="d,177,60,177,70" name="memorycontroller.curr_r_adr" dtype_id="12"/>
+                                        </ccast>
+                                        <ccast loc="d,177,73,177,81" dtype_id="12">
+                                          <varref loc="d,177,73,177,81" name="impulses" dtype_id="12"/>
+                                        </ccast>
+                                      </sub>
+                                    </add>
+                                  </and>
+                                  <varref loc="d,177,29,177,40" name="address_out" dtype_id="12"/>
+                                </assigndly>
+                                <assigndly loc="d,178,39,178,41" dtype_id="12">
+                                  <and loc="d,178,81,178,82" dtype_id="12">
+                                    <const loc="d,178,81,178,82" name="32&apos;hffff" dtype_id="14"/>
+                                    <add loc="d,178,81,178,82" dtype_id="12">
+                                      <ccast loc="d,178,81,178,82" dtype_id="12">
+                                        <const loc="d,178,81,178,82" name="16&apos;h3ff1" dtype_id="12"/>
+                                      </ccast>
+                                      <sub loc="d,178,70,178,71" dtype_id="12">
+                                        <ccast loc="d,178,59,178,69" dtype_id="12">
+                                          <varref loc="d,178,59,178,69" name="memorycontroller.curr_r_adr" dtype_id="12"/>
+                                        </ccast>
+                                        <ccast loc="d,178,72,178,80" dtype_id="12">
+                                          <varref loc="d,178,72,178,80" name="impulses" dtype_id="12"/>
+                                        </ccast>
+                                      </sub>
+                                    </add>
+                                  </and>
+                                  <varref loc="d,178,29,178,39" name="__Vdly__memorycontroller.curr_r_adr" dtype_id="12"/>
+                                </assigndly>
+                              </begin>
+                            </if>
+                          </begin>
+                          <begin>
+                            <assigndly loc="d,183,37,183,39" dtype_id="12">
+                              <varref loc="d,183,40,183,50" name="memorycontroller.curr_r_adr" dtype_id="12"/>
+                              <varref loc="d,183,25,183,36" name="address_out" dtype_id="12"/>
+                            </assigndly>
+                          </begin>
+                        </if>
+                        <assigndly loc="d,186,36,186,38" dtype_id="13">
+                          <and loc="d,186,46,186,47" dtype_id="13">
+                            <const loc="d,186,46,186,47" name="32&apos;h1" dtype_id="14"/>
+                            <shiftr loc="d,186,46,186,47" dtype_id="13">
+                              <ccast loc="d,186,39,186,46" dtype_id="12">
+                                <varref loc="d,186,39,186,46" name="data_in" dtype_id="21"/>
+                              </ccast>
+                              <const loc="d,186,47,186,49" name="4&apos;hf" dtype_id="22"/>
+                            </shiftr>
+                          </and>
+                          <varref loc="d,186,25,186,35" name="__Vdly__memorycontroller.large_jump" dtype_id="13"/>
+                        </assigndly>
+                        <assigndly loc="d,187,36,187,38" dtype_id="17">
+                          <and loc="d,187,46,187,47" dtype_id="17">
+                            <const loc="d,187,46,187,47" name="32&apos;h3f" dtype_id="14"/>
+                            <shiftr loc="d,187,46,187,47" dtype_id="17">
+                              <ccast loc="d,187,39,187,46" dtype_id="12">
+                                <varref loc="d,187,39,187,46" name="data_in" dtype_id="21"/>
+                              </ccast>
+                              <const loc="d,187,50,187,51" name="4&apos;h9" dtype_id="22"/>
+                            </shiftr>
+                          </and>
+                          <varref loc="d,187,25,187,35" name="__Vdly__memorycontroller.jump_value" dtype_id="17"/>
+                        </assigndly>
+                        <assigndly loc="d,190,44,190,46" dtype_id="18">
+                          <and loc="d,190,54,190,55" dtype_id="23">
+                            <const loc="d,190,54,190,55" name="32&apos;h1ff" dtype_id="14"/>
+                            <ccast loc="d,190,47,190,54" dtype_id="23">
+                              <varref loc="d,190,47,190,54" name="data_in" dtype_id="23"/>
+                            </ccast>
+                          </and>
+                          <varref loc="d,190,25,190,43" name="__Vdly__memorycontroller.impulse_multiplier" dtype_id="18"/>
+                        </assigndly>
+                        <assigndly loc="d,192,37,192,39" dtype_id="13">
+                          <const loc="d,192,40,192,44" name="1&apos;h0" dtype_id="13"/>
+                          <varref loc="d,192,25,192,37" name="__Vdly__memorycontroller.impulse_read" dtype_id="13"/>
+                        </assigndly>
+                      </begin>
+                      <begin>
+                        <assigndly loc="d,200,40,200,42" dtype_id="12">
+                          <and loc="d,200,54,200,55" dtype_id="12">
+                            <const loc="d,200,54,200,55" name="32&apos;hffff" dtype_id="14"/>
+                            <cond loc="d,200,54,200,55" dtype_id="12">
+                              <ccast loc="d,199,28,199,38" dtype_id="13">
+                                <varref loc="d,199,28,199,38" name="memorycontroller.large_jump" dtype_id="13"/>
+                              </ccast>
+                              <sub loc="d,200,54,200,55" dtype_id="12">
+                                <ccast loc="d,200,43,200,53" dtype_id="12">
+                                  <varref loc="d,200,43,200,53" name="memorycontroller.curr_r_adr" dtype_id="12"/>
+                                </ccast>
+                                <shiftlovr loc="d,200,66,200,67" dtype_id="12">
+                                  <ccast loc="d,200,56,200,66" dtype_id="14">
+                                    <varref loc="d,200,56,200,66" name="memorycontroller.jump_value" dtype_id="14"/>
+                                  </ccast>
+                                  <const loc="d,200,66,200,67" name="32&apos;h2" dtype_id="14"/>
+                                </shiftlovr>
+                              </sub>
+                              <sub loc="d,203,54,203,55" dtype_id="12">
+                                <ccast loc="d,203,43,203,53" dtype_id="12">
+                                  <varref loc="d,203,43,203,53" name="memorycontroller.curr_r_adr" dtype_id="12"/>
+                                </ccast>
+                                <add loc="d,203,76,203,77" dtype_id="12">
+                                  <ccast loc="d,203,54,203,55" dtype_id="12">
+                                    <const loc="d,203,54,203,55" name="16&apos;h1" dtype_id="12"/>
+                                  </ccast>
+                                  <ccast loc="d,203,65,203,75" dtype_id="12">
+                                    <varref loc="d,203,65,203,75" name="memorycontroller.jump_value" dtype_id="12"/>
+                                  </ccast>
+                                </add>
+                              </sub>
+                            </cond>
+                          </and>
+                          <varref loc="d,200,29,200,39" name="__Vdly__memorycontroller.curr_r_adr" dtype_id="12"/>
+                        </assigndly>
+                        <assigndly loc="d,207,39,207,41" dtype_id="8">
+                          <add loc="d,207,56,207,57" dtype_id="8">
+                            <varref loc="d,207,42,207,55" name="memorycontroller.output_buffer" dtype_id="8"/>
+                            <muls loc="d,207,65,207,66" dtype_id="8">
+                              <extends loc="d,207,58,207,65" dtype_id="8" width="32" widthminv="16">
+                                <ccast loc="d,207,58,207,65" dtype_id="12">
+                                  <varref loc="d,207,58,207,65" name="data_in" dtype_id="21"/>
+                                </ccast>
+                              </extends>
+                              <extends loc="d,207,66,207,84" dtype_id="8" width="32" widthminv="9">
+                                <ccast loc="d,207,66,207,84" dtype_id="23">
+                                  <varref loc="d,207,66,207,84" name="memorycontroller.impulse_multiplier" dtype_id="18"/>
+                                </ccast>
+                              </extends>
+                            </muls>
+                          </add>
+                          <varref loc="d,207,25,207,38" name="__Vdly__memorycontroller.output_buffer" dtype_id="8"/>
+                        </assigndly>
+                        <assigndly loc="d,206,37,206,39" dtype_id="12">
+                          <varref loc="d,206,50,206,62" name="memorycontroller.curr_impulse" dtype_id="12"/>
+                          <varref loc="d,206,25,206,36" name="address_out" dtype_id="12"/>
+                        </assigndly>
+                        <assigndly loc="d,208,38,208,40" dtype_id="13">
+                          <const loc="d,208,41,208,45" name="1&apos;h1" dtype_id="13"/>
+                          <varref loc="d,208,25,208,37" name="__Vdly__memorycontroller.impulse_read" dtype_id="13"/>
+                        </assigndly>
+                      </begin>
+                    </if>
+                  </begin>
+                </if>
+              </begin>
+            </if>
+          </begin>
+        </if>
+        <assignpost loc="d,96,13,96,25" dtype_id="19">
+          <varref loc="d,96,13,96,25" name="__Vdly__memorycontroller.curr_impulse" dtype_id="19"/>
+          <varref loc="d,96,13,96,25" name="memorycontroller.curr_impulse" dtype_id="19"/>
+        </assignpost>
+        <assignpost loc="d,97,13,97,22" dtype_id="13">
+          <varref loc="d,97,13,97,22" name="__Vdly__memorycontroller.ADC_RESET" dtype_id="13"/>
+          <varref loc="d,97,13,97,22" name="memorycontroller.ADC_RESET" dtype_id="13"/>
+        </assignpost>
+        <assignpost loc="d,98,13,98,23" dtype_id="12">
+          <varref loc="d,98,13,98,23" name="__Vdly__memorycontroller.curr_r_adr" dtype_id="12"/>
+          <varref loc="d,98,13,98,23" name="memorycontroller.curr_r_adr" dtype_id="12"/>
+        </assignpost>
+        <assignpost loc="d,102,21,102,29" dtype_id="12">
+          <varref loc="d,102,21,102,29" name="__Vdly__memorycontroller.head_adr" dtype_id="12"/>
+          <varref loc="d,102,21,102,29" name="memorycontroller.head_adr" dtype_id="12"/>
+        </assignpost>
+        <assignpost loc="d,107,17,107,25" dtype_id="12">
+          <varref loc="d,107,17,107,25" name="__Vdly__memorycontroller.tail_adr" dtype_id="12"/>
+          <varref loc="d,107,17,107,25" name="memorycontroller.tail_adr" dtype_id="12"/>
+        </assignpost>
+        <assignpost loc="d,112,21,112,31" dtype_id="12">
+          <varref loc="d,112,21,112,31" name="__Vdly__memorycontroller.curr_w_adr" dtype_id="12"/>
+          <varref loc="d,112,21,112,31" name="memorycontroller.curr_w_adr" dtype_id="12"/>
+        </assignpost>
+        <assignpost loc="d,156,17,156,29" dtype_id="13">
+          <varref loc="d,156,17,156,29" name="__Vdly__memorycontroller.impulse_read" dtype_id="13"/>
+          <varref loc="d,156,17,156,29" name="memorycontroller.impulse_read" dtype_id="13"/>
+        </assignpost>
+        <assignpost loc="d,157,17,157,35" dtype_id="18">
+          <varref loc="d,157,17,157,35" name="__Vdly__memorycontroller.impulse_multiplier" dtype_id="18"/>
+          <varref loc="d,157,17,157,35" name="memorycontroller.impulse_multiplier" dtype_id="18"/>
+        </assignpost>
+        <assignpost loc="d,158,17,158,27" dtype_id="17">
+          <varref loc="d,158,17,158,27" name="__Vdly__memorycontroller.jump_value" dtype_id="17"/>
+          <varref loc="d,158,17,158,27" name="memorycontroller.jump_value" dtype_id="17"/>
+        </assignpost>
+        <assignpost loc="d,159,17,159,27" dtype_id="13">
+          <varref loc="d,159,17,159,27" name="__Vdly__memorycontroller.large_jump" dtype_id="13"/>
+          <varref loc="d,159,17,159,27" name="memorycontroller.large_jump" dtype_id="13"/>
+        </assignpost>
+        <assignpost loc="d,152,17,152,30" dtype_id="8">
+          <varref loc="d,152,17,152,30" name="__Vdly__memorycontroller.output_buffer" dtype_id="8"/>
+          <varref loc="d,152,17,152,30" name="memorycontroller.output_buffer" dtype_id="8"/>
+        </assignpost>
+      </cfunc>
+      <cfunc loc="a,0,0,0,0" name="_eval_nba">
+        <if loc="d,8,8,8,24">
+          <and loc="d,8,8,8,24" dtype_id="15">
+            <const loc="d,8,8,8,24" name="64&apos;h1" dtype_id="15"/>
+            <cmethodhard loc="d,8,8,8,24" name="word" dtype_id="16">
+              <varref loc="d,8,8,8,24" name="__VnbaTriggered" dtype_id="13"/>
+              <const loc="d,8,8,8,24" name="32&apos;h0" dtype_id="14"/>
+            </cmethodhard>
+          </and>
+          <begin>
+            <stmtexpr loc="d,152,17,152,30">
+              <ccall loc="d,152,17,152,30" dtype_id="11" func="_nba_sequent__TOP__0"/>
+            </stmtexpr>
+          </begin>
+        </if>
+      </cfunc>
+      <cfunc loc="a,0,0,0,0" name="_eval_phase__act">
+        <var loc="d,8,8,8,24" name="__VpreTriggered" dtype_id="10" vartype="VlTriggerVec" origName="__VpreTriggered"/>
+        <var loc="d,8,8,8,24" name="__VactExecute" dtype_id="3" vartype="bit" origName="__VactExecute"/>
+        <stmtexpr loc="a,0,0,0,0">
+          <ccall loc="a,0,0,0,0" dtype_id="11" func="_eval_triggers__act"/>
+        </stmtexpr>
+        <assign loc="a,0,0,0,0" dtype_id="13">
+          <cmethodhard loc="a,0,0,0,0" name="any" dtype_id="13">
+            <varref loc="a,0,0,0,0" name="__VactTriggered" dtype_id="13"/>
+          </cmethodhard>
+          <varref loc="a,0,0,0,0" name="__VactExecute" dtype_id="13"/>
+        </assign>
+        <if loc="a,0,0,0,0">
+          <varref loc="a,0,0,0,0" name="__VactExecute" dtype_id="13"/>
+          <begin>
+            <stmtexpr loc="a,0,0,0,0">
+              <cmethodhard loc="a,0,0,0,0" name="andNot" dtype_id="11">
+                <varref loc="a,0,0,0,0" name="__VpreTriggered" dtype_id="13"/>
+                <varref loc="a,0,0,0,0" name="__VactTriggered" dtype_id="13"/>
+                <varref loc="a,0,0,0,0" name="__VnbaTriggered" dtype_id="13"/>
+              </cmethodhard>
+            </stmtexpr>
+            <stmtexpr loc="a,0,0,0,0">
+              <cmethodhard loc="a,0,0,0,0" name="thisOr" dtype_id="11">
+                <varref loc="a,0,0,0,0" name="__VnbaTriggered" dtype_id="13"/>
+                <varref loc="a,0,0,0,0" name="__VactTriggered" dtype_id="13"/>
+              </cmethodhard>
+            </stmtexpr>
+            <stmtexpr loc="a,0,0,0,0">
+              <ccall loc="a,0,0,0,0" dtype_id="11" func="_eval_act"/>
+            </stmtexpr>
+          </begin>
+        </if>
+        <creturn loc="a,0,0,0,0">
+          <varref loc="a,0,0,0,0" name="__VactExecute" dtype_id="13"/>
+        </creturn>
+      </cfunc>
+      <cfunc loc="a,0,0,0,0" name="_eval_phase__nba">
+        <var loc="d,8,8,8,24" name="__VnbaExecute" dtype_id="3" vartype="bit" origName="__VnbaExecute"/>
+        <assign loc="a,0,0,0,0" dtype_id="13">
+          <cmethodhard loc="a,0,0,0,0" name="any" dtype_id="13">
+            <varref loc="a,0,0,0,0" name="__VnbaTriggered" dtype_id="13"/>
+          </cmethodhard>
+          <varref loc="a,0,0,0,0" name="__VnbaExecute" dtype_id="13"/>
+        </assign>
+        <if loc="a,0,0,0,0">
+          <varref loc="a,0,0,0,0" name="__VnbaExecute" dtype_id="13"/>
+          <begin>
+            <stmtexpr loc="a,0,0,0,0">
+              <ccall loc="a,0,0,0,0" dtype_id="11" func="_eval_nba"/>
+            </stmtexpr>
+            <stmtexpr loc="a,0,0,0,0">
+              <cmethodhard loc="a,0,0,0,0" name="clear" dtype_id="11">
+                <varref loc="a,0,0,0,0" name="__VnbaTriggered" dtype_id="13"/>
+              </cmethodhard>
+            </stmtexpr>
+          </begin>
+        </if>
+        <creturn loc="a,0,0,0,0">
+          <varref loc="a,0,0,0,0" name="__VnbaExecute" dtype_id="13"/>
+        </creturn>
+      </cfunc>
+      <cfunc loc="a,0,0,0,0" name="_eval">
+        <var loc="d,8,8,8,24" name="__VnbaIterCount" dtype_id="9" vartype="bit" origName="__VnbaIterCount"/>
+        <var loc="d,8,8,8,24" name="__VnbaContinue" dtype_id="3" vartype="bit" origName="__VnbaContinue"/>
+        <assign loc="d,8,8,8,24" dtype_id="9">
+          <const loc="d,8,8,8,24" name="32&apos;h0" dtype_id="14"/>
+          <varref loc="d,8,8,8,24" name="__VnbaIterCount" dtype_id="9"/>
+        </assign>
+        <assign loc="d,8,8,8,24" dtype_id="13">
+          <const loc="d,8,8,8,24" name="1&apos;h1" dtype_id="13"/>
+          <varref loc="d,8,8,8,24" name="__VnbaContinue" dtype_id="13"/>
+        </assign>
+        <while loc="a,0,0,0,0">
+          <begin>
+          </begin>
+          <begin>
+            <varref loc="a,0,0,0,0" name="__VnbaContinue" dtype_id="13"/>
+          </begin>
+          <begin>
+            <if loc="a,0,0,0,0">
+              <lt loc="a,0,0,0,0" dtype_id="13">
+                <const loc="a,0,0,0,0" name="32&apos;h64" dtype_id="14"/>
+                <varref loc="a,0,0,0,0" name="__VnbaIterCount" dtype_id="9"/>
+              </lt>
+              <begin>
+                <textblock loc="a,0,0,0,0">
+                  <text loc="a,0,0,0,0"/>
+                  <stmtexpr loc="a,0,0,0,0">
+                    <ccall loc="a,0,0,0,0" dtype_id="11" func="_dump_triggers__nba"/>
+                  </stmtexpr>
+                  <text loc="a,0,0,0,0"/>
+                  <text loc="a,0,0,0,0"/>
+                  <text loc="a,0,0,0,0"/>
+                </textblock>
+              </begin>
+            </if>
+            <assign loc="d,8,8,8,24" dtype_id="9">
+              <add loc="d,8,8,8,24" dtype_id="9">
+                <ccast loc="d,8,8,8,24" dtype_id="14">
+                  <const loc="d,8,8,8,24" name="32&apos;h1" dtype_id="14"/>
+                </ccast>
+                <varref loc="d,8,8,8,24" name="__VnbaIterCount" dtype_id="9"/>
+              </add>
+              <varref loc="d,8,8,8,24" name="__VnbaIterCount" dtype_id="9"/>
+            </assign>
+            <assign loc="d,8,8,8,24" dtype_id="13">
+              <const loc="d,8,8,8,24" name="1&apos;h0" dtype_id="13"/>
+              <varref loc="d,8,8,8,24" name="__VnbaContinue" dtype_id="13"/>
+            </assign>
+            <assign loc="d,8,8,8,24" dtype_id="9">
+              <const loc="d,8,8,8,24" name="32&apos;h0" dtype_id="14"/>
+              <varref loc="d,8,8,8,24" name="__VactIterCount" dtype_id="9"/>
+            </assign>
+            <assign loc="d,8,8,8,24" dtype_id="13">
+              <const loc="d,8,8,8,24" name="1&apos;h1" dtype_id="13"/>
+              <varref loc="d,8,8,8,24" name="__VactContinue" dtype_id="13"/>
+            </assign>
+            <while loc="a,0,0,0,0">
+              <begin>
+              </begin>
+              <begin>
+                <varref loc="a,0,0,0,0" name="__VactContinue" dtype_id="13"/>
+              </begin>
+              <begin>
+                <if loc="a,0,0,0,0">
+                  <lt loc="a,0,0,0,0" dtype_id="13">
+                    <const loc="a,0,0,0,0" name="32&apos;h64" dtype_id="14"/>
+                    <varref loc="a,0,0,0,0" name="__VactIterCount" dtype_id="9"/>
+                  </lt>
+                  <begin>
+                    <textblock loc="a,0,0,0,0">
+                      <text loc="a,0,0,0,0"/>
+                      <stmtexpr loc="a,0,0,0,0">
+                        <ccall loc="a,0,0,0,0" dtype_id="11" func="_dump_triggers__act"/>
+                      </stmtexpr>
+                      <text loc="a,0,0,0,0"/>
+                      <text loc="a,0,0,0,0"/>
+                      <text loc="a,0,0,0,0"/>
+                    </textblock>
+                  </begin>
+                </if>
+                <assign loc="d,8,8,8,24" dtype_id="9">
+                  <add loc="d,8,8,8,24" dtype_id="9">
+                    <ccast loc="d,8,8,8,24" dtype_id="14">
+                      <const loc="d,8,8,8,24" name="32&apos;h1" dtype_id="14"/>
+                    </ccast>
+                    <varref loc="d,8,8,8,24" name="__VactIterCount" dtype_id="9"/>
+                  </add>
+                  <varref loc="d,8,8,8,24" name="__VactIterCount" dtype_id="9"/>
+                </assign>
+                <assign loc="d,8,8,8,24" dtype_id="13">
+                  <const loc="d,8,8,8,24" name="1&apos;h0" dtype_id="13"/>
+                  <varref loc="d,8,8,8,24" name="__VactContinue" dtype_id="13"/>
+                </assign>
+                <if loc="a,0,0,0,0">
+                  <ccall loc="a,0,0,0,0" dtype_id="13" func="_eval_phase__act"/>
+                  <begin>
+                    <assign loc="d,8,8,8,24" dtype_id="13">
+                      <const loc="d,8,8,8,24" name="1&apos;h1" dtype_id="13"/>
+                      <varref loc="d,8,8,8,24" name="__VactContinue" dtype_id="13"/>
+                    </assign>
+                  </begin>
+                </if>
+              </begin>
+            </while>
+            <if loc="a,0,0,0,0">
+              <ccall loc="a,0,0,0,0" dtype_id="13" func="_eval_phase__nba"/>
+              <begin>
+                <assign loc="d,8,8,8,24" dtype_id="13">
+                  <const loc="d,8,8,8,24" name="1&apos;h1" dtype_id="13"/>
+                  <varref loc="d,8,8,8,24" name="__VnbaContinue" dtype_id="13"/>
+                </assign>
+              </begin>
+            </if>
+          </begin>
+        </while>
+      </cfunc>
+      <cfunc loc="d,8,8,8,24" name="_eval_debug_assertions">
+        <if loc="d,14,11,14,14">
+          <and loc="d,14,11,14,14" dtype_id="1">
+            <varref loc="d,14,11,14,14" name="clk" dtype_id="1"/>
+            <const loc="d,14,11,14,14" name="8&apos;hfe" dtype_id="24"/>
+          </and>
+          <begin>
+            <cstmt loc="d,14,11,14,14">
+              <text loc="d,14,11,14,14"/>
+            </cstmt>
+          </begin>
+        </if>
+        <if loc="d,15,11,15,20">
+          <and loc="d,15,11,15,20" dtype_id="1">
+            <varref loc="d,15,11,15,20" name="adc_clock" dtype_id="1"/>
+            <const loc="d,15,11,15,20" name="8&apos;hfe" dtype_id="24"/>
+          </and>
+          <begin>
+            <cstmt loc="d,15,11,15,20">
+              <text loc="d,15,11,15,20"/>
+            </cstmt>
+          </begin>
+        </if>
+        <if loc="d,16,11,16,17">
+          <and loc="d,16,11,16,17" dtype_id="1">
+            <varref loc="d,16,11,16,17" name="record" dtype_id="1"/>
+            <const loc="d,16,11,16,17" name="8&apos;hfe" dtype_id="24"/>
+          </and>
+          <begin>
+            <cstmt loc="d,16,11,16,17">
+              <text loc="d,16,11,16,17"/>
+            </cstmt>
+          </begin>
+        </if>
+        <if loc="d,18,11,18,23">
+          <and loc="d,18,11,18,23" dtype_id="1">
+            <varref loc="d,18,11,18,23" name="off_chip_mem" dtype_id="1"/>
+            <const loc="d,18,11,18,23" name="8&apos;hfe" dtype_id="24"/>
+          </and>
+          <begin>
+            <cstmt loc="d,18,11,18,23">
+              <text loc="d,18,11,18,23"/>
+            </cstmt>
+          </begin>
+        </if>
+        <if loc="d,19,11,19,29">
+          <and loc="d,19,11,19,29" dtype_id="1">
+            <varref loc="d,19,11,19,29" name="off_chip_mem_ready" dtype_id="1"/>
+            <const loc="d,19,11,19,29" name="8&apos;hfe" dtype_id="24"/>
+          </and>
+          <begin>
+            <cstmt loc="d,19,11,19,29">
+              <text loc="d,19,11,19,29"/>
+            </cstmt>
+          </begin>
+        </if>
+      </cfunc>
+      <cfunc loc="d,8,8,8,24" name="_ctor_var_reset">
+        <creset loc="d,14,11,14,14">
+          <varref loc="d,14,11,14,14" name="clk" dtype_id="1"/>
+        </creset>
+        <creset loc="d,15,11,15,20">
+          <varref loc="d,15,11,15,20" name="adc_clock" dtype_id="1"/>
+        </creset>
+        <creset loc="d,16,11,16,17">
+          <varref loc="d,16,11,16,17" name="record" dtype_id="1"/>
+        </creset>
+        <creset loc="d,18,11,18,23">
+          <varref loc="d,18,11,18,23" name="off_chip_mem" dtype_id="1"/>
+        </creset>
+        <creset loc="d,19,11,19,29">
+          <varref loc="d,19,11,19,29" name="off_chip_mem_ready" dtype_id="1"/>
+        </creset>
+        <creset loc="d,22,27,22,35">
+          <varref loc="d,22,27,22,35" name="impulses" dtype_id="4"/>
+        </creset>
+        <creset loc="d,23,30,23,37">
+          <varref loc="d,23,30,23,37" name="data_in" dtype_id="5"/>
+        </creset>
+        <creset loc="d,24,16,24,25">
+          <varref loc="d,24,16,24,25" name="memory_we" dtype_id="1"/>
+        </creset>
+        <creset loc="d,26,23,26,34">
+          <varref loc="d,26,23,26,34" name="address_out" dtype_id="4"/>
+        </creset>
+        <creset loc="d,27,23,27,31">
+          <varref loc="d,27,23,27,31" name="data_out" dtype_id="4"/>
+        </creset>
+        <creset loc="d,34,25,34,33">
+          <varref loc="d,34,25,34,33" name="memorycontroller.head_adr" dtype_id="4"/>
+        </creset>
+        <creset loc="d,35,25,35,33">
+          <varref loc="d,35,25,35,33" name="memorycontroller.tail_adr" dtype_id="4"/>
+        </creset>
+        <creset loc="d,37,25,37,35">
+          <varref loc="d,37,25,37,35" name="memorycontroller.curr_w_adr" dtype_id="4"/>
+        </creset>
+        <creset loc="d,39,25,39,37">
+          <varref loc="d,39,25,39,37" name="memorycontroller.curr_impulse" dtype_id="6"/>
+        </creset>
+        <creset loc="d,41,23,41,36">
+          <varref loc="d,41,23,41,36" name="memorycontroller.output_buffer" dtype_id="8"/>
+        </creset>
+        <creset loc="d,74,26,74,36">
+          <varref loc="d,74,26,74,36" name="memorycontroller.curr_r_adr" dtype_id="4"/>
+        </creset>
+        <creset loc="d,77,9,77,21">
+          <varref loc="d,77,9,77,21" name="memorycontroller.impulse_read" dtype_id="1"/>
+        </creset>
+        <creset loc="d,79,9,79,19">
+          <varref loc="d,79,9,79,19" name="memorycontroller.large_jump" dtype_id="1"/>
+        </creset>
+        <creset loc="d,80,14,80,24">
+          <varref loc="d,80,14,80,24" name="memorycontroller.jump_value" dtype_id="2"/>
+        </creset>
+        <creset loc="d,81,22,81,40">
+          <varref loc="d,81,22,81,40" name="memorycontroller.impulse_multiplier" dtype_id="7"/>
+        </creset>
+        <creset loc="d,87,9,87,18">
+          <varref loc="d,87,9,87,18" name="memorycontroller.ADC_RESET" dtype_id="1"/>
+        </creset>
+        <creset loc="d,90,9,90,22">
+          <varref loc="d,90,9,90,22" name="memorycontroller.record_buffer" dtype_id="1"/>
+        </creset>
+        <creset loc="d,8,8,8,24">
+          <varref loc="d,8,8,8,24" name="__Vtrigprevexpr___TOP__clk__0" dtype_id="1"/>
+        </creset>
+      </cfunc>
+    </module>
+    <cfile loc="a,0,0,0,0" name="obj_dir/Vmemorycontroller__Syms.cpp"/>
+    <cfile loc="a,0,0,0,0" name="obj_dir/Vmemorycontroller__Syms.h"/>
+    <cfile loc="a,0,0,0,0" name="obj_dir/Vmemorycontroller.h"/>
+    <cfile loc="a,0,0,0,0" name="obj_dir/Vmemorycontroller.cpp"/>
+    <cfile loc="a,0,0,0,0" name="obj_dir/Vmemorycontroller_$root.h"/>
+    <cfile loc="a,0,0,0,0" name="obj_dir/Vmemorycontroller_$root__Slow.cpp"/>
+    <cfile loc="a,0,0,0,0" name="obj_dir/Vmemorycontroller_$root__DepSet_h322fa1e8__0__Slow.cpp"/>
+    <cfile loc="a,0,0,0,0" name="obj_dir/Vmemorycontroller_$root__DepSet_h92e21af6__0.cpp"/>
+    <cfile loc="a,0,0,0,0" name="obj_dir/Vmemorycontroller_$root__DepSet_h322fa1e8__0.cpp"/>
+    <typetable loc="a,0,0,0,0">
+      <basicdtype loc="c,50,22,50,24" id="1" name="logic"/>
+      <voiddtype loc="c,51,21,51,30" id="11"/>
+      <basicdtype loc="d,22,20,22,21" id="4" name="logic" left="15" right="0"/>
+      <basicdtype loc="d,23,23,23,24" id="5" name="logic" left="15" right="0" signed="true"/>
+      <basicdtype loc="d,39,5,39,8" id="6" name="logic" left="10" right="0"/>
+      <basicdtype loc="d,41,5,41,8" id="8" name="logic" left="31" right="0" signed="true"/>
+      <basicdtype loc="d,80,5,80,8" id="2" name="logic" left="5" right="0"/>
+      <basicdtype loc="d,81,5,81,8" id="7" name="logic" left="8" right="0" signed="true"/>
+      <basicdtype loc="d,115,46,115,47" id="14" name="logic" left="31" right="0"/>
+      <basicdtype loc="d,8,8,8,24" id="10" name="VlTriggerVec"/>
+      <basicdtype loc="d,8,8,8,24" id="16" name="QData" left="63" right="0"/>
+      <basicdtype loc="d,8,8,8,24" id="15" name="logic" left="63" right="0"/>
+      <basicdtype loc="d,8,8,8,24" id="3" name="bit"/>
+      <basicdtype loc="d,8,8,8,24" id="9" name="bit" left="31" right="0"/>
+      <basicdtype loc="d,37,38,37,52" id="12" name="logic" left="31" right="0"/>
+      <basicdtype loc="d,77,24,77,25" id="13" name="logic" left="31" right="0"/>
+      <basicdtype loc="d,158,17,158,27" id="17" name="logic" left="31" right="0"/>
+      <basicdtype loc="d,157,17,157,35" id="18" name="logic" left="31" right="0" signed="true"/>
+      <basicdtype loc="d,96,13,96,25" id="19" name="logic" left="31" right="0"/>
+      <basicdtype loc="d,143,35,143,37" id="20" name="logic" left="31" right="0" signed="true"/>
+      <basicdtype loc="d,186,39,186,46" id="21" name="logic" left="31" right="0" signed="true"/>
+      <basicdtype loc="d,186,47,186,49" id="22" name="logic" left="31" right="0" signed="true"/>
+      <basicdtype loc="d,190,54,190,55" id="23" name="logic" left="31" right="0"/>
+      <basicdtype loc="d,14,11,14,14" id="24" name="logic" left="7" right="0"/>
+    </typetable>
+    <constpool>
+      <module loc="a,0,0,0,0" name="@CONST-POOL@" origName="@CONST-POOL@">
+        <scope loc="a,0,0,0,0" name="TOP"/>
+      </module>
+    </constpool>
+  </netlist>
+</verilator_xml>

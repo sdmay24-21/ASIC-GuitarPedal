@@ -28,7 +28,7 @@ test2.write()
 
 print("start impulse")
 output_filename = "python/audiotests/test3_impulse.wav"
-impulse_filename = "python/impulses/DAMPEDCAVE.wav"
+impulse_filename = "python/impulses/Rocksta Reactions Fender Twin Reverb SM57 A 2 3 3 45.wav"
 test3 = pedal(input_filename,output_filename,data_bits= 16) #no change
 test3.setimpulse(impulse_filename)
 test3.FIR(1000,1,1) 

@@ -1,0 +1,124 @@
+// Dump of all post-preprocessor input
+// Blank lines and `line directives have been removed
+//
+// Information:
+//   Verilator 5.022 2024-02-24 rev v5.020-157-g2b4852048
+//   Arguments: --cc --exe --build -j 0 --debug -Wall memorycontroller.cpp ../../../rtl/memory/memorycontroller.v
+//   Build jobs: 16
+//   Verilate jobs: 16
+
+`begin_keywords "1800-2017"
+module memorycontroller 
+    (
+    input clk,
+    input adc_clock,
+    input record,
+    input off_chip_mem,
+    input off_chip_mem_ready,
+    input unsigned [15:0] impulses,
+    input wire signed [15:0] data_in,
+    output reg memory_we,
+    output unsigned reg [15:0] address_out,
+    output reg [15:0] data_out
+    );
+    parameter [15:0] ONCHIP_MAX_MEM = 16'h3FF0;
+    parameter [15:0] OFFCHIP_MAX_MEM = 16'hdFF0;
+    reg unsigned[15:0]  head_adr;
+    reg unsigned[15:0]  tail_adr;
+    reg unsigned[15:0]  curr_w_adr = ONCHIP_MAX_MEM;
+    reg unsigned[10:0]  curr_impulse;  
+    reg signed [31:0] output_buffer;  
+    reg unsigned [15:0]  curr_r_adr; 
+    reg impulse_read = 0;
+    reg large_jump;
+    reg[5:0] jump_value;
+    reg signed [8:0] impulse_multiplier;
+    reg ADC_RESET;
+    reg record_buffer = 0;
+    always @(posedge clk) begin  
+        if(adc_clock) begin  
+            curr_impulse<= 0;  
+            ADC_RESET<=1;
+            curr_r_adr<=curr_w_adr;
+            if(record) begin  
+                if(record_buffer) begin
+                    head_adr <= curr_w_adr;
+                end
+                address_out <= curr_w_adr; 
+                tail_adr <=curr_w_adr;
+                record_buffer <= 1'b0;
+                if((!off_chip_mem && (curr_w_adr == ONCHIP_MAX_MEM)) || (off_chip_mem && (curr_w_adr == OFFCHIP_MAX_MEM))) begin
+                    curr_w_adr <= impulses;  
+                end                    
+                else begin
+                    curr_w_adr <= curr_w_adr + 1;
+                end
+            end
+            else begin
+                memory_we <= 1'b0; 
+                record_buffer <= 1'b1;
+            if(curr_w_adr + 1 == tail_adr) begin
+                curr_w_adr <= head_adr;
+            end
+            else begin
+                curr_w_adr <= curr_w_adr + 1;
+            end
+            end
+        end
+        else begin
+            if(ADC_RESET) begin  
+                ADC_RESET<=0;
+                if(!output_buffer[31] && output_buffer[22]) begin  
+                    data_out<= 16'h7FFF;
+                end
+                else if(output_buffer[31] && !output_buffer[22]) begin
+                    data_out<= 16'h8000;
+                end
+                else begin
+                    data_out<= output_buffer[22:7];  
+                end
+                output_buffer <=0;
+                memory_we <= 1'b1; 
+                impulse_read <= 1'b0; 
+                impulse_multiplier<= 0; 
+                jump_value<=0;  
+                large_jump <=1;
+            end 
+            else begin 
+            if(off_chip_mem_ready) begin
+                memory_we <= 1'b0;  
+                if(impulse_read == 1'b1) begin  
+                    if(curr_r_adr < impulses) begin 
+                        if(off_chip_mem) begin  
+                            address_out<=OFFCHIP_MAX_MEM + (curr_r_adr - impulses)+1;
+                            curr_r_adr<=OFFCHIP_MAX_MEM + (curr_r_adr - impulses)+1;
+                        end
+                        else begin
+                            address_out<=ONCHIP_MAX_MEM + (curr_r_adr - impulses)+1;
+                            curr_r_adr<=ONCHIP_MAX_MEM + (curr_r_adr - impulses)+1;
+                        end
+                    end
+                    else begin
+                        address_out <= curr_r_adr;
+                    end
+                        large_jump <= data_in[15];
+                        jump_value <= data_in[14:9];
+                        impulse_multiplier <= data_in[8:0];
+                        impulse_read<= 1'b0;
+                        curr_impulse<= curr_impulse+1;  
+                    end else begin  
+                        if(large_jump == 1'b1) begin
+                            curr_r_adr <= curr_r_adr - jump_value*(2^6);  
+                        end
+                        else begin
+                            curr_r_adr <= curr_r_adr - ({10'b0, jump_value}+1);  
+                        end
+                        address_out <= {5'b00000,curr_impulse};
+                        output_buffer <= output_buffer + data_in*impulse_multiplier;
+                        impulse_read <= 1'b1;
+                    end
+            end
+            end
+        end  
+    end  
+endmodule
