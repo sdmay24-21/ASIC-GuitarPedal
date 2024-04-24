@@ -8,13 +8,12 @@ import pandas as pd
 
 
 class pedal:
-    def __init__(self,input_file,output_file,samplerate = 10000,data_bits= 16,control_bits = 8) -> None:
+    def __init__(self,input_file,samplerate = 10000,data_bits= 16,control_bits = 8) -> None:
         
         self.input_file = input_file
         self.data = self.readWavFile(input_file, bits=data_bits,samplerate = samplerate,set=True); #get data from input file
         self.maxvalue = 2**(data_bits-1)
         
-        self.output_file = output_file;
         self.samplerate = samplerate
         self.bits = data_bits
         self.control_bits = control_bits
@@ -28,7 +27,10 @@ class pedal:
         resampled_data = resample(data, int(len(data) * resample_ratio))
         
         #convert to mono audio
-        mono = resampled_data.sum(axis=1) / 2
+        if resampled_data.ndim  == 2 :
+            mono = resampled_data.sum(axis=1) / 2
+        else:
+            mono = resampled_data
         pd.DataFrame(data)
         #normalize to 0-1
         min_data = np.min(abs(mono))
@@ -51,11 +53,13 @@ class pedal:
             for line in file:
                 self.data = np.append(self.data,int(line.rstrip()))
         
-    def write(self):
+    def write(self,outputfile):
         #convert back to float and un normalize
+        if(not hasattr(self,"result")):
+            self.result = self.data
         norm = (self.result.astype(np.float32) / self.maxvalue) * (self.max_data - self.min_data) + self.min_data
         
-        wavfile.write(self.output_file, self.samplerate, norm.astype('int16'))
+        wavfile.write(outputfile, self.samplerate, norm.astype('int16'))
     def compress(elem, thres, slope2,maxvalue):
         #compress code
         slope1 = (1 - (slope2*(1-thres)))/thres
@@ -87,11 +91,12 @@ class pedal:
         impulseRes = np.array(np.flip(self.impulses[0:length])).astype(np.int32)
         dataResflip = np.flip(dataRes)
         result = floor(np.sum(np.multiply(dataRes,impulseRes)/(2**(8-1))))
+        if(start == 1001):
+             with open('debug.txt', 'wb') as f:
+                 np.savetxt(f, dataResflip.astype(np.int32))
         result = min(2**(16-1) - 1,result); #remove underclip
         result = max(-2**(16-1), result); #remove overclip
-        # if(start == 56328):
-        #     with open('debug.txt', 'wb') as f:
-        #         np.savetxt(f, dataResflip.astype(np.int32))
+
         return result
     
     def impulseHW(self,data,num_impulses, gain,delay_reverb):

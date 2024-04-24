@@ -8,8 +8,8 @@
 
 #define DEBUG_MEMOUTPUT 1
 #define DEBUG_MEMSET 1
-#define DEBUG_DATAPOINT 97291
-#define CLOCKRATIO 2000//20000000/10000
+#define DEBUG_DATAPOINT 1001
+#define CLOCKRATIO 4000//*2//20000000/10000
 #define DATAPOINTS 20
 #define ALLDATA 1
 #define OFFCHIPMEMMAX 57328+1
@@ -83,6 +83,13 @@ int main(int argc, char** argv) {
   sprintf(outputfile,"outputs/test%doutput.txt",test_num);
   VL_PRINTF("output file is %s\n",outputfile);
 
+  
+  char errorfile[100];
+  sprintf(errorfile,"outputs/test%derror.txt",test_num);
+  VL_PRINTF("error file is %s\n",errorfile);
+  
+  VL_PRINTF("Off chip max memory is %x or %d\n",OFFCHIPMEMMAX,OFFCHIPMEMMAX);
+
   char line[1024];
   
 
@@ -137,8 +144,8 @@ int main(int argc, char** argv) {
   top->clk = 1;
   top->adc_clock = 1;
   char* tmp;
-
   int datapoint = 0;
+
   fgets(line, 1024, stream); //remove header
  
 
@@ -148,11 +155,7 @@ int main(int argc, char** argv) {
     fptr = fopen(outputfile, "w");
     
     FILE *ferror;
-    ferror = fopen("error.txt", "w");
-
-
-    FILE *memFile;
-    memFile = fopen("memFile.txt", "w");
+    ferror = fopen(errorfile, "w");
 
     fgets(line, 1024, stream);
     tmp = strdup(line);
@@ -182,7 +185,7 @@ int main(int argc, char** argv) {
         datapoint++;
       }
 
-      if((main_time-1)%CLOCKRATIO <2){
+      if((main_time-1)%CLOCKRATIO <2){ //one clock cycle of ADC
         top->adc_clock = 1; //ADC CLOCK SET
         top->record = record;
         top->impulses = impulses;
@@ -204,7 +207,8 @@ int main(int argc, char** argv) {
         if(DEBUG_MEMSET) VL_PRINTF("Write to mem addr %x : %x\r\n",top->address_out,data_in);
       }
       else{
-        data_in = memory[top->address_out];
+        if((u_int16_t)top->address_out < (u_int16_t)OFFCHIPMEMMAX)data_in = memory[(u_int16_t)(top->address_out)];
+        else VL_PRINTF("INVALID READ");
         
         top->data_in = data_in;
       }
@@ -222,7 +226,9 @@ int main(int argc, char** argv) {
           }
           
           if(DEBUG_MEMOUTPUT && datapoint == DEBUG_DATAPOINT){
-            //VL_PRINTF("Memory output");
+            VL_PRINTF("Memory output");
+            FILE *memFile;
+            memFile = fopen("memFile.txt", "w");
             for(int i=0; i<OFFCHIPMEMMAX; i++){
               //VL_PRINTF("Memory of %d is: %x\r\n",i,memory[i]);
               fprintf(memFile, "Memory of addr: %04hx is: %04hx\r\n",i,memory[i]);

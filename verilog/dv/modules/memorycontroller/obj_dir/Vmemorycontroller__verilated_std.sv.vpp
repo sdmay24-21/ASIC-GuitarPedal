@@ -1,0 +1,236 @@
+`begin_keywords "1800-2017"
+`line 1 "/usr/local/share/verilator/include/verilated_std.sv" 1
+ 
+
+`line 3 "/usr/local/share/verilator/include/verilated_std.sv" 0
+ 
+
+`line 5 "/usr/local/share/verilator/include/verilated_std.sv" 0
+ 
+
+`line 7 "/usr/local/share/verilator/include/verilated_std.sv" 0
+ 
+ 
+ 
+ 
+
+`line 12 "/usr/local/share/verilator/include/verilated_std.sv" 0
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+`line 25 "/usr/local/share/verilator/include/verilated_std.sv" 0
+/*verilator lint_off DECLFILENAME*/ 
+/*verilator lint_off TIMESCALEMOD*/ 
+/*verilator lint_off UNUSEDSIGNAL*/ 
+package std;
+   class mailbox #(type T);
+      protected int m_bound;
+      protected T m_queue[$];
+
+`line 33 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function new(int bound = 0);
+         m_bound = bound;
+      endfunction
+
+`line 37 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function int num();
+         return m_queue.size();
+      endfunction
+
+`line 41 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      task put(T message);
+ 
+            
+               
+         
+
+`line 47 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      endtask
+
+`line 49 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function int try_put(T message);
+         if (m_bound == 0 || num() < m_bound) begin
+            m_queue.push_back(message);
+            return 1;
+         end
+         return 0;
+      endfunction
+
+`line 57 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      task get(ref T message);
+ 
+            
+           
+
+`line 62 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      endtask
+
+`line 64 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function int try_get(ref T message);
+         if (num() > 0) begin
+            message = m_queue.pop_front();
+            return 1;
+         end
+         return 0;
+      endfunction
+
+`line 72 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      task peek(ref T message);
+ 
+            
+           
+
+`line 77 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      endtask
+
+`line 79 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function int try_peek(ref T message);
+         if (num() > 0) begin
+            message = m_queue[0];
+            return 1;
+         end
+         return 0;
+      endfunction
+   endclass
+
+`line 88 "/usr/local/share/verilator/include/verilated_std.sv" 0
+   class semaphore;
+      protected int m_keyCount;
+
+`line 91 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function new(int keyCount = 0);
+         m_keyCount = keyCount;
+      endfunction
+
+`line 95 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function void put(int keyCount = 1);
+         m_keyCount += keyCount;
+      endfunction
+
+`line 99 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      task get(int keyCount = 1);
+ 
+            
+           
+
+`line 104 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      endtask
+
+`line 106 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function int try_get(int keyCount = 1);
+         if (m_keyCount >= keyCount) begin
+            m_keyCount -= keyCount;
+            return 1;
+         end
+         return 0;
+      endfunction
+   endclass
+
+`line 115 "/usr/local/share/verilator/include/verilated_std.sv" 0
+   class process;
+      typedef enum {
+         FINISHED  = 0,
+         RUNNING   = 1,
+         WAITING   = 2,
+         SUSPENDED = 3,
+         KILLED    = 4
+      } state;
+
+`line 124 "/usr/local/share/verilator/include/verilated_std.sv" 0
+ 
+      
+        
+
+
+`line 129 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      static function process self();
+         process p = new;
+ 
+          
+
+`line 134 "/usr/local/share/verilator/include/verilated_std.sv" 0
+         return p;
+      endfunction
+
+`line 137 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      protected function void set_status(state s);
+ 
+            
+
+`line 141 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      endfunction
+
+`line 143 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function state status();
+ 
+           
+
+`line 147 "/usr/local/share/verilator/include/verilated_std.sv" 0
+         return RUNNING;
+
+`line 149 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      endfunction
+
+`line 151 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function void kill();
+         set_status(KILLED);
+      endfunction
+
+`line 155 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function void suspend();
+         $error("std::process::suspend() not supported");
+      endfunction
+
+`line 159 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function void resume();
+         set_status(RUNNING);
+      endfunction
+
+`line 163 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      task await();
+ 
+                
+
+`line 167 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      endtask
+
+`line 169 "/usr/local/share/verilator/include/verilated_std.sv" 0
+       
+       
+       
+      
+       
+       
+
+`line 176 "/usr/local/share/verilator/include/verilated_std.sv" 0
+       
+       
+       
+       
+      function string get_randstate();
+         string s;
+
+`line 183 "/usr/local/share/verilator/include/verilated_std.sv" 0
+         s.itoa($random);   
+         set_randstate(s);   
+         return s;
+      endfunction
+
+`line 188 "/usr/local/share/verilator/include/verilated_std.sv" 0
+      function void set_randstate(string s);
+         $urandom(s.atoi());   
+      endfunction
+   endclass
+endpackage
+
+`line 194 "/usr/local/share/verilator/include/verilated_std.sv" 0

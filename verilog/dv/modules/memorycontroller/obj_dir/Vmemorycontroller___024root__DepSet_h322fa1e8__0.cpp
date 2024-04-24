@@ -102,7 +102,10 @@ VL_INLINE_OPT void Vmemorycontroller___024root___nba_sequent__TOP__0(Vmemorycont
         vlSelf->memory_we = 0U;
         if (vlSelf->memorycontroller__DOT__impulse_read) {
             __Vdly__memorycontroller__DOT__curr_impulse 
-                = (0x7ffU & ((IData)(1U) + (IData)(vlSelf->memorycontroller__DOT__curr_impulse)));
+                = (0x7ffU & (((IData)(vlSelf->memorycontroller__DOT__curr_impulse) 
+                              < (0x7ffU & (IData)(vlSelf->impulses)))
+                              ? ((IData)(1U) + (IData)(vlSelf->memorycontroller__DOT__curr_impulse))
+                              : (IData)(vlSelf->memorycontroller__DOT__curr_impulse)));
             if (((IData)(vlSelf->memorycontroller__DOT__curr_r_adr) 
                  < (IData)(vlSelf->impulses))) {
                 if (vlSelf->off_chip_mem) {

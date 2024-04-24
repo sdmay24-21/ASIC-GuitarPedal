@@ -23,12 +23,12 @@ module memorycontroller /*(
     input wire signed [15:0] data_in,
     output reg memory_we,
     //reg [15:0]  curr_adr,
-    output reg [15:0] address_out,
+    output reg unsigned [15:0] address_out,
     output reg [15:0] data_out
     );
 
 
-    parameter [15:0] ONCHIP_MAX_MEM = 16'h3FF0;
+    parameter [15:0] ONCHIP_MAX_MEM = 16'h3FFF;
     parameter [15:0] OFFCHIP_MAX_MEM = 16'hdFF0;
 
     reg unsigned[15:0]  head_adr;
@@ -139,7 +139,8 @@ _____________________
 
             if(ADC_RESET) begin //NOT NEEDED?
                 //output_buffer <=0;
-                ADC_RESET<=0;
+                ADC_RESET<=0; //reset flag
+
                 if(!output_buffer[31] && output_buffer[22]) begin //DATA OVERFLOW
                     data_out<= 16'h7FFF;
                 end
@@ -150,8 +151,10 @@ _____________________
                     data_out<= output_buffer[22:7]; //set data_out data_out<= output_buffer[23:8]; //set data_out
                 end
                 output_buffer <=0;
-                //address_out <= curr_w_adr; //
-                memory_we <= 1'b1;// edit the memory
+
+                if(record) begin //edit memory whhen recording
+                    memory_we <= 1'b1;// edit the memory
+                end
 
                 impulse_read <= 1'b0;//get data
                 impulse_multiplier<= 0;//make sure not to add anything to output
@@ -190,8 +193,12 @@ _____________________
                         impulse_multiplier <= data_in[8:0];
                         
                         impulse_read<= 1'b0;
-                        curr_impulse<= curr_impulse+1; //add one to impulse counter
-
+                        if(curr_impulse < impulses[10:0]) begin
+                            curr_impulse<= curr_impulse+1; //add one to impulse counter
+                        end
+                        else begin
+                            curr_impulse<= curr_impulse;
+                        end
                     end else begin //read the DATA specified by impulse
                         
                         
