@@ -13,41 +13,39 @@ output_filename_compress = "python/audiotests/test1_compress.wav"
 
 
 
-# output_filename = "python/audiotests/test0_4bit.wav"
-# test0 = pedal(input_filename,output_filename,data_bits= 4) # change
-# test0.compression(1,1) 
-# test0.write()
 
-# output_filename = "python/audiotests/test1_8bit.wav"
-# test1 = pedal(input_filename,output_filename,data_bits= 8) # change
-# test1.compression(1,1) 
-# test1.write()
 
-# output_filename = "python/audiotests/test2_16bit.wav"
-# test2 = pedal(input_filename,output_filename,data_bits= 16) #no change
-# test2.compression(1,1) 
-# test2.write()
-print("start impulse")
-output_filename = "python/audiotests/test0_impulse.wav"
-impulse_filename = "python/impulses/Rocksta Reactions Fender Twin Reverb SM57 A 2 3 3 45.wav"
-test0 = pedal(input_filename,output_filename,data_bits= 16) #no change
-test0.setimpulse(impulse_filename)
-number_of_impulses= 1000
-test0.FIR(number_of_impulses)
-test0.write() #gets
-test0.createMemTestData("verilog/dv/modules/memorycontroller/testdata/test0impulse.csv","verilog/dv/modules/memorycontroller/testdata/test0.csv")
+# print("start impulse")
+# output_filename = "python/audiotests/test0_impulse.wav"
+# impulse_filename = "python/impulses/Rocksta Reactions Fender Twin Reverb SM57 A 2 3 3 45.wav"
+# #impulse_filename = "python/impulses/ emt_140_bright_1emt_140_bright_1.wav";
+# test0 = pedal(input_filename,output_filename,data_bits= 16) #no change
+# test0.setimpulse(impulse_filename)
+# number_of_impulses= 1000
+# test0.FIR(number_of_impulses)
+# test0.write() #gets
+# test0.createMemTestData("verilog/dv/modules/memorycontroller/testdata/test0impulse.csv","verilog/dv/modules/memorycontroller/testdata/test0.csv")
 
 # print("start impulse2")
-# output_filename = "python/audiotests/test4_impulse.wav"
-# impulse_filename = "python/impulses/WATER.wav"
-# test4 = pedal(input_filename,output_filename,data_bits= 16) #no change
-# test4.setimpulse(impulse_filename)
-# test4.FIR(10000,1,1) 
-# test4.write()
+# output_filename = "python/audiotests/test1_impulse.wav"
+# #impulse_filename = "python/impulses/Rocksta Reactions Fender Twin Reverb SM57 A 2 3 3 45.wav"
+# impulse_filename = "AKIR_DualSpringer_01.wav";
+# impulse_filename= "python/impulses/" + impulse_filename;
+# test1 = pedal(input_filename,output_filename,data_bits= 16) #no change
+# number_of_impulses= 1000
+# test1.setimpulse(impulse_filename,number_of_impulses,gain=0.1)
+# test1.FIR()
+# test1.write() #gets
+# test1.createMemTestData("verilog/dv/modules/memorycontroller/testdata/test1impulse.csv","verilog/dv/modules/memorycontroller/testdata/test1.csv")
 
-# print("start compression")
-# output_filename = "python/audiotests/test5_compression_T0.5_S0.5.wav"
-# test4 = pedal(input_filename,output_filename,data_bits= 16) #no change
-# test4.setimpulse(impulse_filename)
-# test4.compression(1,1)
-# test4.write()
+print("start impulse3")
+output_filename = "python/audiotests/test2_impulse.wav"
+#impulse_filename = "python/impulses/Rocksta Reactions Fender Twin Reverb SM57 A 2 3 3 45.wav"
+impulse_filename = "emt_140_bright_1.wav";
+impulse_filename= "python/impulses/" + impulse_filename;
+test1 = pedal(input_filename,output_filename,data_bits= 16) #no change
+number_of_impulses= 1000
+test1.setimpulse(impulse_filename,number_of_impulses,gain=0.1)
+test1.FIR()
+test1.write() #gets
+test1.createMemTestData("verilog/dv/modules/memorycontroller/testdata/test2impulse.csv","verilog/dv/modules/memorycontroller/testdata/test2.csv")

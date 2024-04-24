@@ -32,12 +32,21 @@ class pedal:
         
     def readoutputfile(self,output):
         self.data = np.int16()
-
+        postive1 = 0;
+        negative1 = 0;
+        postive2 = 0;
         with open(output) as file:
             for line in file:
                 self.data = np.append(self.data,int(line.rstrip()))
-        self.min_data = np.min(abs(self.data))
-        self.max_data = np.max(abs(self.data))
+                postive2  = negative1;
+                negative1 = postive1
+                postive1 = int(line.rstrip())
+                #if(postive2>0 and postive1>0 and negative1 <0):
+                 #   print("found")
+                
+                                
+        #self.min_data = np.min(abs(self.data))
+        #self.max_data = np.max(abs(self.data))
         self.maxvalue =2**(16-1)
         
     def write(self):

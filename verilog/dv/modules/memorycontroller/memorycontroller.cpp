@@ -4,13 +4,15 @@
 #include "verilated.h"
 #include <verilated_vcd_c.h>
 #include <verilated_vpi.h>  // Required to get definitions
+#include <stdlib.h>
 
-#define DEBUG_MEMOUTPUT 0
-#define DEBUG_MEMSET 0
-#define DEBUG_DATAPOINT 2
+#define DEBUG_MEMOUTPUT 1
+#define DEBUG_MEMSET 1
+#define DEBUG_DATAPOINT 97291
 #define CLOCKRATIO 2000//20000000/10000
-#define DATAPOINTS 8
+#define DATAPOINTS 20
 #define ALLDATA 1
+#define OFFCHIPMEMMAX 57328+1
 // Current simulation time (64-bit unsigned)
 vluint64_t main_time = 0;
 double sc_time_stamp() {
@@ -63,14 +65,22 @@ const char* getfield(char* line, int num)
 
 
 
-int16_t memory[10*1000*20]; //20 seconds of memory 
+//int16_t memory[10*1000*20]; //20 seconds of memory 
+int16_t memory[ OFFCHIPMEMMAX];
 
 int main(int argc, char** argv) {
-  char* inputfile = argv[1]; //file to load
+  int test_num = atoi(argv[1]);
+
+  char inputfile[100];
+  sprintf(inputfile,"testdata/test%d.csv",test_num);
   VL_PRINTF("input file is %s\n",inputfile);
-  char* impulsefile = argv[2];
+  
+  char impulsefile[100];
+  sprintf(impulsefile,"testdata/test%dimpulse.csv",test_num);
   VL_PRINTF("input impulse file is %s\n",impulsefile);
-  char* outputfile = argv[3];
+
+  char outputfile[100];
+  sprintf(outputfile,"outputs/test%doutput.txt",test_num);
   VL_PRINTF("output file is %s\n",outputfile);
 
   char line[1024];
@@ -114,11 +124,11 @@ int main(int argc, char** argv) {
     memory[impulse_count] = data_in; //load into ram
     impulse_count++;
   }
-  if(DEBUG_MEMOUTPUT){
-  for(int i=0; i<impulse_count; i++){
-    VL_PRINTF("Memory of %d is: %x\r\n",i,memory[i]);
-  }
-  }
+  // if(DEBUG_MEMOUTPUT){
+  // for(int i=0; i<impulse_count; i++){
+  //   VL_PRINTF("Memory of %d is: %x\r\n",i,memory[i]);
+  // }
+  //}
     //read audio file
   FILE* stream = fopen(inputfile, "r");
 
@@ -135,11 +145,19 @@ int main(int argc, char** argv) {
     VL_PRINTF("Starting test!\n");
     // Open a file in writing mode
     FILE *fptr;
-    fptr = fopen("output.txt", "w");
+    fptr = fopen(outputfile, "w");
+    
+    FILE *ferror;
+    ferror = fopen("error.txt", "w");
+
+
+    FILE *memFile;
+    memFile = fopen("memFile.txt", "w");
+
     fgets(line, 1024, stream);
     tmp = strdup(line);
     int16_t expected_output = 0;
-    int16_t next_expected_output;
+    int16_t next_expected_output=0;
     int16_t ADC_VALUE = 0;
     int16_t data_in = 0;
     bool record;
@@ -152,8 +170,8 @@ int main(int argc, char** argv) {
 
       if((main_time-1)%CLOCKRATIO == 0){
         //Expected,Data,Number of Impulses,record,off_chip_mem
-        expected_output = next_expected_output;
-        next_expected_output = atoi(getfield(tmp,0));     //DATA Output
+        //expected_output = next_expected_output;
+        expected_output = atoi(getfield(tmp,0));     //DATA Output
         ADC_VALUE = atoi(getfield(tmp,1));     //DATA INPUT
         impulses = atoi(getfield(tmp,2));     //number of impulses INPUT
         record = getfield(tmp,3 );               // record
@@ -194,18 +212,32 @@ int main(int argc, char** argv) {
 
         //LOG RESULTS
         if((main_time-1) %CLOCKRATIO == 4){
-          VL_PRINTF("[%" VL_PRI64 "d] expected output =  %04x and data_out = %04x Inputs: clk=%x data_in=%x  number of impulses=%x record=%x\r\n",
-          datapoint, expected_output, top->data_out, top->clk, top->data_in,top->impulses, top->record);
+          int16_t error =(int16_t)((int16_t)expected_output - (int16_t)top->data_out);
+          VL_PRINTF("[%" VL_PRI64 "d] expected output =  %04hx and data_out = %04x ADC_IN=%04hx Current Write: %04hx Error = %d\r\n",
+          datapoint, expected_output, top->data_out, ADC_VALUE,top->rootp->memorycontroller__DOT__curr_w_adr ,error);
           fprintf(fptr, "%hi\n", top->data_out);
+          fprintf(ferror, "%hi\n", error);
+          if(abs(error)>500){
+            VL_PRINTF("BIG ERROR");
+          }
+          
+          if(DEBUG_MEMOUTPUT && datapoint == DEBUG_DATAPOINT){
+            //VL_PRINTF("Memory output");
+            for(int i=0; i<OFFCHIPMEMMAX; i++){
+              //VL_PRINTF("Memory of %d is: %x\r\n",i,memory[i]);
+              fprintf(memFile, "Memory of addr: %04hx is: %04hx\r\n",i,memory[i]);
+            }
+          }
         }
+
         if(top->clk && datapoint == DEBUG_DATAPOINT){
         VL_PRINTF("[%" VL_PRI64 "d - %03d] main time = %04d output buffer (shift1)= %08x address_out = %04x  WE = %x data_in = %04x ADC_CLOCK = %x data out = %04x\r\n",
           datapoint,((main_time-1) %CLOCKRATIO), main_time, top->rootp->memorycontroller__DOT__output_buffer<<1, top->address_out, top->memory_we,top->data_in, top->adc_clock, top->data_out);
          VL_PRINTF("Current Impulse: %d Impulse read: %xImpulse mult: %02x Impulse Jump Value: %02x\r\n",top->rootp->memorycontroller__DOT__curr_impulse,top->rootp->memorycontroller__DOT__impulse_read,top->rootp->memorycontroller__DOT__impulse_multiplier,top->rootp->memorycontroller__DOT__jump_value);
          VL_PRINTF("Current Read Address: %x\r\n",top->rootp->memorycontroller__DOT__curr_r_adr);
          VL_PRINTF("ADC_RESET: %x\r\n",top->rootp->memorycontroller__DOT__ADC_RESET);
-         
         }
+
     }
 
 

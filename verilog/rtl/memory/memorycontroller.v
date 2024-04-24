@@ -19,7 +19,7 @@ module memorycontroller /*(
     input off_chip_mem_ready,
     //input [15:0] delay_reverb,
     //input [15:0] gain,
-    input [15:0] impulses,
+    input unsigned [15:0] impulses,
     input wire signed [15:0] data_in,
     output reg memory_we,
     //reg [15:0]  curr_adr,
@@ -27,12 +27,16 @@ module memorycontroller /*(
     output reg [15:0] data_out
     );
 
-    reg [15:0]  head_adr;
-    reg [15:0]  tail_adr;
 
-    reg [15:0]  curr_w_adr = 16'hFFF0;
+    parameter [15:0] ONCHIP_MAX_MEM = 16'h3FF0;
+    parameter [15:0] OFFCHIP_MAX_MEM = 16'hdFF0;
 
-    reg [10:0]  curr_impulse; //max ~500
+    reg unsigned[15:0]  head_adr;
+    reg unsigned[15:0]  tail_adr;
+
+    reg unsigned[15:0]  curr_w_adr = ONCHIP_MAX_MEM;
+
+    reg unsigned[10:0]  curr_impulse; //max ~500
 
     reg signed [31:0] output_buffer; //stores the additions of multiplier and...
     //assign data_out = output_buffer[31:16]; // top 16 bits will become our output
@@ -67,7 +71,7 @@ _____________________
 |0xFFFF              |
 |____________________|
 */
-    reg [15:0]  curr_r_adr;// = 16'hFFF0;
+    reg unsigned [15:0]  curr_r_adr;// = 16'hFFF0;
 
     //reg [15:0]  offset_adr;
     reg impulse_read = 0;
@@ -99,14 +103,14 @@ _____________________
                     
                 end
                 address_out <= curr_w_adr; //
-                memory_we <= 1'b1; //set to write to memory
+                //memory_we <= 1'b1; //set to write to memory
                 tail_adr <=curr_w_adr;
                 record_buffer <= 1'b0;
 
                 //OVERFLOW
-                if(curr_w_adr + 1 == 16'hFFFF) begin
+                if((!off_chip_mem && (curr_w_adr == ONCHIP_MAX_MEM)) || (off_chip_mem && (curr_w_adr == OFFCHIP_MAX_MEM))) begin
                     curr_w_adr <= impulses; //Handle Overflow and go past all impulses
-                end
+                end                    
                 else begin
                     curr_w_adr <= curr_w_adr + 1;
                 end
@@ -136,10 +140,23 @@ _____________________
             if(ADC_RESET) begin //NOT NEEDED?
                 //output_buffer <=0;
                 ADC_RESET<=0;
-                data_out<= output_buffer[22:7]; //set data_out data_out<= output_buffer[23:8]; //set data_out
+                if(!output_buffer[31] && output_buffer[22]) begin //DATA OVERFLOW
+                    data_out<= 16'h7FFF;
+                end
+                else if(output_buffer[31] && !output_buffer[22]) begin
+                    data_out<= 16'h8000;
+                end
+                else begin
+                    data_out<= output_buffer[22:7]; //set data_out data_out<= output_buffer[23:8]; //set data_out
+                end
                 output_buffer <=0;
                 //address_out <= curr_w_adr; //
-                //memory_we <= 1'b1;// edit the memory
+                memory_we <= 1'b1;// edit the memory
+
+                impulse_read <= 1'b0;//get data
+                impulse_multiplier<= 0;//make sure not to add anything to output
+                jump_value<=0; //no jump
+                large_jump <=1;
             end 
             else begin 
            
@@ -150,7 +167,21 @@ _____________________
             if(off_chip_mem_ready) begin
                 memory_we <= 1'b0; //always disable write in reading portion of step
                 if(impulse_read == 1'b1) begin //if in impulse read
+
+                    if(curr_r_adr < impulses) begin//UNDERFLOW
+                        if(off_chip_mem) begin //using off chip memory
+                            address_out<=OFFCHIP_MAX_MEM + (curr_r_adr - impulses)+1;
+                            curr_r_adr<=OFFCHIP_MAX_MEM + (curr_r_adr - impulses)+1;
+                        end
+                        else begin
+                            address_out<=ONCHIP_MAX_MEM + (curr_r_adr - impulses)+1;
+                            curr_r_adr<=ONCHIP_MAX_MEM + (curr_r_adr - impulses)+1;
+                        end
+                        
+                    end
+                    else begin
                         address_out <= curr_r_adr;
+                    end
 
                         large_jump <= data_in[15];
                         jump_value <= data_in[14:9];
@@ -163,12 +194,7 @@ _____________________
 
                     end else begin //read the DATA specified by impulse
                         
-                        if(off_chip_mem) begin //using off chip memory
                         
-                        end
-                        else begin
-
-                        end
 
                         if(large_jump == 1'b1) begin
                             curr_r_adr <= curr_r_adr - jump_value*(2^6); //check if overflow TODO

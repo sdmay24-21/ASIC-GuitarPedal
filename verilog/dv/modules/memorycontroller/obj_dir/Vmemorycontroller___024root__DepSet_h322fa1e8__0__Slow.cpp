@@ -20,7 +20,7 @@ VL_ATTR_COLD void Vmemorycontroller___024root___eval_static__TOP(Vmemorycontroll
     Vmemorycontroller__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vmemorycontroller___024root___eval_static__TOP\n"); );
     // Body
-    vlSelf->memorycontroller__DOT__curr_w_adr = 0xfff0U;
+    vlSelf->memorycontroller__DOT__curr_w_adr = 0x3ff0U;
     vlSelf->memorycontroller__DOT__impulse_read = 0U;
     vlSelf->memorycontroller__DOT__record_buffer = 0U;
 }

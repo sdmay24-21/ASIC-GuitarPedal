@@ -21,7 +21,7 @@ class pedal:
 
         
         
-    def readWavFile(self,filename, bits=16,samplerate=10000,set=False):
+    def readWavFile(self,filename, bits=16,samplerate=10000,set=False,gain=1):
         samrate, data = wavfile.read(filename)
         #resample wav data
         resample_ratio = float(samplerate) / samrate
@@ -36,7 +36,7 @@ class pedal:
         if(set):
             self.min_data = min_data
             self.max_data = max_data
-        norm = (mono - min_data) / (max_data - min_data)
+        norm = gain*(mono - min_data) / (max_data - min_data)
         
         #convert to int using the bit
         maxvalue = 2**(bits-1) #2 to the bits power divided by 2 for signed/unsigned
@@ -72,19 +72,26 @@ class pedal:
         compressedData = vcompress(self.data,thres,slope,self.maxvalue)
         self.result = compressedData
         
-    def setimpulse(self,input_file):
-        self.impulses = self.readWavFile(input_file,bits=8, samplerate=self.samplerate);
+    def setimpulse(self,input_file,num_impulses,gain=1):
+        self.num_impulses = num_impulses;
+        self.impulses = self.readWavFile(input_file,bits=8, samplerate=self.samplerate,gain=gain);
         
-    def impulse(self,start,data,num_impulses):
+    def impulse(self,start,data):
         result = 0
         count = 0
         
-        length = min(len(data[:start]),num_impulses)
+        length = min(len(data[:start]),self.num_impulses)
         
         dataRes = np.array(data[start-length:start]).astype(np.int32)
         #impulseRes = np.array(np.flip(self.impulses[:length]))
         impulseRes = np.array(np.flip(self.impulses[0:length])).astype(np.int32)
+        dataResflip = np.flip(dataRes)
         result = floor(np.sum(np.multiply(dataRes,impulseRes)/(2**(8-1))))
+        result = min(2**(16-1) - 1,result); #remove underclip
+        result = max(-2**(16-1), result); #remove overclip
+        # if(start == 56328):
+        #     with open('debug.txt', 'wb') as f:
+        #         np.savetxt(f, dataResflip.astype(np.int32))
         return result
     
     def impulseHW(self,data,num_impulses, gain,delay_reverb):
@@ -96,18 +103,19 @@ class pedal:
             result+= impulse*self.maxvalue*datum
         return result
     
-    def FIR(self,number_of_impulses):
+    def FIR(self):
         
         data = list(self.data)
         result = list()
         #datum = data.pop(0)
         count = 0
-        self.number_of_impulses = number_of_impulses
         
         for c in range(len(data)):
             count+=1
-            result.append(self.impulse(c, data, number_of_impulses))
-                    
+            if(count == 56329):
+                print("dta");
+            result.append(self.impulse(c, data))
+
             #datum = data.pop(0)
         self.result =  np.array(result)
     def calculate_offset_field(large_jump,jump_value,multiplier):
@@ -131,7 +139,7 @@ class pedal:
             jump_bits = 6 #there are 6 bits dedicated to jumping
             start_of_impulse = 0;
             impulse_count = 0;
-            while(impulse_count < len(self.impulses) and (time+1) <len(data_list) ):
+            while(impulse_count < min(len(self.impulses),self.num_impulses) and (time+1) <len(data_list) ):
                 
                 #start_of_impulse = next(x[0] for x in enumerate(data_list[time:]) if abs(x[1]) > thresh) #find next value that goes over threshold (but removes delay)
                 start_of_impulse = 0;
@@ -166,5 +174,5 @@ class pedal:
             writer.writerow(header)
             for (datum,result) in  zip(data,self.result):
                 #print(datum);
-                field = [result,datum, self.number_of_impulses,record,off_chip_mem];
+                field = [result,datum, self.num_impulses,record,off_chip_mem];
                 writer.writerow(field);
