@@ -64,7 +64,7 @@ class pedal:
         #compress code
         slope1 = (1 - (slope2*(1-thres)))/thres
         if(abs(elem) > thres*maxvalue):
-            result = elem*slope2 + thres*maxvalue
+            result = elem*slope2 + thres*maxvalue*elem/abs(elem)
         else:
             result = elem* slope1
         return result

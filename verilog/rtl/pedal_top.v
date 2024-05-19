@@ -45,12 +45,14 @@ module pedal_ASIC (
     wire clk, adc_clock;
     wire [7:0] thres, slope;
     wire [15:0] comp_in, comp_out;
-        assign clk = la_data_out[0];
-        assign adc_clock = la_data_out[1];
-        assign thres = la_data_out[15:8];
-        assign slope = la_data_out[23:16];
-        assign comp_in = la_data_out[38:24];
-        assign comp_out = la_data_out[47:32];
+    //Logic Analyziser assignment
+    assign clk = la_data_out[0];
+    assign adc_clock = la_data_out[1];
+    assign thres = la_data_out[15:8];
+    assign slope = la_data_out[23:16];
+    assign comp_in = la_data_out[38:24];
+    assign comp_out = la_data_out[47:32];
+
     //mux going to compression
     mux compressionmux(
         .signal(mem_to_comp),
